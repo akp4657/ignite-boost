@@ -32,7 +32,8 @@ const makeVideo = (req, res) => {
       player2: values[i].player2,
       char1: values[i].char1,
       char2: values[i].char2,
-      game: values[i].game,
+      assist1: values[i].assist1,
+      assist2: values[i].assist2,
       link: values[i].link,
       owner: req.session.account._id,
     };
@@ -51,6 +52,7 @@ const makeVideo = (req, res) => {
 
     promiseArray.push(videoPromise);
   }
+
 
   Promise.all(promiseArray).then(() => res.json({ redirect: '/main' }));
 };
@@ -109,7 +111,7 @@ const searchVideos = (request, response) => {
 
   // check if the params exist
   const {
-    player1, player2, char1, char2, game,
+    player1, player2, char1, char2, assist1, assist2,
   } = req.query;
   let i = 0; // keeps track of position in params.$and array
 
@@ -131,8 +133,12 @@ const searchVideos = (request, response) => {
     params.$and[i] = { $or: [{ char2: `${char2}` }, { char1: `${char2}` }] };
     i++;
   }
-  if (game) {
-    params.$and[i] = { game: game.toUpperCase() };
+  if (assist1) {
+    params.$and[i] = { $or: [{ assist1: `${assist1}` }, { assist2: `${assist2}` }] };
+    i++;
+  }
+  if (assist2) {
+    params.$and[i] = { $or: [{ assist2: `${assist2}` }, { assist1: `${assist1}` }] };
     i++;
   }
 
