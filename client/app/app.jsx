@@ -37,12 +37,6 @@ const handleVideo = (e) => {
         return false;
     }
 
-    if($('#videoForm').find('#Game').find(":selected").text() === 'Game' ||
-    $('#videoForm').find('#Game').find(":selected").text() === '') {
-        handleError("ERROR | Please select a game");
-        return false;
-    }
-
     // Check if the error uses the correct link *just copying the url
     if(!$("#videoLink").val().includes('www.youtube.com')) {
         handleError("ERROR | Please use a valid YouTube link");
