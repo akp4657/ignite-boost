@@ -115,7 +115,6 @@ const searchVideos = (request, response) => {
   } = req.query;
   let i = 0; // keeps track of position in params.$and array
 
-  console.log(assist1);
   // If param exists, add it to the $and array with the
   // $or syntax to check for name in either slot 1 or 2 for player/char
   if (player1) {
@@ -143,7 +142,6 @@ const searchVideos = (request, response) => {
     i++;
   }
 
-  console.log(params);
 
   if (i === 0) params = {}; // set params to empty object if no query params were sent
 
