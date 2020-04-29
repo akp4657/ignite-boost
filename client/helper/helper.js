@@ -2,7 +2,6 @@
 
 // https://stackoverflow.com/questions/32704027/how-to-call-bootstrap-alert-with-jquery
 const handleError = (message) => {
-    console.log('Called')
     $(".alert").text(message);
     $(".alert").show();
     $(".alert").addClass('in');
