@@ -31,7 +31,7 @@ const handleVideo = (e) => {
         }
     });
 
-   /* if($("#timeStamp").val() == '' || $("#playerOne").val() == '' || $("#playerTwo").val() == '' ||
+    if($("#timeStamp").val() == '' || $("#playerOne").val() == '' || $("#playerTwo").val() == '' ||
     $("#videoLink").val() == '') {
         handleError("ERROR | All fields are required");
         return false;
@@ -45,9 +45,9 @@ const handleVideo = (e) => {
 
     // Check if the error uses the correct link *just copying the url
     if(!$("#videoLink").val().includes('www.youtube.com')) {
-        handleError("ERROR | Please use a valid link");
+        handleError("ERROR | Please use a valid YouTube link");
         return false;
-    }*/
+    }
 
 
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Quantifiers
