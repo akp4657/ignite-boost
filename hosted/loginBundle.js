@@ -101,17 +101,14 @@ var SearchForm = function SearchForm() {
     type: "text",
     name: "player1",
     placeholder: "Player 1"
-  })), /*#__PURE__*/React.createElement("td", null, assist1Selection), /*#__PURE__*/React.createElement("td", null, charSelection), /*#__PURE__*/React.createElement("td", null, "vs"), /*#__PURE__*/React.createElement("td", null, char2Selection), /*#__PURE__*/React.createElement("td", null, assist2Selection), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+  })), /*#__PURE__*/React.createElement("td", null, assist1Selection), /*#__PURE__*/React.createElement("td", null, charSelection), /*#__PURE__*/React.createElement("td", {
+    id: "vs"
+  }, "vs"), /*#__PURE__*/React.createElement("td", null, char2Selection), /*#__PURE__*/React.createElement("td", null, assist2Selection), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
     className: "form-control",
     id: "player2Search",
     type: "text",
     name: "player2",
     placeholder: "Player 2"
-  })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
-    className: "searchFormSubmit btn",
-    id: "formSubmit",
-    type: "reset",
-    value: "Reset"
   }))))));
 }; // Render our login window
 
@@ -245,7 +242,33 @@ var VideoList = function VideoList(props) {
     id: "pageContainer"
   }, /*#__PURE__*/React.createElement("table", {
     className: "table table-sm"
-  }, videoNodes));
+  }, videoNodes), /*#__PURE__*/React.createElement("form", {
+    id: "donations",
+    action: "https://www.paypal.com/cgi-bin/webscr",
+    method: "post",
+    target: "_top"
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "hidden",
+    name: "cmd",
+    value: "_s-xclick"
+  }), /*#__PURE__*/React.createElement("input", {
+    type: "hidden",
+    name: "hosted_button_id",
+    value: "WTCAT4V8X6V5W"
+  }), /*#__PURE__*/React.createElement("input", {
+    type: "image",
+    src: "https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif",
+    border: "0",
+    name: "submit",
+    title: "PayPal - The safer, easier way to pay online!",
+    alt: "Donate with PayPal button"
+  }), /*#__PURE__*/React.createElement("img", {
+    alt: "",
+    border: "0",
+    src: "https://www.paypal.com/en_US/i/scr/pixel.gif",
+    width: "1",
+    height: "1"
+  })));
 }; ///
 /// Functions to render our data on the page depending on what we need ///
 ///
@@ -319,13 +342,14 @@ $(document).ready(function () {
 //Separated the character forms for ease of reference and readability in above code
 
 var char1Search = /*#__PURE__*/React.createElement("select", {
-  id: "char1Search"
+  id: "char1Search",
+  className: "form-control"
 }, /*#__PURE__*/React.createElement("option", {
   value: "",
   disabled: true,
   selected: true,
   hidden: true
-}, "Character 1"), /*#__PURE__*/React.createElement("option", {
+}, "C1"), /*#__PURE__*/React.createElement("option", {
   value: "Anyone"
 }, "Anyone"), /*#__PURE__*/React.createElement("option", {
   value: "Akira"
@@ -371,13 +395,14 @@ var char1Search = /*#__PURE__*/React.createElement("select", {
   value: "Yuuki"
 }, "Yuuki"));
 var assist1Search = /*#__PURE__*/React.createElement("select", {
-  id: "assist1Search"
+  id: "assist1Search",
+  className: "form-control"
 }, /*#__PURE__*/React.createElement("option", {
   value: "",
   disabled: true,
   selected: true,
   hidden: true
-}, "Assist 1"), /*#__PURE__*/React.createElement("option", {
+}, "A1"), /*#__PURE__*/React.createElement("option", {
   value: "Anyone"
 }, "Anyone"), /*#__PURE__*/React.createElement("option", {
   value: "Accelerator"
@@ -443,13 +468,14 @@ var assist1Search = /*#__PURE__*/React.createElement("select", {
   value: "Zero"
 }, "Zero"));
 var char2Search = /*#__PURE__*/React.createElement("select", {
-  id: "char2Search"
+  id: "char2Search",
+  className: "form-control"
 }, /*#__PURE__*/React.createElement("option", {
   value: "",
   disabled: true,
   selected: true,
   hidden: true
-}, "Character 2"), /*#__PURE__*/React.createElement("option", {
+}, "C2"), /*#__PURE__*/React.createElement("option", {
   value: "Anyone"
 }, "Anyone"), /*#__PURE__*/React.createElement("option", {
   value: "Akira"
@@ -495,13 +521,14 @@ var char2Search = /*#__PURE__*/React.createElement("select", {
   value: "Yuuki"
 }, "Yuuki"));
 var assist2Search = /*#__PURE__*/React.createElement("select", {
-  id: "assist2Search"
+  id: "assist2Search",
+  className: "form-control"
 }, /*#__PURE__*/React.createElement("option", {
   value: "",
   disabled: true,
   selected: true,
   hidden: true
-}, "Assist 2"), /*#__PURE__*/React.createElement("option", {
+}, "A2"), /*#__PURE__*/React.createElement("option", {
   value: "Anyone"
 }, "Anyone"), /*#__PURE__*/React.createElement("option", {
   value: "Accelerator"

@@ -106,12 +106,10 @@ const SearchForm = () => {
                         <td><input className="form-control" id="player1Search" type="text" name="player1" placeholder="Player 1"/></td>
                         <td>{assist1Selection}</td>
                         <td>{charSelection}</td>
-                        <td>vs</td>
+                        <td id="vs">vs</td>
                         <td>{char2Selection}</td>
                         <td>{assist2Selection}</td>
                         <td><input className="form-control" id="player2Search" type="text" name="player2" placeholder="Player 2"/></td>
-
-                        <td><input className="searchFormSubmit btn" id="formSubmit" type="reset" value="Reset"/></td>
                     </tr>
                 </tbody>
             </table>
@@ -220,6 +218,12 @@ const VideoList = function(props) {
             <table className="table table-sm">
                 {videoNodes}
             </table>
+            <form id="donations" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                <input type="hidden" name="cmd" value="_s-xclick" />
+                <input type="hidden" name="hosted_button_id" value="WTCAT4V8X6V5W" />
+                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+            </form>
         </div>
     );
 };
@@ -310,8 +314,8 @@ $(document).ready(function() {
 
 //#region Character Forms
 //Separated the character forms for ease of reference and readability in above code
-const char1Search = <select id = "char1Search">
-    <option value="" disabled selected hidden>Character 1</option><option value="Anyone">Anyone</option>
+const char1Search = <select id = "char1Search" className='form-control'>
+    <option value="" disabled selected hidden>C1</option><option value="Anyone">Anyone</option>
     <option value="Akira">Akira</option><option value="Ako">Ako</option>
     <option value="Asuna">Asuna</option><option value="Emi">Emi</option><option value="Kirino">Kirino</option>
     <option value="Kirito">Kirito</option><option value="Kuroko">Kuroko</option><option value="Kuroyukihime">Kuroyukihime</option>
@@ -322,8 +326,8 @@ const char1Search = <select id = "char1Search">
     <option value="Yuuki">Yuuki</option>
     </select>;
 
-const assist1Search = <select id = "assist1Search">
-    <option value="" disabled selected hidden>Assist 1</option><option value="Anyone">Anyone</option>
+const assist1Search = <select id = "assist1Search" className='form-control'>
+    <option value="" disabled selected hidden>A1</option><option value="Anyone">Anyone</option>
     <option value="Accelerator">Accelerator</option><option value="Alicia">Alicia</option>
     <option value="Boogiepop">Boogiepop</option><option value="Celty">Celty</option><option value="Dokuro">Dokuro</option>
     <option value="Enju">Enju</option><option value="Erio">Erio</option><option value="Froleytia">Froleytia</option>
@@ -337,8 +341,8 @@ const assist1Search = <select id = "assist1Search">
     <option value="Wilhelmina">Wilhelmina</option><option value="Zero">Zero</option>
     </select>;
 
-const char2Search= <select id = "char2Search">
-    <option value="" disabled selected hidden>Character 2</option><option value="Anyone">Anyone</option>
+const char2Search= <select id = "char2Search" className='form-control'>
+    <option value="" disabled selected hidden>C2</option><option value="Anyone">Anyone</option>
     <option value="Akira">Akira</option><option value="Ako">Ako</option>
     <option value="Asuna">Asuna</option><option value="Emi">Emi</option><option value="Kirino">Kirino</option>
     <option value="Kirito">Kirito</option><option value="Kuroko">Kuroko</option><option value="Kuroyukihime">Kuroyukihime</option>
@@ -349,8 +353,8 @@ const char2Search= <select id = "char2Search">
     <option value="Yuuki">Yuuki</option>
     </select>;
 
-const assist2Search = <select id = "assist2Search">
-    <option value="" disabled selected hidden>Assist 2</option><option value="Anyone">Anyone</option>
+const assist2Search = <select id = "assist2Search" className='form-control'>
+    <option value="" disabled selected hidden>A2</option><option value="Anyone">Anyone</option>
     <option value="Accelerator">Accelerator</option><option value="Alicia">Alicia</option>
     <option value="Boogiepop">Boogiepop</option><option value="Celty">Celty</option><option value="Dokuro">Dokuro</option>
     <option value="Enju">Enju</option><option value="Erio">Erio</option><option value="Froleytia">Froleytia</option>
