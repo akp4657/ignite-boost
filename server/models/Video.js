@@ -87,7 +87,7 @@ VideoSchema.statics.findByOwner = (ownerId, callback) => {
     owner: convertId(ownerId),
   };
 
-  return VideoModel.find(search).select('player1 player2  char1 char2 assist1 assist2 link').lean().exec(callback);
+  return VideoModel.find(search).select('player1 player2 char1 char2 assist1 assist2 link').lean().exec(callback);
 };
 
 // Returns all entries in the database

@@ -54,19 +54,19 @@ var handleSearch = function handleSearch(e) {
     queryString += "&player2=".concat($("#player2Search").val());
   }
 
-  if ($("#char1Search").find(":selected").text() !== 'Character 1' && $("#char1Search").find(":selected").text() !== 'Anyone') {
+  if ($("#char1Search").find(":selected").text() !== 'C1' && $("#char1Search").find(":selected").text() !== 'Anyone') {
     queryString += "&char1=".concat($("#char1Search").find(":selected").text());
   }
 
-  if ($("#char2Search").find(":selected").text() !== 'Character 2' && $("#char2Search").find(":selected").text() !== 'Anyone') {
+  if ($("#char2Search").find(":selected").text() !== 'C2' && $("#char2Search").find(":selected").text() !== 'Anyone') {
     queryString += "&char2=".concat($("#char2Search").find(":selected").text());
   }
 
-  if ($("#assist1Search").find(":selected").text() !== 'Assist 1' && $("#assist1Search").find(":selected").text() !== 'Anyone') {
+  if ($("#assist1Search").find(":selected").text() !== 'A1' && $("#assist1Search").find(":selected").text() !== 'Anyone') {
     queryString += "&assist1=".concat($("#assist1Search").find(":selected").text());
   }
 
-  if ($("#assist2Search").find(":selected").text() !== 'Assist 2' && $("#assist2Search").find(":selected").text() !== 'Anyone') {
+  if ($("#assist2Search").find(":selected").text() !== 'A2' && $("#assist2Search").find(":selected").text() !== 'Anyone') {
     queryString += "&assist2=".concat($("#assist2Search").find(":selected").text());
   }
 
@@ -195,7 +195,6 @@ var VideoList = function VideoList(props) {
     var charImg2;
     var assistImg1;
     var assistImg2;
-    console.dir(video);
     char1Src = "/assets/img/Characters/".concat(video.char1, ".png");
     char2Src = "/assets/img/Characters/".concat(video.char2, ".png");
     assist1Src = "/assets/img/Assists/".concat(video.assist1, ".png");
@@ -597,7 +596,6 @@ var assist2Search = /*#__PURE__*/React.createElement("select", {
 
 // https://stackoverflow.com/questions/32704027/how-to-call-bootstrap-alert-with-jquery
 var handleError = function handleError(message) {
-  console.log('Called');
   $(".alert").text(message);
   $(".alert").show();
   $(".alert").addClass('in');

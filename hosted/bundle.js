@@ -29,23 +29,19 @@ var handleVideo = function handleVideo(e) {
       videoObj.videoLink = this.value;
     }
   });
-  /* if($("#timeStamp").val() == '' || $("#playerOne").val() == '' || $("#playerTwo").val() == '' ||
-   $("#videoLink").val() == '') {
-       handleError("ERROR | All fields are required");
-       return false;
-   }
-     if($('#videoForm').find('#Game').find(":selected").text() === 'Game' ||
-   $('#videoForm').find('#Game').find(":selected").text() === '') {
-       handleError("ERROR | Please select a game");
-       return false;
-   }
-     // Check if the error uses the correct link *just copying the url
-   if(!$("#videoLink").val().includes('www.youtube.com')) {
-       handleError("ERROR | Please use a valid link");
-       return false;
-   }*/
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Quantifiers
+
+  if ($("#timeStamp").val() == '' || $("#playerOne").val() == '' || $("#playerTwo").val() == '' || $("#videoLink").val() == '') {
+    handleError("ERROR | All fields are required");
+    return false;
+  } // Check if the error uses the correct link *just copying the url
+
+
+  if (!$("#videoLink").val().includes('www.youtube.com')) {
+    handleError("ERROR | Please use a valid YouTube link");
+    return false;
+  } // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Quantifiers
   // https://www.w3schools.com/jsref/jsref_replace.asp
+
 
   var regex = /[0-9][0-9]:[0-9][0-9]:[0-9][0-9]/g; /// Putting each input into its own object to send to the server 
   ///
@@ -86,8 +82,6 @@ var handleVideo = function handleVideo(e) {
   $('#videoForm').find('select').each(function () {
     // One of the selections is for the game, we don't need that
     // Also, if the key is equal to zero, skip it.
-    console.log(this);
-
     if (videoKey > 0) {
       if (charModValue === 0) {
         // In order to ensure the object exists, take it from 
@@ -112,8 +106,7 @@ var handleVideo = function handleVideo(e) {
     if (this.type === 'hidden') {
       videoObj._csrf = this.value;
     }
-  });
-  console.log(videoObj); // Uncomment this to send data
+  }); // Uncomment this to send data
   // Send the object! :diaYay:
 
   sendAjax('POST', $("#videoForm").attr("action"), videoObj, function () {
@@ -256,7 +249,7 @@ var VideoForm = function VideoForm(props) {
       id: "timestamp",
       type: "text",
       name: "timestamp",
-      placeholder: "Timestamp"
+      placeholder: "00:00:00"
     })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
       id: "playerOne",
       type: "text",
@@ -380,7 +373,6 @@ var VideoList = function VideoList(props) {
     var charImg2;
     var assistImg1;
     var assistImg2;
-    console.dir(video);
     char1Src = "/assets/img/Characters/".concat(video.char1, ".png");
     char2Src = "/assets/img/Characters/".concat(video.char2, ".png");
     assist1Src = "/assets/img/Assists/".concat(video.assist1, ".png");
@@ -1038,7 +1030,6 @@ var assist2Search = /*#__PURE__*/React.createElement("select", {
 
 // https://stackoverflow.com/questions/32704027/how-to-call-bootstrap-alert-with-jquery
 var handleError = function handleError(message) {
-  console.log('Called');
   $(".alert").text(message);
   $(".alert").show();
   $(".alert").addClass('in');

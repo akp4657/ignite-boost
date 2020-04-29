@@ -56,19 +56,19 @@ const handleSearch = (e) => {
     if($("#player2Search").val()){
         queryString += `&player2=${$("#player2Search").val()}`
     }
-    if($("#char1Search").find(":selected").text() !== 'Character 1' &&
+    if($("#char1Search").find(":selected").text() !== 'C1' &&
     $("#char1Search").find(":selected").text() !== 'Anyone'){
         queryString += `&char1=${$("#char1Search").find(":selected").text()}`
     }   
-    if($("#char2Search").find(":selected").text() !== 'Character 2' &&
+    if($("#char2Search").find(":selected").text() !== 'C2' &&
     $("#char2Search").find(":selected").text() !== 'Anyone'){
         queryString += `&char2=${$("#char2Search").find(":selected").text()}`
     }
-    if($("#assist1Search").find(":selected").text() !== 'Assist 1' &&
+    if($("#assist1Search").find(":selected").text() !== 'A1' &&
     $("#assist1Search").find(":selected").text() !== 'Anyone'){
         queryString += `&assist1=${$("#assist1Search").find(":selected").text()}`
     }   
-    if($("#assist2Search").find(":selected").text() !== 'Assist 2' &&
+    if($("#assist2Search").find(":selected").text() !== 'A2' &&
     $("#assist2Search").find(":selected").text() !== 'Anyone'){
         queryString += `&assist2=${$("#assist2Search").find(":selected").text()}`
     }
@@ -176,7 +176,6 @@ const VideoList = function(props) {
         let assistImg1;
         let assistImg2;
 
-        console.dir(video);
 
         char1Src = `/assets/img/Characters/${video.char1}.png`;
         char2Src = `/assets/img/Characters/${video.char2}.png`;

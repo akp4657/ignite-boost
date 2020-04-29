@@ -91,7 +91,6 @@ const handleVideo = (e) => {
     $('#videoForm').find('select').each(function() {
         // One of the selections is for the game, we don't need that
         // Also, if the key is equal to zero, skip it.
-        console.log(this);
         if(videoKey>0) {
             if(charModValue === 0) {
 
@@ -118,8 +117,6 @@ const handleVideo = (e) => {
             videoObj._csrf = this.value;
         }
     });
-
-    console.log(videoObj);
 
 
     // Uncomment this to send data
@@ -370,7 +367,6 @@ const VideoList = function(props) {
         let assistImg1;
         let assistImg2;
 
-        console.dir(video);
 
         char1Src = `/assets/img/Characters/${video.char1}.png`;
         char2Src = `/assets/img/Characters/${video.char2}.png`;
