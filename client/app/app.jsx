@@ -272,7 +272,7 @@ const VideoForm = (props) => {
         rows.push(
             <tbody>
                 <tr>
-                    <td><input id="timestamp" type="text" name="timestamp" placeholder="Timestamp"/></td>
+                    <td><input id="timestamp" type="text" name="timestamp" placeholder="Timestamp [00:00:00]"/></td>
                     <td><input id="playerOne" type="text" name="playerOne" placeholder="Player 1"/></td>
                     <td>{assist1Selection}</td>
                     <td>{charSelection}</td>
