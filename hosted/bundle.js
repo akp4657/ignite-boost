@@ -696,8 +696,6 @@ var char2Select = /*#__PURE__*/React.createElement("select", {
 }, "Mikoto"), /*#__PURE__*/React.createElement("option", {
   value: "Miyuki"
 }, "Miyuki"), /*#__PURE__*/React.createElement("option", {
-  value: "Miyuki"
-}, "Miyuki"), /*#__PURE__*/React.createElement("option", {
   value: "Quenser"
 }, "Quenser"), /*#__PURE__*/React.createElement("option", {
   value: "Rentaro"

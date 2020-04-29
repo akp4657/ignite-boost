@@ -582,7 +582,7 @@ const char2Select = <select id = "char2">
     <option value="Akira" selected>Akira</option><option value="Ako">Ako</option>
     <option value="Asuna">Asuna</option><option value="Emi">Emi</option><option value="Kirino">Kirino</option>
     <option value="Kirito">Kirito</option><option value="Kuroko">Kuroko</option><option value="Kuroyukihime">Kuroyukihime</option>
-    <option value="Mikoto">Mikoto</option><option value="Miyuki">Miyuki</option><option value="Miyuki">Miyuki</option>
+    <option value="Mikoto">Mikoto</option><option value="Miyuki">Miyuki</option>
     <option value="Quenser">Quenser</option><option value="Rentaro">Rentaro</option><option value="Selvaria">Selvaria</option>
     <option value="Shana">Shana</option><option value="Shizuo">Shizuo</option><option value="Taiga">Taiga</option>
     <option value="Tatsuya">Tatsuya</option><option value="Tomoka">Tomoka</option><option value="Yukina">Yukina</option>

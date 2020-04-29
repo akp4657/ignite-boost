@@ -165,13 +165,13 @@ nav:nth-child(1) {
 
 
 .alert {
-    width: 20%;
+    width: 15%;
     position: absolute;
     margin: 0 auto; 
-    margin-left: 5%;
+    margin-left: 80%;
     z-index: 1;
     text-align: center;
-    margin-top: 15%;
+    margin-top: 5%;
 }
 
 .fa-youtube {
