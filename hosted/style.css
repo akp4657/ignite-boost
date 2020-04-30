@@ -20,10 +20,20 @@ body {
 }
 
 nav {
-    width: 100%;
+    width: 95%;
     height: 55px;
     background-color: #68f2d5;
     position: fixed;
+}
+
+.fakeNav {
+    width: 5%;
+    height: 55px;
+    background-color: #68f2d5;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: -1;
 }
 
 nav:nth-child(1) {
@@ -334,3 +344,21 @@ button.delete {
     right: 50;
 }
 
+/* The emerging W3C standard
+   that is currently Firefox-only */
+   * {
+    scrollbar-color: #D0D3D4 #7C878E;
+  }
+  
+  /* Works on Chrome/Edge/Safari */
+  *::-webkit-scrollbar {
+    width: 12px;
+  }
+  *::-webkit-scrollbar-track {
+    background: #D0D3D4;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: #7C878E;
+    border-radius: 20px;
+    border: 3px solid #D0D3D4;
+  }
