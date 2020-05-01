@@ -219,14 +219,14 @@ const handleSearch = (e) => {
             <VideoList videos={data.videos} />, document.querySelector("#content")
         );
         const next = document.querySelector("#nextButton");
-
-        if(pagedVideos[videoMax-1] === undefined) {
-            handleError("ERROR | No more videos!");
-        }
             next.addEventListener("click", (e) => {
-            ReactDOM.render(
-                <VideoList videos={data.videos} />, document.querySelector("#content")
-            );
+                if(pagedVideos[videoMax-1] === undefined) {
+                    handleError("ERROR | No more videos!");
+                    return;
+                }
+                ReactDOM.render(
+                    <VideoList videos={data.videos} />, document.querySelector("#content")
+                );
         });
     });
 };
