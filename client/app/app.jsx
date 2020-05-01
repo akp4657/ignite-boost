@@ -221,7 +221,7 @@ const handleSearch = (e) => {
         const next = document.querySelector("#nextButton");
 
         if(pagedVideos[videoMax-1] === undefined) {
-            next.style.display = "none";
+            handleError("ERROR | No more videos!");
         }
             next.addEventListener("click", (e) => {
             ReactDOM.render(
