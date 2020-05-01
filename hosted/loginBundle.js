@@ -255,7 +255,11 @@ var VideoList = function VideoList(props) {
     id: "pageContainer"
   }, /*#__PURE__*/React.createElement("table", {
     className: "table table-sm"
-  }, pagedVideos), /*#__PURE__*/React.createElement("form", {
+  }, pagedVideos), /*#__PURE__*/React.createElement("button", {
+    id: "nextButton",
+    className: "formSubmit btn secondBtn",
+    type: "button"
+  }, "Next 100"), /*#__PURE__*/React.createElement("form", {
     id: "donations",
     action: "https://www.paypal.com/cgi-bin/webscr",
     method: "post",
@@ -300,6 +304,13 @@ var loadAllVideosFromServer = function loadAllVideosFromServer() {
     ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
       videos: data.videos
     }), document.querySelector("#content"));
+    var next = document.querySelector("#nextButton");
+    next.addEventListener("click", function (e) {
+      videoMax += 100;
+      ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
+        videos: data.videos
+      }), document.querySelector("#content"));
+    });
   });
 }; //#endregion
 

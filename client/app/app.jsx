@@ -6,7 +6,7 @@ let pageList = false;
 let loopNumber = 1;
 let videoKey = 0;
 let videoIndex = 0;
-let videoMax = 200;
+let videoMax = 300;
 
 
 // ADDING A VIDEO
@@ -424,6 +424,7 @@ const VideoList = function(props) {
             <table className="table table-sm table-dark">
                {pagedVideos}
             </table>
+            <button id="nextButton" className="formSubmit btn secondBtn"type="button">Next 100</button>
             
             <form id="donations" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_s-xclick" />
@@ -431,7 +432,7 @@ const VideoList = function(props) {
                 <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
                 <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
             </form>
-
+            
         </div>
     );
 };
@@ -450,10 +451,18 @@ const loadVideosFromServer = () => {
 const loadAllVideosFromServer = () => {
     loopNumber = 1;
     pageList = false;
+
     sendAjax('GET', '/getAllVideos', null, (data) => {
         ReactDOM.render(
             <VideoList videos={data.videos} />, document.querySelector("#content")
         );
+        const next = document.querySelector("#nextButton");
+            next.addEventListener("click", (e) => {
+            videoMax += 100;
+            ReactDOM.render(
+                <VideoList videos={data.videos} />, document.querySelector("#content")
+            );
+        });
     });
 };
 
@@ -522,7 +531,6 @@ const setup = function(csrf) {
     const pageButton = document.querySelector("#myPage");
     const addButton = document.querySelector("#addVideo");
     const passChangeButton = document.querySelector("#passChangeButton");
-    const next = document.querySelector("#donations");
 
     passChangeButton.addEventListener("click", (e) => {
         e.preventDefault();
@@ -553,7 +561,6 @@ const setup = function(csrf) {
     createSearchForm();
     createLoad();
     loadAllVideosFromServer();
-    console.log(next);
 
 };
 

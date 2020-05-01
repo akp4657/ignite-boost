@@ -233,6 +233,8 @@ const VideoList = function(props) {
             <table className="table table-sm">
                 {pagedVideos}
             </table>
+            <button id="nextButton" className="formSubmit btn secondBtn"type="button">Next 100</button>
+
             <form id="donations" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_s-xclick" />
                 <input type="hidden" name="hosted_button_id" value="WTCAT4V8X6V5W" />
@@ -259,6 +261,13 @@ const loadAllVideosFromServer = () => {
         ReactDOM.render(
             <VideoList videos={data.videos} />, document.querySelector("#content")
         );
+        const next = document.querySelector("#nextButton");
+            next.addEventListener("click", (e) => {
+            videoMax += 100;
+            ReactDOM.render(
+                <VideoList videos={data.videos} />, document.querySelector("#content")
+            );
+        });
     });
 };
 //#endregion

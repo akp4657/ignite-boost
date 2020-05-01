@@ -10,7 +10,7 @@ var pageList = false;
 var loopNumber = 1;
 var videoKey = 0;
 var videoIndex = 0;
-var videoMax = 200; // ADDING A VIDEO
+var videoMax = 300; // ADDING A VIDEO
 
 var handleVideo = function handleVideo(e) {
   videoKey = 0;
@@ -430,7 +430,11 @@ var VideoList = function VideoList(props) {
     id: "pageContainer"
   }, /*#__PURE__*/React.createElement("table", {
     className: "table table-sm table-dark"
-  }, pagedVideos), /*#__PURE__*/React.createElement("form", {
+  }, pagedVideos), /*#__PURE__*/React.createElement("button", {
+    id: "nextButton",
+    className: "formSubmit btn secondBtn",
+    type: "button"
+  }, "Next 100"), /*#__PURE__*/React.createElement("form", {
     id: "donations",
     action: "https://www.paypal.com/cgi-bin/webscr",
     method: "post",
@@ -477,6 +481,13 @@ var loadAllVideosFromServer = function loadAllVideosFromServer() {
     ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
       videos: data.videos
     }), document.querySelector("#content"));
+    var next = document.querySelector("#nextButton");
+    next.addEventListener("click", function (e) {
+      videoMax += 100;
+      ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
+        videos: data.videos
+      }), document.querySelector("#content"));
+    });
   });
 };
 
@@ -528,7 +539,6 @@ var setup = function setup(csrf) {
   var pageButton = document.querySelector("#myPage");
   var addButton = document.querySelector("#addVideo");
   var passChangeButton = document.querySelector("#passChangeButton");
-  var next = document.querySelector("#donations");
   passChangeButton.addEventListener("click", function (e) {
     e.preventDefault();
     createPassChangeWindow(csrf);
@@ -554,7 +564,6 @@ var setup = function setup(csrf) {
   createSearchForm();
   createLoad();
   loadAllVideosFromServer();
-  console.log(next);
 }; //And set it in getToken
 
 
