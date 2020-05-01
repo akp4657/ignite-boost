@@ -216,6 +216,12 @@ const handleSearch = (e) => {
         ReactDOM.render(
             <VideoList videos={data.videos} />, document.querySelector("#content")
         );
+        const next = document.querySelector("#nextButton");
+            next.addEventListener("click", (e) => {
+            ReactDOM.render(
+                <VideoList videos={data.videos} />, document.querySelector("#content")
+            );
+        });
     });
 };
 

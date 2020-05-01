@@ -10,7 +10,7 @@ var pageList = false;
 var loopNumber = 1;
 var videoKey = 0;
 var videoIndex = 0;
-var videoMax = 300; // ADDING A VIDEO
+var videoMax = 1; // ADDING A VIDEO
 
 var handleVideo = function handleVideo(e) {
   videoKey = 0;
@@ -196,6 +196,12 @@ var handleSearch = function handleSearch(e) {
     ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
       videos: data.videos
     }), document.querySelector("#content"));
+    var next = document.querySelector("#nextButton");
+    next.addEventListener("click", function (e) {
+      ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
+        videos: data.videos
+      }), document.querySelector("#content"));
+    });
   });
 }; // Search form
 //Sets up the search form, will change the select for characters depending on the game selected
@@ -483,7 +489,7 @@ var loadAllVideosFromServer = function loadAllVideosFromServer() {
     }), document.querySelector("#content"));
     var next = document.querySelector("#nextButton");
     next.addEventListener("click", function (e) {
-      videoMax += 100;
+      videoMax += 1;
       ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
         videos: data.videos
       }), document.querySelector("#content"));
