@@ -10,7 +10,7 @@ var pageList = false;
 var loopNumber = 1;
 var videoKey = 0;
 var videoIndex = 0;
-var videoMax = 200; // ADDING A VIDEO
+var videoMax = 10; // ADDING A VIDEO
 
 var handleVideo = function handleVideo(e) {
   videoKey = 0;
