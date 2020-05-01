@@ -222,7 +222,6 @@ const handleSearch = (e) => {
             next.addEventListener("click", (e) => {
                 if(pagedVideos[videoMax-1] === undefined) {
                     handleError("ERROR | No more videos!");
-                    return;
                 }
                 ReactDOM.render(
                     <VideoList videos={data.videos} />, document.querySelector("#content")
