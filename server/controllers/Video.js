@@ -133,12 +133,28 @@ const searchVideos = (request, response) => {
     params.$and[i] = { $or: [{ char2: `${char2}` }, { char1: `${char2}` }] };
     i++;
   }
+  if(char1 && char2) {
+    params.$and[i] = { $or: [{ char2: `${char2}` }, { char1: `${char1}` }, { char2: `${char1}` }, { char1: `${char2}` }] };
+    i++;
+  }
+  if(char1 && assist1) {
+    params.$and[i] = { $or: [{ char1: `${char1}` }, { assist1: `${assist1}` }, { char2: `${char1}` }, { assist2: `${assist1}` }] };
+    i++;
+  }
+  if(char2 && assist2) {
+    params.$and[i] = { $or: [{ char1: `${char2}` }, { assist1: `${assist2}` }, { char2: `${char2}` }, { assist2: `${assist2}` }] };
+    i++;
+  }
   if (assist1) {
     params.$and[i] = { $or: [{ assist1: `${assist1}` }, { assist2: `${assist1}` }] };
     i++;
   }
   if (assist2) {
     params.$and[i] = { $or: [{ assist2: `${assist2}` }, { assist1: `${assist2}` }] };
+    i++;
+  }
+  if(assist1 && assist2) {
+    params.$and[i] = { $or: [{ assist2: `${assist2}` }, { assist1: `${assist1}` }, { assist2: `${assist1}` }, { assist1: `${assist2}` }] };
     i++;
   }
 
