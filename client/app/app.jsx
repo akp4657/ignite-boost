@@ -329,6 +329,11 @@ const ChangeWindow = (props) => {
     );
 };
 
+const Load = () => {
+    return (<div className="videoList">
+                <h3 className="emptyVideo">Loading videos from the database...</h3>
+             </div>)
+};
 
 /// RENDERING THE LIST
 /// Render the list depending on if it's a page list or the full list
@@ -506,6 +511,12 @@ const createSearchForm = () => {
     });
 }
 
+const createLoad = () => {
+    ReactDOM.render(
+        <Load />, document.querySelector("#content")
+    );
+}
+
 const setup = function(csrf) {
     const homeButton = document.querySelector("#home");
     const pageButton = document.querySelector("#myPage");
@@ -540,6 +551,7 @@ const setup = function(csrf) {
     });
 
     createSearchForm();
+    createLoad();
     loadAllVideosFromServer();
     console.log(next);
 

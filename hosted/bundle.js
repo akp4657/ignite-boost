@@ -336,6 +336,14 @@ var ChangeWindow = function ChangeWindow(props) {
     type: "submit",
     value: "Change"
   }));
+};
+
+var Load = function Load() {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "videoList"
+  }, /*#__PURE__*/React.createElement("h3", {
+    className: "emptyVideo"
+  }, "Loading videos from the database..."));
 }; /// RENDERING THE LIST
 /// Render the list depending on if it's a page list or the full list
 
@@ -511,6 +519,10 @@ var createSearchForm = function createSearchForm() {
   });
 };
 
+var createLoad = function createLoad() {
+  ReactDOM.render( /*#__PURE__*/React.createElement(Load, null), document.querySelector("#content"));
+};
+
 var setup = function setup(csrf) {
   var homeButton = document.querySelector("#home");
   var pageButton = document.querySelector("#myPage");
@@ -540,6 +552,7 @@ var setup = function setup(csrf) {
     return false;
   });
   createSearchForm();
+  createLoad();
   loadAllVideosFromServer();
   console.log(next);
 }; //And set it in getToken
