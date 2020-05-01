@@ -6,7 +6,7 @@ let pageList = false;
 let loopNumber = 1;
 let videoKey = 0;
 let videoIndex = 0;
-let videoMax = 10;
+let videoMax = 125;
 
 
 // ADDING A VIDEO
