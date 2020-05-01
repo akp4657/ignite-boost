@@ -8,7 +8,9 @@ var _csrf; // Values to help not repeat methods
 
 var pageList = false;
 var loopNumber = 1;
-var videoKey = 0; // ADDING A VIDEO
+var videoKey = 0;
+var videoIndex = 0;
+var videoMax = 300; // ADDING A VIDEO
 
 var handleVideo = function handleVideo(e) {
   videoKey = 0;
@@ -341,7 +343,7 @@ var ChangeWindow = function ChangeWindow(props) {
 var VideoList = function VideoList(props) {
   // Do we need to show deletion or not
   var deleteButton;
-  var adSpace;
+  var pagedVideos = [];
 
   if (props.videos.length === 0) {
     return /*#__PURE__*/React.createElement("div", {
@@ -397,16 +399,6 @@ var VideoList = function VideoList(props) {
       src: assist2Src,
       alt: video.assist2
     });
-
-    if (video.game === "UNICLR") {
-      img2 = /*#__PURE__*/React.createElement("img", {
-        id: "char2Img",
-        className: "flip",
-        src: char2Src,
-        alt: video.char2
-      });
-    }
-
     return /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, video.player1), /*#__PURE__*/React.createElement("td", null, assistImg1), /*#__PURE__*/React.createElement("td", null, charImg1), /*#__PURE__*/React.createElement("td", null, "vs"), /*#__PURE__*/React.createElement("td", null, charImg2), /*#__PURE__*/React.createElement("td", null, assistImg2), /*#__PURE__*/React.createElement("td", null, video.player2), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("a", {
       href: video.link,
       className: "icons-sm yt-ic",
@@ -415,11 +407,23 @@ var VideoList = function VideoList(props) {
       className: "fab fa-youtube fa-2x"
     }, " "))), deleteButton));
   });
+  console.log(videoNodes.length);
+
+  for (videoIndex; videoIndex < videoMax; videoIndex++) {
+    pagedVideos[videoIndex] = videoNodes[videoIndex];
+
+    if (videoIndex === videoMax - 1) {
+      videoIndex = 0;
+      break;
+    }
+  }
+
+  console.log(pagedVideos.length);
   return /*#__PURE__*/React.createElement("div", {
     id: "pageContainer"
   }, /*#__PURE__*/React.createElement("table", {
     className: "table table-sm table-dark"
-  }, videoNodes), /*#__PURE__*/React.createElement("form", {
+  }, pagedVideos), /*#__PURE__*/React.createElement("form", {
     id: "donations",
     action: "https://www.paypal.com/cgi-bin/webscr",
     method: "post",

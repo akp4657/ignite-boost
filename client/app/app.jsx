@@ -5,6 +5,8 @@ let _csrf;
 let pageList = false;
 let loopNumber = 1;
 let videoKey = 0;
+let videoIndex = 0;
+let videoMax = 300;
 
 
 // ADDING A VIDEO
@@ -330,10 +332,11 @@ const ChangeWindow = (props) => {
 /// RENDERING THE LIST
 /// Render the list depending on if it's a page list or the full list
 const VideoList = function(props) {
+
     
     // Do we need to show deletion or not
     let deleteButton;
-    let adSpace;
+    let pagedVideos = [];
 
     if(props.videos.length === 0) {
         return (
@@ -378,10 +381,6 @@ const VideoList = function(props) {
         assistImg1 = <img id="assist1Img" src={assist1Src} alt={video.assist1} />
         assistImg2 = <img id="assist2Img" src={assist2Src} alt={video.assist2} />
 
-        if(video.game === "UNICLR") {
-            img2 = <img id="char2Img" className='flip' src={char2Src} alt={video.char2} />
-        }
-
         
         return (
                 <tbody>
@@ -402,11 +401,22 @@ const VideoList = function(props) {
             
         );
     });
+
+    console.log(videoNodes.length);
+    for(videoIndex; videoIndex < videoMax; videoIndex++) {
+        pagedVideos[videoIndex] = videoNodes[videoIndex]; 
+
+        if(videoIndex === videoMax-1) {
+            videoIndex = 0;
+            break;
+        }
+    }
+    console.log(pagedVideos.length);
     
     return (
         <div id="pageContainer">
             <table className="table table-sm table-dark">
-                {videoNodes}
+               {pagedVideos}
             </table>
             <form id="donations" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_s-xclick" />
