@@ -10,7 +10,8 @@ var pageList = false;
 var loopNumber = 1;
 var videoKey = 0;
 var videoIndex = 0;
-var videoMax = 1; // ADDING A VIDEO
+var videoMax = 300;
+var pagedVideos = []; // ADDING A VIDEO
 
 var handleVideo = function handleVideo(e) {
   videoKey = 0;
@@ -197,6 +198,11 @@ var handleSearch = function handleSearch(e) {
       videos: data.videos
     }), document.querySelector("#content"));
     var next = document.querySelector("#nextButton");
+
+    if (pagedVideos[videoMax - 1] === undefined) {
+      next.style.display = "none";
+    }
+
     next.addEventListener("click", function (e) {
       ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
         videos: data.videos
@@ -357,7 +363,6 @@ var Load = function Load() {
 var VideoList = function VideoList(props) {
   // Do we need to show deletion or not
   var deleteButton;
-  var pagedVideos = [];
 
   if (props.videos.length === 0) {
     return /*#__PURE__*/React.createElement("div", {
@@ -368,19 +373,6 @@ var VideoList = function VideoList(props) {
   }
 
   var videoNodes = props.videos.map(function (video) {
-    // https://react-cn.github.io/react/tips/if-else-in-JSX.html
-    if (pageList) {
-      deleteButton = /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
-        className: "delete btn",
-        value: video._id,
-        onClick: handleDelete
-      }, /*#__PURE__*/React.createElement("i", {
-        className: "fas fa-trash"
-      })));
-    } else {
-      deleteButton = null;
-    }
-
     var char1Src;
     var char2Src;
     var assist1Src;
@@ -419,7 +411,7 @@ var VideoList = function VideoList(props) {
       target: "_blank"
     }, /*#__PURE__*/React.createElement("i", {
       className: "fab fa-youtube fa-2x"
-    }, " "))), deleteButton));
+    }, " ")))));
   }); //console.log(videoNodes.length);
 
   for (videoIndex; videoIndex < videoMax; videoIndex++) {
@@ -483,13 +475,14 @@ var loadVideosFromServer = function loadVideosFromServer() {
 var loadAllVideosFromServer = function loadAllVideosFromServer() {
   loopNumber = 1;
   pageList = false;
+  console.log(pagedVideos[videoMax]);
   sendAjax('GET', '/getAllVideos', null, function (data) {
     ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
       videos: data.videos
     }), document.querySelector("#content"));
     var next = document.querySelector("#nextButton");
     next.addEventListener("click", function (e) {
-      videoMax += 1;
+      videoMax += 100;
       ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
         videos: data.videos
       }), document.querySelector("#content"));
@@ -541,8 +534,8 @@ var createLoad = function createLoad() {
 };
 
 var setup = function setup(csrf) {
-  var homeButton = document.querySelector("#home");
-  var pageButton = document.querySelector("#myPage");
+  var homeButton = document.querySelector("#home"); //const pageButton = document.querySelector("#myPage");
+
   var addButton = document.querySelector("#addVideo");
   var passChangeButton = document.querySelector("#passChangeButton");
   passChangeButton.addEventListener("click", function (e) {
@@ -561,12 +554,13 @@ var setup = function setup(csrf) {
     loadAllVideosFromServer();
     return false;
   });
-  pageButton.addEventListener("click", function (e) {
-    e.preventDefault();
-    createSearchForm();
-    loadVideosFromServer();
-    return false;
-  });
+  /*pageButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      createSearchForm();
+      loadVideosFromServer();
+      return false;
+  });*/
+
   createSearchForm();
   createLoad();
   loadAllVideosFromServer();

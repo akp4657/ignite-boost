@@ -7,6 +7,8 @@ let loopNumber = 1;
 let videoKey = 0;
 let videoIndex = 0;
 let videoMax = 300;
+let pagedVideos = [];
+
 
 
 // ADDING A VIDEO
@@ -217,6 +219,10 @@ const handleSearch = (e) => {
             <VideoList videos={data.videos} />, document.querySelector("#content")
         );
         const next = document.querySelector("#nextButton");
+
+        if(pagedVideos[videoMax-1] === undefined) {
+            next.style.display = "none";
+        }
             next.addEventListener("click", (e) => {
             ReactDOM.render(
                 <VideoList videos={data.videos} />, document.querySelector("#content")
@@ -348,7 +354,6 @@ const VideoList = function(props) {
     
     // Do we need to show deletion or not
     let deleteButton;
-    let pagedVideos = [];
 
     if(props.videos.length === 0) {
         return (
@@ -360,17 +365,6 @@ const VideoList = function(props) {
 
 
     const videoNodes = props.videos.map(function(video) {
-
-        // https://react-cn.github.io/react/tips/if-else-in-JSX.html
-        if(pageList) {
-            deleteButton = <td>
-                            <button className="delete btn" value={video._id} onClick={handleDelete}>
-                                <i className="fas fa-trash"></i>
-                            </button>
-                           </td>;
-        } else {
-            deleteButton = null;
-        }
 
         let char1Src;
         let char2Src;
@@ -407,7 +401,6 @@ const VideoList = function(props) {
                         <td>
                             <a href={video.link} className="icons-sm yt-ic" target="_blank"><i className="fab fa-youtube fa-2x"> </i></a>
                         </td>
-                        {deleteButton}
                     </tr>
                 </tbody>
             
@@ -457,6 +450,7 @@ const loadVideosFromServer = () => {
 const loadAllVideosFromServer = () => {
     loopNumber = 1;
     pageList = false;
+    console.log(pagedVideos[videoMax]);
 
     sendAjax('GET', '/getAllVideos', null, (data) => {
         ReactDOM.render(
@@ -534,7 +528,7 @@ const createLoad = () => {
 
 const setup = function(csrf) {
     const homeButton = document.querySelector("#home");
-    const pageButton = document.querySelector("#myPage");
+    //const pageButton = document.querySelector("#myPage");
     const addButton = document.querySelector("#addVideo");
     const passChangeButton = document.querySelector("#passChangeButton");
 
@@ -557,12 +551,12 @@ const setup = function(csrf) {
         return false;
     });
 
-    pageButton.addEventListener("click", (e) => {
+    /*pageButton.addEventListener("click", (e) => {
         e.preventDefault();
         createSearchForm();
         loadVideosFromServer();
         return false;
-    });
+    });*/
 
     createSearchForm();
     createLoad();
