@@ -1,3 +1,6 @@
+let videoIndex = 0;
+let videoMax = 200;
+
 // Sending request to handle login
 const handleLogin = (e) => {
     e.preventDefault();
@@ -157,6 +160,9 @@ const SignupWindow = (props) => {
 
 //#region Home Video Code
 const VideoList = function(props) {
+
+    let pagedVideos = [];
+
     if(props.videos.length === 0) {
         return (
             <div className="videoList">
@@ -211,11 +217,21 @@ const VideoList = function(props) {
             
         );
     });
+
+    //console.log(videoNodes.length);
+    for(videoIndex; videoIndex < videoMax; videoIndex++) {
+        pagedVideos[videoIndex] = videoNodes[videoIndex]; 
+
+        if(videoIndex === videoMax-1) {
+            videoIndex = 0;
+            break;
+        }
+    }
     
     return (
         <div id="pageContainer">
             <table className="table table-sm">
-                {videoNodes}
+                {pagedVideos}
             </table>
             <form id="donations" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_s-xclick" />
