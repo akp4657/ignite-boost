@@ -6,7 +6,7 @@ let pageList = false;
 let loopNumber = 1;
 let videoKey = 0;
 let videoIndex = 0;
-let videoMax = 300;
+let videoMax = 1000;
 
 
 // ADDING A VIDEO
@@ -301,6 +301,7 @@ const VideoForm = (props) => {
             <input className="makeVideoSubmit" className="formSubmit btn mainBtn" type="submit" value="Add Video"/>
             <input type="hidden" name="_csrf" value={props.csrf}/>
             <button id="addMatchButton" className="formSubmit btn secondBtn"type="button">Add a Match</button>
+
         </div>
         <div id="adSpace"></div>
 
@@ -402,7 +403,7 @@ const VideoList = function(props) {
         );
     });
 
-    console.log(videoNodes.length);
+    //console.log(videoNodes.length);
     for(videoIndex; videoIndex < videoMax; videoIndex++) {
         pagedVideos[videoIndex] = videoNodes[videoIndex]; 
 
@@ -411,19 +412,21 @@ const VideoList = function(props) {
             break;
         }
     }
-    console.log(pagedVideos.length);
+    //console.log(pagedVideos.length);
     
     return (
         <div id="pageContainer">
             <table className="table table-sm table-dark">
                {pagedVideos}
             </table>
+            
             <form id="donations" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_s-xclick" />
                 <input type="hidden" name="hosted_button_id" value="WTCAT4V8X6V5W" />
                 <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
                 <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
             </form>
+
         </div>
     );
 };
@@ -508,6 +511,7 @@ const setup = function(csrf) {
     const pageButton = document.querySelector("#myPage");
     const addButton = document.querySelector("#addVideo");
     const passChangeButton = document.querySelector("#passChangeButton");
+    const next = document.querySelector("#donations");
 
     passChangeButton.addEventListener("click", (e) => {
         e.preventDefault();
@@ -537,6 +541,8 @@ const setup = function(csrf) {
 
     createSearchForm();
     loadAllVideosFromServer();
+    console.log(next);
+
 };
 
 //And set it in getToken
@@ -635,7 +641,7 @@ const char2Search= <select id = "char2Search" className='form-control'>
     <option value="Akira">Akira</option><option value="Ako">Ako</option>
     <option value="Asuna">Asuna</option><option value="Emi">Emi</option><option value="Kirino">Kirino</option>
     <option value="Kirito">Kirito</option><option value="Kuroko">Kuroko</option><option value="Kuroyukihime">Kuroyukihime</option>
-    <option value="Mikoto">Mikoto</option><option value="Miyuki">Miyuki</option><option value="Miyuki">Miyuki</option>
+    <option value="Mikoto">Mikoto</option><option value="Miyuki">Miyuki</option>
     <option value="Quenser">Quenser</option><option value="Rentaro">Rentaro</option><option value="Selvaria">Selvaria</option>
     <option value="Shana">Shana</option><option value="Shizuo">Shizuo</option><option value="Taiga">Taiga</option>
     <option value="Tatsuya">Tatsuya</option><option value="Tomoka">Tomoka</option><option value="Yukina">Yukina</option>

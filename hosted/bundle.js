@@ -10,7 +10,7 @@ var pageList = false;
 var loopNumber = 1;
 var videoKey = 0;
 var videoIndex = 0;
-var videoMax = 300; // ADDING A VIDEO
+var videoMax = 1000; // ADDING A VIDEO
 
 var handleVideo = function handleVideo(e) {
   videoKey = 0;
@@ -406,8 +406,7 @@ var VideoList = function VideoList(props) {
     }, /*#__PURE__*/React.createElement("i", {
       className: "fab fa-youtube fa-2x"
     }, " "))), deleteButton));
-  });
-  console.log(videoNodes.length);
+  }); //console.log(videoNodes.length);
 
   for (videoIndex; videoIndex < videoMax; videoIndex++) {
     pagedVideos[videoIndex] = videoNodes[videoIndex];
@@ -416,9 +415,9 @@ var VideoList = function VideoList(props) {
       videoIndex = 0;
       break;
     }
-  }
+  } //console.log(pagedVideos.length);
 
-  console.log(pagedVideos.length);
+
   return /*#__PURE__*/React.createElement("div", {
     id: "pageContainer"
   }, /*#__PURE__*/React.createElement("table", {
@@ -517,6 +516,7 @@ var setup = function setup(csrf) {
   var pageButton = document.querySelector("#myPage");
   var addButton = document.querySelector("#addVideo");
   var passChangeButton = document.querySelector("#passChangeButton");
+  var next = document.querySelector("#donations");
   passChangeButton.addEventListener("click", function (e) {
     e.preventDefault();
     createPassChangeWindow(csrf);
@@ -541,6 +541,7 @@ var setup = function setup(csrf) {
   });
   createSearchForm();
   loadAllVideosFromServer();
+  console.log(next);
 }; //And set it in getToken
 
 
@@ -931,8 +932,6 @@ var char2Search = /*#__PURE__*/React.createElement("select", {
 }, "Kuroyukihime"), /*#__PURE__*/React.createElement("option", {
   value: "Mikoto"
 }, "Mikoto"), /*#__PURE__*/React.createElement("option", {
-  value: "Miyuki"
-}, "Miyuki"), /*#__PURE__*/React.createElement("option", {
   value: "Miyuki"
 }, "Miyuki"), /*#__PURE__*/React.createElement("option", {
   value: "Quenser"
