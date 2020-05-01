@@ -244,6 +244,13 @@ const VideoList = function(props) {
 };
 
 
+const Load = () => {
+    return (<div className="videoList">
+                <h3 className="emptyVideo">Loading videos from the database...</h3>
+             </div>)
+};
+
+
 ///
 /// Functions to render our data on the page depending on what we need ///
 ///
@@ -288,6 +295,12 @@ const createSearchForm = () => {
     });
 }
 
+const createLoad = () => {
+    ReactDOM.render(
+        <Load />, document.querySelector("#content")
+    );
+}
+
 const setup = (csrf) => {
     const loginButton = document.querySelector("#loginButton");
     const signupButton = document.querySelector("#signupButton");
@@ -313,6 +326,7 @@ const setup = (csrf) => {
     });
 
     createSearchForm();
+    createLoad();
     loadAllVideosFromServer() //Default window
     //Default loads all Videos on the server 
 };

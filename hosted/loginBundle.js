@@ -282,6 +282,14 @@ var VideoList = function VideoList(props) {
     width: "1",
     height: "1"
   })));
+};
+
+var Load = function Load() {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "videoList"
+  }, /*#__PURE__*/React.createElement("h3", {
+    className: "emptyVideo"
+  }, "Loading videos from the database..."));
 }; ///
 /// Functions to render our data on the page depending on what we need ///
 ///
@@ -318,6 +326,10 @@ var createSearchForm = function createSearchForm() {
   });
 };
 
+var createLoad = function createLoad() {
+  ReactDOM.render( /*#__PURE__*/React.createElement(Load, null), document.querySelector("#content"));
+};
+
 var setup = function setup(csrf) {
   var loginButton = document.querySelector("#loginButton");
   var signupButton = document.querySelector("#signupButton");
@@ -339,6 +351,7 @@ var setup = function setup(csrf) {
     return false;
   });
   createSearchForm();
+  createLoad();
   loadAllVideosFromServer(); //Default window
   //Default loads all Videos on the server 
 };
