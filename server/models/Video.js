@@ -91,10 +91,10 @@ VideoSchema.statics.findByOwner = (ownerId, callback) => {
 };
 
 // Returns all entries in the database
-VideoSchema.statics.findAll = (callback) => VideoModel.find().select('player1 player2 char1 char2 assist1 assist2 link').lean().exec(callback);
+VideoSchema.statics.findAll = (callback) => VideoModel.find().sort({createdData:-1}).select('player1 player2 char1 char2 assist1 assist2 link').lean().exec(callback);
 
 // Will search for specified entries in the database based off the object in the search
-VideoSchema.statics.findSearch = (search, callback) => VideoModel.find(search).select('player1 player2 char1 char2 assist1 assist2 link').lean().exec(callback);
+VideoSchema.statics.findSearch = (search, callback) => VideoModel.find(search).sort({createdData:-1}).select('player1 player2 char1 char2 assist1 assist2 link').lean().exec(callback);
 
 
 VideoSchema.statics.deleteItem = (uid, callback) => {

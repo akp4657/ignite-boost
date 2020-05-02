@@ -113,7 +113,7 @@ var handleVideo = function handleVideo(e) {
   // Send the object! :diaYay:
 
   sendAjax('POST', $("#videoForm").attr("action"), videoObj, function () {
-    loadVideosFromServer();
+    loadAllVideosFromServer();
   });
   return false;
 }; // Handle deletion of a video
@@ -198,12 +198,11 @@ var handleSearch = function handleSearch(e) {
       videos: data.videos
     }), document.querySelector("#content"));
     var next = document.querySelector("#nextButton");
-
-    if (pagedVideos[videoMax - 1] === undefined) {
-      next.style.display = "none";
-    }
-
     next.addEventListener("click", function (e) {
+      if (pagedVideos[videoMax - 1] === undefined) {
+        handleError("ERROR | No more videos!");
+      }
+
       ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
         videos: data.videos
       }), document.querySelector("#content"));
@@ -475,7 +474,7 @@ var loadVideosFromServer = function loadVideosFromServer() {
 var loadAllVideosFromServer = function loadAllVideosFromServer() {
   loopNumber = 1;
   pageList = false;
-  console.log(pagedVideos[videoMax]);
+  createSearchForm();
   sendAjax('GET', '/getAllVideos', null, function (data) {
     ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
       videos: data.videos

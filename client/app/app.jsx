@@ -126,7 +126,7 @@ const handleVideo = (e) => {
     // Uncomment this to send data
     // Send the object! :diaYay:
     sendAjax('POST', $("#videoForm").attr("action"), videoObj, function() {
-        loadVideosFromServer();
+        loadAllVideosFromServer();
     });
 
     return false;
@@ -449,7 +449,7 @@ const loadVideosFromServer = () => {
 const loadAllVideosFromServer = () => {
     loopNumber = 1;
     pageList = false;
-    console.log(pagedVideos[videoMax]);
+    createSearchForm();
 
     sendAjax('GET', '/getAllVideos', null, (data) => {
         ReactDOM.render(
