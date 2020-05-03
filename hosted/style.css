@@ -253,6 +253,7 @@ select:invalid {
 
 .table > tbody > tr > td{
     vertical-align: middle;
+    text-align: center;
 }
 
 .table > tbody > tr > #name{
