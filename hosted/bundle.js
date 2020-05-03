@@ -306,7 +306,11 @@ var VideoForm = function VideoForm(props) {
     id: "addMatchButton",
     className: "formSubmit btn secondBtn",
     type: "button"
-  }, "Add a Match")), /*#__PURE__*/React.createElement("div", {
+  }, "Add a Match"), /*#__PURE__*/React.createElement("button", {
+    id: "removeMatchButton",
+    className: "formSubmit btn thirdBtn",
+    type: "button"
+  }, "Remove a Match")), /*#__PURE__*/React.createElement("div", {
     id: "adSpace"
   }));
 }; /// CHANGE PASSWORD WINDOW
@@ -502,12 +506,18 @@ var createAddWindow = function createAddWindow(csrf) {
   ReactDOM.render( /*#__PURE__*/React.createElement(VideoForm, {
     csrf: csrf
   }), document.querySelector("#content"));
-  ReactDOM.unmountComponentAtNode(document.querySelector("#search")); // If the game changes, re-render
+  ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
+  var removeMatchButton = document.querySelector("#removeMatchButton");
+  removeMatchButton.addEventListener("click", function (e) {
+    if (loopNumber !== 1) {
+      loopNumber--; //If it's clicked, just re-render
 
-  $('#videoForm').find('#Game').on('change', function () {
-    ReactDOM.render( /*#__PURE__*/React.createElement(VideoForm, {
-      csrf: csrf
-    }), document.querySelector("#content"));
+      ReactDOM.render( /*#__PURE__*/React.createElement(VideoForm, {
+        csrf: csrf
+      }), document.querySelector("#content"));
+    } else {
+      handleError("ERROR | Cannot remove last match");
+    }
   }); // Get the button that was made in the videoForm
 
   var addMatchButton = document.querySelector("#addMatchButton");

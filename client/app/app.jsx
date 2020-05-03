@@ -312,6 +312,7 @@ const VideoForm = (props) => {
             <input className="makeVideoSubmit" className="formSubmit btn mainBtn" type="submit" value="Add Video"/>
             <input type="hidden" name="_csrf" value={props.csrf}/>
             <button id="addMatchButton" className="formSubmit btn secondBtn"type="button">Add a Match</button>
+            <button id="removeMatchButton" className="formSubmit btn thirdBtn"type="button">Remove a Match</button>
 
         </div>
         <div id="adSpace"></div>
@@ -485,12 +486,18 @@ const createAddWindow = (csrf) => {
 
     ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
 
-    // If the game changes, re-render
-    $('#videoForm').find('#Game').on('change', function() {
-        ReactDOM.render(
-            <VideoForm csrf={csrf} />,
-            document.querySelector("#content")
-        );
+    const removeMatchButton = document.querySelector("#removeMatchButton");
+    removeMatchButton.addEventListener("click", (e) => {
+        if(loopNumber !== 1) {
+            loopNumber--;
+            //If it's clicked, just re-render
+            ReactDOM.render(
+                <VideoForm csrf={csrf} />,
+                document.querySelector("#content")
+            );
+        } else {
+            handleError("ERROR | Cannot remove last match")
+        }
     });
 
     // Get the button that was made in the videoForm

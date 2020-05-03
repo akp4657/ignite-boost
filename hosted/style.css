@@ -290,12 +290,17 @@ select:invalid {
 
 #static > .secondBtn {
     width:120px;
+    margin-right: 40px;
 }
      
 
 #static > .mainBtn {
-    margin-left: 42%;
+    margin-left: 35%;
     margin-right: 40px;
+}
+
+#static > .thirdBtn {
+    width: 150px;
 }
 
 button.delete {
