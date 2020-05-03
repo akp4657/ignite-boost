@@ -253,13 +253,17 @@ select:invalid {
 
 .table > tbody > tr > td{
     vertical-align: middle;
-    padding-right: 20px;
+}
+
+.table > tbody > tr > #name{
     padding-left: 20px;
+}
+.table > tbody > tr > #name2{
+    padding-right: 20px;
 }
 
 .table > tbody > tr > th  {
     vertical-align: middle;
-
 }
 
 .table > tbody > tr > .td{

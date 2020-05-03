@@ -391,14 +391,14 @@ const VideoList = function(props) {
         return (
                 <tbody>
                     <tr>
-                        <td>{video.player1}</td>
+                        <td id="name">{video.player1}</td>
                         <td>{assistImg1}</td>
                         <td>{charImg1}</td>
                         <td>vs</td>
                         <td>{charImg2}</td>
                         <td>{assistImg2}</td>
                         <td>{video.player2}</td>
-                        <td>
+                        <td id ="name2">
                             <a href={video.link} className="icons-sm yt-ic" target="_blank"><i className="fab fa-youtube fa-2x"> </i></a>
                         </td>
                     </tr>
