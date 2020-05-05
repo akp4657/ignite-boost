@@ -93,7 +93,7 @@ var SearchForm = function SearchForm() {
     name: "searchForm",
     action: "/search",
     method: "GET",
-    className: "searchForm"
+    className: "searchForm form-inline"
   }, /*#__PURE__*/React.createElement("table", {
     id: "searchFormTable",
     className: "table table-sm"

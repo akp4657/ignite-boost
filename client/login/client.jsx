@@ -101,7 +101,7 @@ const SearchForm = () => {
             name="searchForm"
             action="/search"
             method="GET"
-            className="searchForm"
+            className="searchForm form-inline"
         >
           <table id="searchFormTable" className="table table-sm">
                 <tbody>
