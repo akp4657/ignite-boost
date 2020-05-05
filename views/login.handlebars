@@ -1,6 +1,7 @@
 <html lang="en">
 <head>
-  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>DFC Database</title>
   <script crossorigin src="https://unpkg.com/react@15/dist/react.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
@@ -13,12 +14,30 @@
   <link rel="stylesheet" type="text/css" href="/assets/style.css"/>
 </head>
 <body> 
-  <nav><a id="home" href="/"><img id="logo" src="/assets/img/logo.png" alt="face logo"/></a>
-    <div class="navlink"><a id="signupButton" href="/signup">Create an Account</a></div>
-    <div class="navlink"><a id="loginButton" href="/login">Login to Add a Video</a></div>
-    <div class="navlink"><a id="discordButton" target="_blank" href="https://discord.gg/WKj2Nvg">Discord</a></div>
+  <nav class="navbar navbar-inverse navbar-static-top example6">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar6">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" id="home" href="/main"><img style="	width: 64px;" src="/assets/img/logo.png" alt="Iriya Logo">
+        </a>
+      </div>
+      <div id="navbar6" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a id="signupButton" href="/signup">Create an Account</a></li>
+          <li><a id="loginButton" href="/login">Login to Add a Video</a></li>
+          <li><a id="discordButton" target="_blank" href="https://discord.gg/WKj2Nvg">Discord</a></li>
+          <li><a id="donateButton" target="_blank" href="https://paypal.me/igniteboost?locale.x=en_US">Donate!</a></li>
+        </ul>
+      </div>
+      <!--/.nav-collapse -->
+    </div>
+    <!--/.container-fluid -->
   </nav>
-  <div class="fakeNav"></div>
 
   <div class="alert alert-danger alert-dismissible fade" display="none">
         <strong>Warning!</strong> A simple warning alert with <a href="#" class="alert-link">an example link</a>.

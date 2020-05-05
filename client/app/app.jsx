@@ -195,19 +195,19 @@ const handleSearch = (e) => {
     if($("#player2Search").val()){
         queryString += `&player2=${$("#player2Search").val()}`
     }
-    if($("#char1Search").find(":selected").text() !== 'C1' &&
+    if($("#char1Search").find(":selected").text() !== 'Character 1' &&
     $("#char1Search").find(":selected").text() !== 'Anyone'){
         queryString += `&char1=${$("#char1Search").find(":selected").text()}`
     }   
-    if($("#char2Search").find(":selected").text() !== 'C2' &&
+    if($("#char2Search").find(":selected").text() !== 'Character 2' &&
     $("#char2Search").find(":selected").text() !== 'Anyone'){
         queryString += `&char2=${$("#char2Search").find(":selected").text()}`
     }
-    if($("#assist1Search").find(":selected").text() !== 'A1' &&
+    if($("#assist1Search").find(":selected").text() !== 'Assist 1' &&
     $("#assist1Search").find(":selected").text() !== 'Anyone'){
         queryString += `&assist1=${$("#assist1Search").find(":selected").text()}`
     }   
-    if($("#assist2Search").find(":selected").text() !== 'A2' &&
+    if($("#assist2Search").find(":selected").text() !== 'Assist 2' &&
     $("#assist2Search").find(":selected").text() !== 'Anyone'){
         queryString += `&assist2=${$("#assist2Search").find(":selected").text()}`
     }
@@ -247,7 +247,7 @@ const SearchForm = () => {
             name="searchForm"
             action="/search"
             method="GET"
-            className="searchForm"
+            className="searchForm form-inline"
         >
           <table id="searchFormTable" className="table table-sm">
                 <tbody>
@@ -306,9 +306,11 @@ const VideoForm = (props) => {
     >
         <div id ="static">
             <input id="videoLink" className='form-control' type="text" name="videoLink" placeholder="YouTube Link (https://www.youtube.com/watch?v=***********)"/>
-            <table id="videoFormTable" className="table table-sm table-dark">
-                {rows}
-            </table>
+            <div className='table-responsive'>
+                <table id="videoFormTable" className="table table-sm table-dark">
+                    {rows}
+                </table>
+            </div>
             <input className="makeVideoSubmit" className="formSubmit btn mainBtn" type="submit" value="Add Video"/>
             <input type="hidden" name="_csrf" value={props.csrf}/>
             <button id="addMatchButton" className="formSubmit btn secondBtn"type="button">Add a Match</button>
@@ -420,17 +422,12 @@ const VideoList = function(props) {
     
     return (
         <div id="pageContainer">
-            <table className="table table-sm table-dark">
-               {pagedVideos}
-            </table>
+            <div className="table-responsive">
+                <table className="table table-sm table-dark">
+                {pagedVideos}
+                </table>
+            </div>
             <button id="nextButton" className="formSubmit btn secondBtn"type="button">Next 100</button>
-            
-            <form id="donations" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                <input type="hidden" name="cmd" value="_s-xclick" />
-                <input type="hidden" name="hosted_button_id" value="WTCAT4V8X6V5W" />
-                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-                <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
-            </form>
             
         </div>
     );
@@ -635,7 +632,7 @@ const assist2Select = <select id = "assist2">
     </select>;
 
 const char1Search = <select id = "char1Search" className='form-control'>
-    <option value="" disabled selected hidden>C1</option><option value="Anyone">Anyone</option>
+    <option value="" disabled selected hidden>Character 1</option><option value="Anyone">Anyone</option>
     <option value="Akira">Akira</option><option value="Ako">Ako</option>
     <option value="Asuna">Asuna</option><option value="Emi">Emi</option><option value="Kirino">Kirino</option>
     <option value="Kirito">Kirito</option><option value="Kuroko">Kuroko</option><option value="Kuroyukihime">Kuroyukihime</option>
@@ -647,7 +644,7 @@ const char1Search = <select id = "char1Search" className='form-control'>
     </select>;
 
 const assist1Search = <select id = "assist1Search" className='form-control'>
-    <option value="" disabled selected hidden>A1</option><option value="Anyone">Anyone</option>
+    <option value="" disabled selected hidden>Assist 1</option><option value="Anyone">Anyone</option>
     <option value="Accelerator">Accelerator</option><option value="Alicia">Alicia</option>
     <option value="Boogiepop">Boogiepop</option><option value="Celty">Celty</option><option value="Dokuro">Dokuro</option>
     <option value="Enju">Enju</option><option value="Erio">Erio</option><option value="Froleytia">Froleytia</option>
@@ -662,7 +659,7 @@ const assist1Search = <select id = "assist1Search" className='form-control'>
     </select>;
 
 const char2Search= <select id = "char2Search" className='form-control'>
-    <option value="" disabled selected hidden>C2</option><option value="Anyone">Anyone</option>
+    <option value="" disabled selected hidden>Character 2</option><option value="Anyone">Anyone</option>
     <option value="Akira">Akira</option><option value="Ako">Ako</option>
     <option value="Asuna">Asuna</option><option value="Emi">Emi</option><option value="Kirino">Kirino</option>
     <option value="Kirito">Kirito</option><option value="Kuroko">Kuroko</option><option value="Kuroyukihime">Kuroyukihime</option>
@@ -674,7 +671,7 @@ const char2Search= <select id = "char2Search" className='form-control'>
     </select>;
 
 const assist2Search = <select id = "assist2Search" className='form-control'>
-    <option value="" disabled selected hidden>A2</option><option value="Anyone">Anyone</option>
+    <option value="" disabled selected hidden>Assist 2</option><option value="Anyone">Anyone</option>
     <option value="Accelerator">Accelerator</option><option value="Alicia">Alicia</option>
     <option value="Boogiepop">Boogiepop</option><option value="Celty">Celty</option><option value="Dokuro">Dokuro</option>
     <option value="Enju">Enju</option><option value="Erio">Erio</option><option value="Froleytia">Froleytia</option>

@@ -19,49 +19,16 @@ body {
     border-radius: 8px;
 }
 
-nav {
-    width: 95%;
-    height: 55px;
-    background-color: #68f2d5;
-    position: fixed;
+.example6 .navbar-brand>img {
+    margin-top: -13%;
+  }
+
+#navbar6 a {
+    color: #67e2ef;
 }
 
-.fakeNav {
-    width: 5%;
-    height: 55px;
-    background-color: #68f2d5;
-    position: fixed;
-    right: 0;
-    top: 0;
-    z-index: -1;
-}
-
-nav:nth-child(1) {
-    padding-left: 25px;
-}
-
-.navlink {
-    padding: 5px;
-    padding-top: 12px;
-    padding-left: 20px;
-    color: white;
-    font-size: 1.3em;
-    text-shadow: 2px 2px 4px black;
-    float: left;
-}
-
-.navlink a, .navlink a:link, .navlink a:visited, .navlink a:hover, .navlink a:active {
-    color: white;
-    text-decoration: none;
-    padding: 5px;
-    border-radius: 4px;
-    background-color: #68f2d5;
-    transition: background-color 0.4s ease;
-}
-
-.navlink a:hover {
-    transition: background-color 0.8s ease;
-    background-color: #67e2ef;
+#navbar6 a:hover, #navbar6 a:link, #navbar6 a:active{
+    color: #68f2d5;
 }
 
 .mainForm {
@@ -70,7 +37,7 @@ nav:nth-child(1) {
     margin: 0 auto;
     padding-top: 350px;
     font-size: 1.2em;
-    margin-top: -5%;
+    margin-top: -20%;
 }
 
 .videoList {
@@ -233,6 +200,7 @@ nav:nth-child(1) {
     font-size: 16px;
     border: 5px solid transparent;
     margin-bottom: -3%;
+    margin-top: 3%;
 }
 
 #searchFormTable > tbody > tr > td > .form-control {
@@ -372,3 +340,5 @@ button.delete {
     border-radius: 20px;
     border: 3px solid #D0D3D4;
   }
+
+

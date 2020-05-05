@@ -56,19 +56,19 @@ var handleSearch = function handleSearch(e) {
     queryString += "&player2=".concat($("#player2Search").val());
   }
 
-  if ($("#char1Search").find(":selected").text() !== 'C1' && $("#char1Search").find(":selected").text() !== 'Anyone') {
+  if ($("#char1Search").find(":selected").text() !== 'Character 1' && $("#char1Search").find(":selected").text() !== 'Anyone') {
     queryString += "&char1=".concat($("#char1Search").find(":selected").text());
   }
 
-  if ($("#char2Search").find(":selected").text() !== 'C2' && $("#char2Search").find(":selected").text() !== 'Anyone') {
+  if ($("#char2Search").find(":selected").text() !== 'Character 2' && $("#char2Search").find(":selected").text() !== 'Anyone') {
     queryString += "&char2=".concat($("#char2Search").find(":selected").text());
   }
 
-  if ($("#assist1Search").find(":selected").text() !== 'A1' && $("#assist1Search").find(":selected").text() !== 'Anyone') {
+  if ($("#assist1Search").find(":selected").text() !== 'Assist 1' && $("#assist1Search").find(":selected").text() !== 'Anyone') {
     queryString += "&assist1=".concat($("#assist1Search").find(":selected").text());
   }
 
-  if ($("#assist2Search").find(":selected").text() !== 'A2' && $("#assist2Search").find(":selected").text() !== 'Anyone') {
+  if ($("#assist2Search").find(":selected").text() !== 'Assist 2' && $("#assist2Search").find(":selected").text() !== 'Anyone') {
     queryString += "&assist2=".concat($("#assist2Search").find(":selected").text());
   }
 
@@ -253,39 +253,15 @@ var VideoList = function VideoList(props) {
 
   return /*#__PURE__*/React.createElement("div", {
     id: "pageContainer"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "table-responsive"
   }, /*#__PURE__*/React.createElement("table", {
     className: "table table-sm"
-  }, pagedVideos), /*#__PURE__*/React.createElement("button", {
+  }, pagedVideos)), /*#__PURE__*/React.createElement("button", {
     id: "nextButton",
     className: "formSubmit btn secondBtn",
     type: "button"
-  }, "Next 100"), /*#__PURE__*/React.createElement("form", {
-    id: "donations",
-    action: "https://www.paypal.com/cgi-bin/webscr",
-    method: "post",
-    target: "_top"
-  }, /*#__PURE__*/React.createElement("input", {
-    type: "hidden",
-    name: "cmd",
-    value: "_s-xclick"
-  }), /*#__PURE__*/React.createElement("input", {
-    type: "hidden",
-    name: "hosted_button_id",
-    value: "WTCAT4V8X6V5W"
-  }), /*#__PURE__*/React.createElement("input", {
-    type: "image",
-    src: "https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif",
-    border: "0",
-    name: "submit",
-    title: "PayPal - The safer, easier way to pay online!",
-    alt: "Donate with PayPal button"
-  }), /*#__PURE__*/React.createElement("img", {
-    alt: "",
-    border: "0",
-    src: "https://www.paypal.com/en_US/i/scr/pixel.gif",
-    width: "1",
-    height: "1"
-  })));
+  }, "Next 100"));
 };
 
 var Load = function Load() {
@@ -386,7 +362,7 @@ var char1Search = /*#__PURE__*/React.createElement("select", {
   disabled: true,
   selected: true,
   hidden: true
-}, "C1"), /*#__PURE__*/React.createElement("option", {
+}, "Character 1"), /*#__PURE__*/React.createElement("option", {
   value: "Anyone"
 }, "Anyone"), /*#__PURE__*/React.createElement("option", {
   value: "Akira"
@@ -437,7 +413,7 @@ var assist1Search = /*#__PURE__*/React.createElement("select", {
   disabled: true,
   selected: true,
   hidden: true
-}, "A1"), /*#__PURE__*/React.createElement("option", {
+}, "Assist 1"), /*#__PURE__*/React.createElement("option", {
   value: "Anyone"
 }, "Anyone"), /*#__PURE__*/React.createElement("option", {
   value: "Accelerator"
@@ -510,7 +486,7 @@ var char2Search = /*#__PURE__*/React.createElement("select", {
   disabled: true,
   selected: true,
   hidden: true
-}, "C2"), /*#__PURE__*/React.createElement("option", {
+}, "Character 2"), /*#__PURE__*/React.createElement("option", {
   value: "Anyone"
 }, "Anyone"), /*#__PURE__*/React.createElement("option", {
   value: "Akira"
@@ -561,7 +537,7 @@ var assist2Search = /*#__PURE__*/React.createElement("select", {
   disabled: true,
   selected: true,
   hidden: true
-}, "A2"), /*#__PURE__*/React.createElement("option", {
+}, "Assist 2"), /*#__PURE__*/React.createElement("option", {
   value: "Anyone"
 }, "Anyone"), /*#__PURE__*/React.createElement("option", {
   value: "Accelerator"
