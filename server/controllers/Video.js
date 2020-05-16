@@ -125,6 +125,8 @@ const searchVideos = (request, response) => {
     params.$and[i] = { $or: [{ player2: `${player2}` }, { player1: `${player2}` }] };
     i++;
   }
+
+  // Characters selected only 
   if (char1) {
     params.$and[i] = { $or: [{ char1: `${char1}` }, { char2: `${char1}` }] };
     i++;
@@ -137,14 +139,18 @@ const searchVideos = (request, response) => {
     params.$and[i] = { $or: [{ char2: `${char2}` }, { char1: `${char1}` }, { char2: `${char1}` }, { char1: `${char2}` }] };
     i++;
   }
+
+  // If the character and assist are selected
   if (char1 && assist1) {
-    params.$and[i] = { $or: [{ char1: `${char1}` }, { assist1: `${assist1}` }, { char2: `${char1}` }, { assist2: `${assist1}` }] };
+    params.$and[i] = { $or: [{ char1: `${char1}`, assist1: `${assist1}` }, { char2: `${char1}`, assist2: `${assist1}` }] };
     i++;
   }
   if (char2 && assist2) {
-    params.$and[i] = { $or: [{ char1: `${char2}` }, { assist1: `${assist2}` }, { char2: `${char2}` }, { assist2: `${assist2}` }] };
+    params.$and[i] = { $or: [{ char1: `${char2}`, assist1: `${assist2}` }, { char2: `${char2}`, assist2: `${assist2}` }] };
     i++;
   }
+
+  // If one assist is selected
   if (assist1) {
     params.$and[i] = { $or: [{ assist1: `${assist1}` }, { assist2: `${assist1}` }] };
     i++;
@@ -153,8 +159,10 @@ const searchVideos = (request, response) => {
     params.$and[i] = { $or: [{ assist2: `${assist2}` }, { assist1: `${assist2}` }] };
     i++;
   }
+
+  // If both assists are called
   if (assist1 && assist2) {
-    params.$and[i] = { $or: [{ assist2: `${assist2}` }, { assist1: `${assist1}` }, { assist2: `${assist1}` }, { assist1: `${assist2}` }] };
+    params.$and[i] = { $or: [{ assist2: `${assist2}`}, { assist1: `${assist1}` }, { assist2: `${assist1}`}, { assist1: `${assist2}` }] };
     i++;
   }
 
