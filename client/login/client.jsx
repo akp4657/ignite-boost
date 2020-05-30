@@ -210,6 +210,7 @@ const VideoList = function(props) {
                         <td>
                             <a href={video.link} className="icons-sm yt-ic" target="_blank"><i className="fab fa-youtube fa-2x"> </i></a>
                         </td>
+                        <td>{versionImg}</td>
                     </tr>
                 </tbody>
 
