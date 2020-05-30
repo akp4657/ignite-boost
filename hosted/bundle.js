@@ -32,18 +32,19 @@ var handleVideo = function handleVideo(e) {
       videoObj.videoLink = this.value;
     }
   });
-  /*if($("#timeStamp").val() == '' || $("#playerOne").val() == '' || $("#playerTwo").val() == '' ||
-  $("#videoLink").val() == '') {
-      handleError("ERROR | All fields are required");
-      return false;
-  }
-    // Check if the error uses the correct link *just copying the url
-  if(!$("#videoLink").val().includes('www.youtube.com')) {
-      handleError("ERROR | Please use a valid YouTube link");
-      return false;
-  }*/
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Quantifiers
+
+  if ($("#timeStamp").val() == '' || $("#playerOne").val() == '' || $("#playerTwo").val() == '' || $("#videoLink").val() == '') {
+    handleError("ERROR | All fields are required");
+    return false;
+  } // Check if the error uses the correct link *just copying the url
+
+
+  if (!$("#videoLink").val().includes('www.youtube.com')) {
+    handleError("ERROR | Please use a valid YouTube link");
+    return false;
+  } // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Quantifiers
   // https://www.w3schools.com/jsref/jsref_replace.asp
+
 
   var regex = /[0-9][0-9]:[0-9][0-9]:[0-9][0-9]/g; /// Putting each input into its own object to send to the server 
   ///
@@ -111,8 +112,7 @@ var handleVideo = function handleVideo(e) {
     if (this.type === 'hidden') {
       videoObj._csrf = this.value;
     }
-  });
-  console.log(videoObj); // Uncomment this to send data
+  }); // Uncomment this to send data
   // Send the object! :diaYay:
 
   sendAjax('POST', $("#videoForm").attr("action"), videoObj, function () {
@@ -404,7 +404,6 @@ var VideoList = function VideoList(props) {
     var assistImg1;
     var assistImg2;
     var versionImg;
-    console.log(video);
     char1Src = "/assets/img/Characters/".concat(video.char1, ".png");
     char2Src = "/assets/img/Characters/".concat(video.char2, ".png");
     assist1Src = "/assets/img/Assists/".concat(video.assist1, ".png");

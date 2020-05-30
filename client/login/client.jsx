@@ -176,26 +176,25 @@ const VideoList = function(props) {
         let char2Src;
         let assist1Src;
         let assist2Src;
+        let versionSrc;
 
         let charImg1;
         let charImg2;
         let assistImg1;
         let assistImg2;
-
+        let versionImg;
 
         char1Src = `/assets/img/Characters/${video.char1}.png`;
         char2Src = `/assets/img/Characters/${video.char2}.png`;
         assist1Src = `/assets/img/Assists/${video.assist1}.png`;
         assist2Src = `/assets/img/Assists/${video.assist2}.png`;
+        versionSrc = `/assets/img/Version/${video.version}.png`;
 
         charImg1 = <img id="char1Img" src={char1Src} alt={video.char1} />
         charImg2 = <img id="char2Img" src={char2Src} alt={video.char2} />
         assistImg1 = <img id="assist1Img" src={assist1Src} alt={video.assist1} />
         assistImg2 = <img id="assist2Img" src={assist2Src} alt={video.assist2} />
-
-        if(video.game === "UNICLR") {
-            img2 = <img id="char2Img" className='flip' src={char2Src} alt={video.char2} />
-        }
+        versionImg = <img id="versionImg" height= "50px" width="50px"src={versionSrc} alt={video.version} />
 
         
         return (

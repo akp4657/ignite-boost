@@ -35,7 +35,7 @@ const handleVideo = (e) => {
         }
     });
 
-    /*if($("#timeStamp").val() == '' || $("#playerOne").val() == '' || $("#playerTwo").val() == '' ||
+    if($("#timeStamp").val() == '' || $("#playerOne").val() == '' || $("#playerTwo").val() == '' ||
     $("#videoLink").val() == '') {
         handleError("ERROR | All fields are required");
         return false;
@@ -45,7 +45,7 @@ const handleVideo = (e) => {
     if(!$("#videoLink").val().includes('www.youtube.com')) {
         handleError("ERROR | Please use a valid YouTube link");
         return false;
-    }*/
+    }
 
 
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Quantifiers
@@ -124,8 +124,6 @@ const handleVideo = (e) => {
             videoObj._csrf = this.value;
         }
     });
-
-    console.log(videoObj);
     // Uncomment this to send data
     // Send the object! :diaYay:
     sendAjax('POST', $("#videoForm").attr("action"), videoObj, function() {
@@ -387,8 +385,6 @@ const VideoList = function(props) {
         let assistImg1;
         let assistImg2;
         let versionImg;
-
-        console.log(video);
 
 
         char1Src = `/assets/img/Characters/${video.char1}.png`;
