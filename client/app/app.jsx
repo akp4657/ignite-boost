@@ -35,7 +35,7 @@ const handleVideo = (e) => {
         }
     });
 
-    if($("#timeStamp").val() == '' || $("#playerOne").val() == '' || $("#playerTwo").val() == '' ||
+    /*if($("#timeStamp").val() == '' || $("#playerOne").val() == '' || $("#playerTwo").val() == '' ||
     $("#videoLink").val() == '') {
         handleError("ERROR | All fields are required");
         return false;
@@ -45,7 +45,7 @@ const handleVideo = (e) => {
     if(!$("#videoLink").val().includes('www.youtube.com')) {
         handleError("ERROR | Please use a valid YouTube link");
         return false;
-    }
+    }*/
 
 
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Quantifiers
@@ -56,7 +56,6 @@ const handleVideo = (e) => {
      /// Putting each input into its own object to send to the server 
      ///
      $('#videoForm').find('td > input').each(function(){
-
         if(modValue===0) {
 
             // Using regex to ensure the timestamp is correct
@@ -80,6 +79,7 @@ const handleVideo = (e) => {
             // Add characters as well
             // and iterate the videoKey and reset the modification values
             videoObj[videoKey].player2 = this.value;
+            videoObj[videoKey].version = $('#videoForm').find('#version').find(":selected").val();
             videoKey++;
             modValue=-1;
         }
@@ -95,25 +95,28 @@ const handleVideo = (e) => {
     $('#videoForm').find('select').each(function() {
         // One of the selections is for the game, we don't need that
         // Also, if the key is equal to zero, skip it.
-        if(videoKey>0) {
-            if(charModValue === 0) {
-
-                // In order to ensure the object exists, take it from 
-                // the loop number and go down what's already been created
-                // and add that property to the list
-                videoObj[loopNumber-videoKey].assist1 = this.value;
-            } else if(charModValue === 1) {
-                videoObj[loopNumber-videoKey].char1 = this.value;
-            } else if(charModValue === 2) {
-                videoObj[loopNumber-videoKey].char2 = this.value;
-            } else if(charModValue === 3) {
-                videoObj[loopNumber-videoKey].assist2 = this.value;
-                charModValue = -1;
-                videoKey--;
+        if(this.id != "version") {
+            if(videoKey>0) {
+                if(charModValue === 0) {
+    
+                    // In order to ensure the object exists, take it from 
+                    // the loop number and go down what's already been created
+                    // and add that property to the list
+                    videoObj[loopNumber-videoKey].assist1 = this.value;
+                } else if(charModValue === 1) {
+                    videoObj[loopNumber-videoKey].char1 = this.value;
+                } else if(charModValue === 2) {
+                    videoObj[loopNumber-videoKey].char2 = this.value;
+                } else if(charModValue === 3) {
+                    videoObj[loopNumber-videoKey].assist2 = this.value;
+                    charModValue = -1;
+                    videoKey--;
+                }
+                charModValue++;
             }
-            charModValue++;
         }
     })
+    
 
     // CSRF is associated with a user, so add a token to the overall object to send to the server
     $('#videoForm').find('input').each(function(){
@@ -122,7 +125,7 @@ const handleVideo = (e) => {
         }
     });
 
-
+    console.log(videoObj);
     // Uncomment this to send data
     // Send the object! :diaYay:
     sendAjax('POST', $("#videoForm").attr("action"), videoObj, function() {
@@ -306,6 +309,11 @@ const VideoForm = (props) => {
     >
         <div id ="static">
             <input id="videoLink" className='form-control' type="text" name="videoLink" placeholder="YouTube Link (https://www.youtube.com/watch?v=***********)"/>
+            <select className="form-control" id="version" placeholder="Version">
+                <option value="" disabled selected hidden>Version</option>
+                <option value="2">DFC:I</option>
+                <option value="1">DFC</option>
+            </select>
             <div className='table-responsive'>
                 <table id="videoFormTable" className="table table-sm table-dark">
                     {rows}
@@ -372,22 +380,28 @@ const VideoList = function(props) {
         let char2Src;
         let assist1Src;
         let assist2Src;
+        let versionSrc;
 
         let charImg1;
         let charImg2;
         let assistImg1;
         let assistImg2;
+        let versionImg;
+
+        console.log(video);
 
 
         char1Src = `/assets/img/Characters/${video.char1}.png`;
         char2Src = `/assets/img/Characters/${video.char2}.png`;
         assist1Src = `/assets/img/Assists/${video.assist1}.png`;
         assist2Src = `/assets/img/Assists/${video.assist2}.png`;
+        versionSrc = `/assets/img/Version/${video.version}.png`;
 
         charImg1 = <img id="char1Img" src={char1Src} alt={video.char1} />
         charImg2 = <img id="char2Img" src={char2Src} alt={video.char2} />
         assistImg1 = <img id="assist1Img" src={assist1Src} alt={video.assist1} />
         assistImg2 = <img id="assist2Img" src={assist2Src} alt={video.assist2} />
+        versionImg = <img id="versionImg" height= "50px" width="50px"src={versionSrc} alt={video.version} />
 
         
         return (
@@ -403,6 +417,7 @@ const VideoList = function(props) {
                         <td id ="name2">
                             <a href={video.link} className="icons-sm yt-ic" target="_blank"><i className="fab fa-youtube fa-2x"> </i></a>
                         </td>
+                        <td>{versionImg}</td>
                     </tr>
                 </tbody>
             

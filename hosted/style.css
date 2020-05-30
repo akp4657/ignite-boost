@@ -248,14 +248,14 @@ select:invalid {
 }
 
 
-#static > #Game {
-    margin-left: 15%;
+#static > #version {
+    margin-left: 5%;
     width: 15%;
 }
 
 #static > #videoLink {
-    width: 50%;
-    margin-left: 25%;
+    width: 40%;
+    margin-left: 20%;
 }
 
 #static > .btn {

@@ -59,6 +59,13 @@ const VideoSchema = new mongoose.Schema({
     trim: true,
   },
 
+  version: {
+    type: String,
+    required: true,
+    trim: true,
+    set: setName,
+  },
+
   owner: {
     type: mongoose.Schema.ObjectId,
     required: false,
@@ -78,6 +85,7 @@ VideoSchema.statics.toAPI = (doc) => ({
   char2: doc.char2,
   assist1: doc.assist1,
   assist2: doc.assist2,
+  version: doc.version,
   link: doc.link,
 });
 
@@ -87,15 +95,15 @@ VideoSchema.statics.findByOwner = (ownerId, callback) => {
     owner: convertId(ownerId),
   };
 
-  return VideoModel.find(search).select('player1 player2 char1 char2 assist1 assist2 link').lean().exec(callback);
+  return VideoModel.find(search).select('player1 player2 char1 char2 assist1 assist2 link version').lean().exec(callback);
 };
 
 // Returns all entries in the database
-VideoSchema.statics.findAll = (callback) => VideoModel.find().sort({ createdData: -1 }).select('player1 player2 char1 char2 assist1 assist2 link').lean()
+VideoSchema.statics.findAll = (callback) => VideoModel.find().sort({ createdData: -1 }).select('player1 player2 char1 char2 assist1 assist2 version link').lean()
   .exec(callback);
 
 // Will search for specified entries in the database based off the object in the search
-VideoSchema.statics.findSearch = (search, callback) => VideoModel.find(search).sort({ createdData: -1 }).select('player1 player2 char1 char2 assist1 assist2 link').lean()
+VideoSchema.statics.findSearch = (search, callback) => VideoModel.find(search).sort({ createdData: -1 }).select('player1 player2 char1 char2 assist1 assist2 version link').lean()
   .exec(callback);
 
 

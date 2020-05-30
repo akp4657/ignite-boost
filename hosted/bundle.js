@@ -32,19 +32,18 @@ var handleVideo = function handleVideo(e) {
       videoObj.videoLink = this.value;
     }
   });
-
-  if ($("#timeStamp").val() == '' || $("#playerOne").val() == '' || $("#playerTwo").val() == '' || $("#videoLink").val() == '') {
-    handleError("ERROR | All fields are required");
-    return false;
-  } // Check if the error uses the correct link *just copying the url
-
-
-  if (!$("#videoLink").val().includes('www.youtube.com')) {
-    handleError("ERROR | Please use a valid YouTube link");
-    return false;
-  } // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Quantifiers
+  /*if($("#timeStamp").val() == '' || $("#playerOne").val() == '' || $("#playerTwo").val() == '' ||
+  $("#videoLink").val() == '') {
+      handleError("ERROR | All fields are required");
+      return false;
+  }
+    // Check if the error uses the correct link *just copying the url
+  if(!$("#videoLink").val().includes('www.youtube.com')) {
+      handleError("ERROR | Please use a valid YouTube link");
+      return false;
+  }*/
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Quantifiers
   // https://www.w3schools.com/jsref/jsref_replace.asp
-
 
   var regex = /[0-9][0-9]:[0-9][0-9]:[0-9][0-9]/g; /// Putting each input into its own object to send to the server 
   ///
@@ -73,6 +72,7 @@ var handleVideo = function handleVideo(e) {
       // Add characters as well
       // and iterate the videoKey and reset the modification values
       videoObj[videoKey].player2 = this.value;
+      videoObj[videoKey].version = $('#videoForm').find('#version').find(":selected").val();
       videoKey++;
       modValue = -1;
     }
@@ -85,23 +85,25 @@ var handleVideo = function handleVideo(e) {
   $('#videoForm').find('select').each(function () {
     // One of the selections is for the game, we don't need that
     // Also, if the key is equal to zero, skip it.
-    if (videoKey > 0) {
-      if (charModValue === 0) {
-        // In order to ensure the object exists, take it from 
-        // the loop number and go down what's already been created
-        // and add that property to the list
-        videoObj[loopNumber - videoKey].assist1 = this.value;
-      } else if (charModValue === 1) {
-        videoObj[loopNumber - videoKey].char1 = this.value;
-      } else if (charModValue === 2) {
-        videoObj[loopNumber - videoKey].char2 = this.value;
-      } else if (charModValue === 3) {
-        videoObj[loopNumber - videoKey].assist2 = this.value;
-        charModValue = -1;
-        videoKey--;
-      }
+    if (this.id != "version") {
+      if (videoKey > 0) {
+        if (charModValue === 0) {
+          // In order to ensure the object exists, take it from 
+          // the loop number and go down what's already been created
+          // and add that property to the list
+          videoObj[loopNumber - videoKey].assist1 = this.value;
+        } else if (charModValue === 1) {
+          videoObj[loopNumber - videoKey].char1 = this.value;
+        } else if (charModValue === 2) {
+          videoObj[loopNumber - videoKey].char2 = this.value;
+        } else if (charModValue === 3) {
+          videoObj[loopNumber - videoKey].assist2 = this.value;
+          charModValue = -1;
+          videoKey--;
+        }
 
-      charModValue++;
+        charModValue++;
+      }
     }
   }); // CSRF is associated with a user, so add a token to the overall object to send to the server
 
@@ -109,7 +111,8 @@ var handleVideo = function handleVideo(e) {
     if (this.type === 'hidden') {
       videoObj._csrf = this.value;
     }
-  }); // Uncomment this to send data
+  });
+  console.log(videoObj); // Uncomment this to send data
   // Send the object! :diaYay:
 
   sendAjax('POST', $("#videoForm").attr("action"), videoObj, function () {
@@ -293,7 +296,20 @@ var VideoForm = function VideoForm(props) {
     type: "text",
     name: "videoLink",
     placeholder: "YouTube Link (https://www.youtube.com/watch?v=***********)"
-  }), /*#__PURE__*/React.createElement("div", {
+  }), /*#__PURE__*/React.createElement("select", {
+    className: "form-control",
+    id: "version",
+    placeholder: "Version"
+  }, /*#__PURE__*/React.createElement("option", {
+    value: "",
+    disabled: true,
+    selected: true,
+    hidden: true
+  }, "Version"), /*#__PURE__*/React.createElement("option", {
+    value: "2"
+  }, "DFC:I"), /*#__PURE__*/React.createElement("option", {
+    value: "1"
+  }, "DFC")), /*#__PURE__*/React.createElement("div", {
     className: "table-responsive"
   }, /*#__PURE__*/React.createElement("table", {
     id: "videoFormTable",
@@ -382,14 +398,18 @@ var VideoList = function VideoList(props) {
     var char2Src;
     var assist1Src;
     var assist2Src;
+    var versionSrc;
     var charImg1;
     var charImg2;
     var assistImg1;
     var assistImg2;
+    var versionImg;
+    console.log(video);
     char1Src = "/assets/img/Characters/".concat(video.char1, ".png");
     char2Src = "/assets/img/Characters/".concat(video.char2, ".png");
     assist1Src = "/assets/img/Assists/".concat(video.assist1, ".png");
     assist2Src = "/assets/img/Assists/".concat(video.assist2, ".png");
+    versionSrc = "/assets/img/Version/".concat(video.version, ".png");
     charImg1 = /*#__PURE__*/React.createElement("img", {
       id: "char1Img",
       src: char1Src,
@@ -410,6 +430,13 @@ var VideoList = function VideoList(props) {
       src: assist2Src,
       alt: video.assist2
     });
+    versionImg = /*#__PURE__*/React.createElement("img", {
+      id: "versionImg",
+      height: "50px",
+      width: "50px",
+      src: versionSrc,
+      alt: video.version
+    });
     return /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", {
       id: "name"
     }, video.player1), /*#__PURE__*/React.createElement("td", null, assistImg1), /*#__PURE__*/React.createElement("td", null, charImg1), /*#__PURE__*/React.createElement("td", null, "vs"), /*#__PURE__*/React.createElement("td", null, charImg2), /*#__PURE__*/React.createElement("td", null, assistImg2), /*#__PURE__*/React.createElement("td", null, video.player2), /*#__PURE__*/React.createElement("td", {
@@ -420,7 +447,7 @@ var VideoList = function VideoList(props) {
       target: "_blank"
     }, /*#__PURE__*/React.createElement("i", {
       className: "fab fa-youtube fa-2x"
-    }, " ")))));
+    }, " "))), /*#__PURE__*/React.createElement("td", null, versionImg)));
   }); //console.log(videoNodes.length);
 
   for (videoIndex; videoIndex < videoMax; videoIndex++) {

@@ -35,9 +35,11 @@ const makeVideo = (req, res) => {
       assist1: values[i].assist1,
       assist2: values[i].assist2,
       link: values[i].link,
+      version: values[i].version,
       owner: req.session.account._id,
     };
 
+    console.log(videoData);
     const newVideo = new Video.VideoModel(videoData);
     const videoPromise = newVideo.save();
 
