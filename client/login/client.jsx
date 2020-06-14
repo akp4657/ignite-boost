@@ -75,6 +75,9 @@ const handleSearch = (e) => {
     $("#assist2Search").find(":selected").text() !== 'Anyone'){
         queryString += `&assist2=${$("#assist2Search").find(":selected").text()}`
     }
+    if($("#gameSec").val() && $("#gameSec").val() != 'Any'){
+        queryString += `&version=${$("#gameSec").val()}`
+    }
 
     sendAjax('GET', queryString , null, (data) =>{
 
@@ -92,6 +95,11 @@ const SearchForm = () => {
     let char2Selection = char2Search;
     let assist1Selection = assist1Search;
     let assist2Selection = assist2Search;
+
+    const gameSelection = <select id = "gameSec" className = 'form-control'>
+    <option value="" disabled selected hidden>Version</option><option value="Any">Any</option>
+    <option value="2">DFC:I</option><option value="1">DFC</option>
+    </select>;
 
     return(
         <form
@@ -113,6 +121,7 @@ const SearchForm = () => {
                         <td>{char2Selection}</td>
                         <td>{assist2Selection}</td>
                         <td><input className="form-control" id="player2Search" type="text" name="player2" placeholder="Player 2"/></td>
+                        <td>{gameSelection}</td>
                     </tr>
                 </tbody>
             </table>

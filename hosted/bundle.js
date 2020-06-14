@@ -196,6 +196,10 @@ var handleSearch = function handleSearch(e) {
     queryString += "&assist2=".concat($("#assist2Search").find(":selected").text());
   }
 
+  if ($("#gameSec").val() && $("#gameSec").val() != 'Any') {
+    queryString += "&version=".concat($("#gameSec").val());
+  }
+
   sendAjax('GET', queryString, null, function (data) {
     ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
       videos: data.videos
@@ -220,6 +224,21 @@ var SearchForm = function SearchForm() {
   var char2Selection = char2Search;
   var assist1Selection = assist1Search;
   var assist2Selection = assist2Search;
+  var gameSelection = /*#__PURE__*/React.createElement("select", {
+    id: "gameSec",
+    className: "form-control"
+  }, /*#__PURE__*/React.createElement("option", {
+    value: "",
+    disabled: true,
+    selected: true,
+    hidden: true
+  }, "Version"), /*#__PURE__*/React.createElement("option", {
+    value: "Any"
+  }, "Any"), /*#__PURE__*/React.createElement("option", {
+    value: "2"
+  }, "DFC:I"), /*#__PURE__*/React.createElement("option", {
+    value: "1"
+  }, "DFC"));
   return /*#__PURE__*/React.createElement("form", {
     id: "searchForm",
     onChange: handleSearch,
@@ -245,7 +264,7 @@ var SearchForm = function SearchForm() {
     type: "text",
     name: "player2",
     placeholder: "Player 2"
-  }))))));
+  })), /*#__PURE__*/React.createElement("td", null, gameSelection)))));
 }; /// FORM TO SUBMIT NEW DATA
 
 

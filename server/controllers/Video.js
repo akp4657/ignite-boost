@@ -111,7 +111,7 @@ const searchVideos = (request, response) => {
 
   // check if the params exist
   const {
-    player1, player2, char1, char2, assist1, assist2,
+    player1, player2, char1, char2, assist1, assist2, version
   } = req.query;
   let i = 0; // keeps track of position in params.$and array
 
@@ -163,6 +163,11 @@ const searchVideos = (request, response) => {
   // If both assists are called
   if (assist1 && assist2) {
     params.$and[i] = { $or: [{ assist2: `${assist2}`}, { assist1: `${assist1}` }, { assist2: `${assist1}`}, { assist1: `${assist2}` }] };
+    i++;
+  }
+
+  if (version) {
+    params.$and[i] = { $or: [{version: `${version}`}]};
     i++;
   }
 

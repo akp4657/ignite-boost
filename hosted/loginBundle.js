@@ -72,6 +72,10 @@ var handleSearch = function handleSearch(e) {
     queryString += "&assist2=".concat($("#assist2Search").find(":selected").text());
   }
 
+  if ($("#gameSec").val() && $("#gameSec").val() != 'Any') {
+    queryString += "&version=".concat($("#gameSec").val());
+  }
+
   sendAjax('GET', queryString, null, function (data) {
     ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
       videos: data.videos
@@ -86,6 +90,21 @@ var SearchForm = function SearchForm() {
   var char2Selection = char2Search;
   var assist1Selection = assist1Search;
   var assist2Selection = assist2Search;
+  var gameSelection = /*#__PURE__*/React.createElement("select", {
+    id: "gameSec",
+    className: "form-control"
+  }, /*#__PURE__*/React.createElement("option", {
+    value: "",
+    disabled: true,
+    selected: true,
+    hidden: true
+  }, "Version"), /*#__PURE__*/React.createElement("option", {
+    value: "Any"
+  }, "Any"), /*#__PURE__*/React.createElement("option", {
+    value: "2"
+  }, "DFC:I"), /*#__PURE__*/React.createElement("option", {
+    value: "1"
+  }, "DFC"));
   return /*#__PURE__*/React.createElement("form", {
     id: "searchForm",
     onChange: handleSearch,
@@ -111,7 +130,7 @@ var SearchForm = function SearchForm() {
     type: "text",
     name: "player2",
     placeholder: "Player 2"
-  }))))));
+  })), /*#__PURE__*/React.createElement("td", null, gameSelection)))));
 }; // Render our login window
 
 
@@ -195,14 +214,17 @@ var VideoList = function VideoList(props) {
     var char2Src;
     var assist1Src;
     var assist2Src;
+    var versionSrc;
     var charImg1;
     var charImg2;
     var assistImg1;
     var assistImg2;
+    var versionImg;
     char1Src = "/assets/img/Characters/".concat(video.char1, ".png");
     char2Src = "/assets/img/Characters/".concat(video.char2, ".png");
     assist1Src = "/assets/img/Assists/".concat(video.assist1, ".png");
     assist2Src = "/assets/img/Assists/".concat(video.assist2, ".png");
+    versionSrc = "/assets/img/Version/".concat(video.version, ".png");
     charImg1 = /*#__PURE__*/React.createElement("img", {
       id: "char1Img",
       src: char1Src,
@@ -223,23 +245,20 @@ var VideoList = function VideoList(props) {
       src: assist2Src,
       alt: video.assist2
     });
-
-    if (video.game === "UNICLR") {
-      img2 = /*#__PURE__*/React.createElement("img", {
-        id: "char2Img",
-        className: "flip",
-        src: char2Src,
-        alt: video.char2
-      });
-    }
-
+    versionImg = /*#__PURE__*/React.createElement("img", {
+      id: "versionImg",
+      height: "50px",
+      width: "50px",
+      src: versionSrc,
+      alt: video.version
+    });
     return /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, video.player1), /*#__PURE__*/React.createElement("td", null, assistImg1), /*#__PURE__*/React.createElement("td", null, charImg1), /*#__PURE__*/React.createElement("td", null, "vs"), /*#__PURE__*/React.createElement("td", null, charImg2), /*#__PURE__*/React.createElement("td", null, assistImg2), /*#__PURE__*/React.createElement("td", null, video.player2), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("a", {
       href: video.link,
       className: "icons-sm yt-ic",
       target: "_blank"
     }, /*#__PURE__*/React.createElement("i", {
       className: "fab fa-youtube fa-2x"
-    }, " ")))));
+    }, " "))), /*#__PURE__*/React.createElement("td", null, versionImg)));
   }); //console.log(videoNodes.length);
 
   for (videoIndex; videoIndex < videoMax; videoIndex++) {

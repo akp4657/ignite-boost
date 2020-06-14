@@ -146,10 +146,10 @@ body {
     width: 15%;
     position: absolute;
     margin: 0 auto; 
-    margin-left: 80%;
+    margin-left: 2%;
     z-index: 1;
     text-align: center;
-    margin-top: 5%;
+    margin-top: 10%
 }
 
 .fa-youtube {
