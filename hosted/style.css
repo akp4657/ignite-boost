@@ -347,5 +347,16 @@ button.delete {
       #searchFormTable {
           margin-top: 20%;
       }
+
+      .alert {
+        width: 50%;
+        height: 125px;
+        position: absolute;
+        margin: 0 auto; 
+        margin-left: 25%;
+        z-index: 1;
+        text-align: center;
+        margin-top: 130%;
+    }
   }
 
