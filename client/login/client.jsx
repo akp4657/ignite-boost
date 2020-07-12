@@ -273,13 +273,13 @@ const loadAllVideosFromServer = () => {
         videoMax = 300; 
         const next = document.querySelector("#nextButton");
             next.addEventListener("click", (e) => {
-            videoMax += 100;
             console.log(pagedVideos[videoMax-2]);
-                if(pagedVideos[videoMax-2] === undefined) {
+                if(pagedVideos[videoMax-1] === undefined) {
                     handleError("ERROR | No more videos!");
                     videoMax -= 100;
                     return;
                 }
+            videoMax += 100;
             ReactDOM.render(
                 <VideoList videos={data.videos} />, document.querySelector("#content")
             );
@@ -324,12 +324,12 @@ const createSearchForm = () => {
                 next.style.display = "block";
                 videoMax = 300;
                 next.addEventListener("click", (e) => {
-                    videoMax += 100;
-                    if(pagedVideos[videoMax-2] === undefined) {
+                    if(pagedVideos[videoMax-1] === undefined) {
                         handleError("ERROR | No more videos!");
                         videoMax -= 100;
                         return;
                     }
+                    videoMax += 100;
                 sendAjax('GET', queryString , null, (data) =>{
 
                     ReactDOM.render(
