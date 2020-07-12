@@ -221,15 +221,6 @@ const handleSearch = (e) => {
         ReactDOM.render(
             <VideoList videos={data.videos} />, document.querySelector("#content")
         );
-        const next = document.querySelector("#nextButton");
-            next.addEventListener("click", (e) => {
-                if(pagedVideos[videoMax-1] === undefined) {
-                    handleError("ERROR | No more videos!");
-                }
-                ReactDOM.render(
-                    <VideoList videos={data.videos} />, document.querySelector("#content")
-                );
-        });
     });
 };
 
@@ -446,7 +437,8 @@ const VideoList = function(props) {
                 {pagedVideos}
                 </table>
             </div>
-            <button id="nextButton" className="formSubmit btn secondBtn"type="button">Next 100</button>
+            <button id="nextButton" className="formSubmit btn secondBtn"type="button">View More</button>
+            <button id="nextButtonSearch" className="formSubmit btn secondBtn"type="button">View More</button>
             
         </div>
     );
@@ -472,9 +464,18 @@ const loadAllVideosFromServer = () => {
         ReactDOM.render(
             <VideoList videos={data.videos} />, document.querySelector("#content")
         );
+        document.querySelector("#nextButton").style.display = "block";
+        document.querySelector("#nextButtonSearch").style.display = "none";
+        videoMax = 300; 
         const next = document.querySelector("#nextButton");
             next.addEventListener("click", (e) => {
             videoMax += 100;
+            console.log(pagedVideos);
+                if(pagedVideos[videoMax-2] === undefined) {
+                    handleError("ERROR | No more videos!");
+                    videoMax -= 100;
+                    return;
+                }
             ReactDOM.render(
                 <VideoList videos={data.videos} />, document.querySelector("#content")
             );
@@ -539,6 +540,31 @@ const createSearchForm = () => {
             <SearchForm />,
             document.querySelector("#search")
         );
+        document.querySelector("#nextButton").style.display = "none";
+        if(queryString != '')
+        {
+                const next = document.querySelector("#nextButtonSearch");
+                next.style.display = "block";
+                videoMax = 300;
+                next.addEventListener("click", (e) => {
+                    videoMax += 100;
+                    if(pagedVideos[videoMax-2] === undefined) {
+                        handleError("ERROR | No more videos!");
+                        videoMax -= 100;
+                        return;
+                    }
+                sendAjax('GET', queryString , null, (data) =>{
+
+                    ReactDOM.render(
+                        <VideoList videos={data.videos} />, document.querySelector("#content")
+                    );
+                });
+            });
+        }
+        else {
+            const next = document.querySelector("#nextButtonSearch");
+            next.style.display = "none";
+        }
     });
 }
 

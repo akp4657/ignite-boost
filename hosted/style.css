@@ -20,6 +20,14 @@ body {
     border-radius: 8px;
 }
 
+#nextButton {
+    position: relative;
+}
+
+#nextButtonSearch { 
+    position: relative;
+    color: red;
+}
 .example6 .navbar-brand>img {
     margin-top: -13%;
   }

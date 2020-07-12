@@ -1,5 +1,7 @@
 let videoIndex = 0;
-let videoMax = 200;
+let videoMax = 300;
+let queryString;
+let pagedVideos;
 
 // Sending request to handle login
 const handleLogin = (e) => {
@@ -50,7 +52,7 @@ const handleReset = (e) => {
 const handleSearch = (e) => {
     e.preventDefault();
 
-    let queryString = `${$('#searchForm').attr('action')}?`;
+    queryString = `${$('#searchForm').attr('action')}?`;
 
     // Check each search field to see if anything is in them. If there is data in them, add it to the querystring
     if($("#player1Search").val()){
@@ -170,7 +172,7 @@ const SignupWindow = (props) => {
 //#region Home Video Code
 const VideoList = function(props) {
 
-    let pagedVideos = [];
+    pagedVideos = [];
 
     if(props.videos.length === 0) {
         return (
@@ -244,7 +246,8 @@ const VideoList = function(props) {
                     {pagedVideos}
                 </table>
             </div>
-            <button id="nextButton" className="formSubmit btn secondBtn"type="button">Next 100</button>
+            <button id="nextButton" className="formSubmit btn secondBtn"type="button">View More</button>
+            <button id="nextButtonSearch" className="formSubmit btn secondBtn"type="button">View More</button>
         </div>
     );
 };
@@ -265,9 +268,18 @@ const loadAllVideosFromServer = () => {
         ReactDOM.render(
             <VideoList videos={data.videos} />, document.querySelector("#content")
         );
+        document.querySelector("#nextButton").style.display = "block";
+        document.querySelector("#nextButtonSearch").style.display = "none";
+        videoMax = 300; 
         const next = document.querySelector("#nextButton");
             next.addEventListener("click", (e) => {
             videoMax += 100;
+            console.log(pagedVideos);
+                if(pagedVideos[videoMax-2] === undefined) {
+                    handleError("ERROR | No more videos!");
+                    videoMax -= 100;
+                    return;
+                }
             ReactDOM.render(
                 <VideoList videos={data.videos} />, document.querySelector("#content")
             );
@@ -305,6 +317,31 @@ const createSearchForm = () => {
             <SearchForm />,
             document.querySelector("#search")
         );
+        document.querySelector("#nextButton").style.display = "none";
+        if(queryString != '')
+        {
+                const next = document.querySelector("#nextButtonSearch");
+                next.style.display = "block";
+                videoMax = 300;
+                next.addEventListener("click", (e) => {
+                    videoMax += 100;
+                    if(pagedVideos[videoMax-2] === undefined) {
+                        handleError("ERROR | No more videos!");
+                        videoMax -= 100;
+                        return;
+                    }
+                sendAjax('GET', queryString , null, (data) =>{
+
+                    ReactDOM.render(
+                        <VideoList videos={data.videos} />, document.querySelector("#content")
+                    );
+                });
+            });
+        }
+        else {
+            const next = document.querySelector("#nextButtonSearch");
+            next.style.display = "none";
+        }
     });
 }
 

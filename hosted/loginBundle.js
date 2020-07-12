@@ -1,7 +1,9 @@
 "use strict";
 
 var videoIndex = 0;
-var videoMax = 200; // Sending request to handle login
+var videoMax = 300;
+var queryString;
+var pagedVideos; // Sending request to handle login
 
 var handleLogin = function handleLogin(e) {
   e.preventDefault();
@@ -46,7 +48,7 @@ var handleReset = function handleReset(e) {
 
 var handleSearch = function handleSearch(e) {
   e.preventDefault();
-  var queryString = "".concat($('#searchForm').attr('action'), "?"); // Check each search field to see if anything is in them. If there is data in them, add it to the querystring
+  queryString = "".concat($('#searchForm').attr('action'), "?"); // Check each search field to see if anything is in them. If there is data in them, add it to the querystring
 
   if ($("#player1Search").val()) {
     queryString += "player1=".concat($("#player1Search").val());
@@ -199,7 +201,7 @@ var SignupWindow = function SignupWindow(props) {
 
 
 var VideoList = function VideoList(props) {
-  var pagedVideos = [];
+  pagedVideos = [];
 
   if (props.videos.length === 0) {
     return /*#__PURE__*/React.createElement("div", {
@@ -280,7 +282,11 @@ var VideoList = function VideoList(props) {
     id: "nextButton",
     className: "formSubmit btn secondBtn",
     type: "button"
-  }, "Next 100"));
+  }, "View More"), /*#__PURE__*/React.createElement("button", {
+    id: "nextButtonSearch",
+    className: "formSubmit btn secondBtn",
+    type: "button"
+  }, "View More"));
 };
 
 var Load = function Load() {
@@ -299,9 +305,20 @@ var loadAllVideosFromServer = function loadAllVideosFromServer() {
     ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
       videos: data.videos
     }), document.querySelector("#content"));
+    document.querySelector("#nextButton").style.display = "block";
+    document.querySelector("#nextButtonSearch").style.display = "none";
+    videoMax = 300;
     var next = document.querySelector("#nextButton");
     next.addEventListener("click", function (e) {
       videoMax += 100;
+      console.log(pagedVideos);
+
+      if (pagedVideos[videoMax - 2] === undefined) {
+        handleError("ERROR | No more videos!");
+        videoMax -= 100;
+        return;
+      }
+
       ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
         videos: data.videos
       }), document.querySelector("#content"));
@@ -329,6 +346,32 @@ var createSearchForm = function createSearchForm() {
 
   $('#searchForm').find('select').on('change', function () {
     ReactDOM.render( /*#__PURE__*/React.createElement(SearchForm, null), document.querySelector("#search"));
+    document.querySelector("#nextButton").style.display = "none";
+
+    if (queryString != '') {
+      var next = document.querySelector("#nextButtonSearch");
+      next.style.display = "block";
+      videoMax = 300;
+      next.addEventListener("click", function (e) {
+        videoMax += 100;
+
+        if (pagedVideos[videoMax - 2] === undefined) {
+          handleError("ERROR | No more videos!");
+          videoMax -= 100;
+          return;
+        }
+
+        sendAjax('GET', queryString, null, function (data) {
+          ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
+            videos: data.videos
+          }), document.querySelector("#content"));
+        });
+      });
+    } else {
+      var _next = document.querySelector("#nextButtonSearch");
+
+      _next.style.display = "none";
+    }
   });
 };
 
