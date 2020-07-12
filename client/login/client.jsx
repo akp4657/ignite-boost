@@ -274,7 +274,7 @@ const loadAllVideosFromServer = () => {
         const next = document.querySelector("#nextButton");
             next.addEventListener("click", (e) => {
             videoMax += 100;
-            console.log(pagedVideos);
+            console.log(pagedVideos[videoMax-2]);
                 if(pagedVideos[videoMax-2] === undefined) {
                     handleError("ERROR | No more videos!");
                     videoMax -= 100;
