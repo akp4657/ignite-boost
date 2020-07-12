@@ -276,7 +276,6 @@ const loadAllVideosFromServer = () => {
             console.log(pagedVideos[videoMax-2]);
                 if(pagedVideos[videoMax-1] === undefined) {
                     handleError("ERROR | No more videos!");
-                    videoMax -= 100;
                     return;
                 }
             videoMax += 100;
@@ -326,7 +325,6 @@ const createSearchForm = () => {
                 next.addEventListener("click", (e) => {
                     if(pagedVideos[videoMax-1] === undefined) {
                         handleError("ERROR | No more videos!");
-                        videoMax -= 100;
                         return;
                     }
                     videoMax += 100;

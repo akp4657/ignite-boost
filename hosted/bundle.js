@@ -509,15 +509,14 @@ var loadAllVideosFromServer = function loadAllVideosFromServer() {
     videoMax = 300;
     var next = document.querySelector("#nextButton");
     next.addEventListener("click", function (e) {
-      videoMax += 100;
       console.log(pagedVideos);
 
       if (pagedVideos[videoMax - 2] === undefined) {
         handleError("ERROR | No more videos!");
-        videoMax -= 100;
         return;
       }
 
+      videoMax += 100;
       ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
         videos: data.videos
       }), document.querySelector("#content"));
@@ -574,14 +573,12 @@ var createSearchForm = function createSearchForm() {
       next.style.display = "block";
       videoMax = 300;
       next.addEventListener("click", function (e) {
-        videoMax += 100;
-
         if (pagedVideos[videoMax - 2] === undefined) {
           handleError("ERROR | No more videos!");
-          videoMax -= 100;
           return;
         }
 
+        videoMax += 100;
         sendAjax('GET', queryString, null, function (data) {
           ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
             videos: data.videos

@@ -314,7 +314,6 @@ var loadAllVideosFromServer = function loadAllVideosFromServer() {
 
       if (pagedVideos[videoMax - 1] === undefined) {
         handleError("ERROR | No more videos!");
-        videoMax -= 100;
         return;
       }
 
@@ -355,7 +354,6 @@ var createSearchForm = function createSearchForm() {
       next.addEventListener("click", function (e) {
         if (pagedVideos[videoMax - 1] === undefined) {
           handleError("ERROR | No more videos!");
-          videoMax -= 100;
           return;
         }
 
