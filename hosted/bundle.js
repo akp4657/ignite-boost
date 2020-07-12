@@ -11,6 +11,7 @@ var loopNumber = 1;
 var videoKey = 0;
 var videoIndex = 0;
 var videoMax = 300;
+var queryString;
 var pagedVideos = []; // ADDING A VIDEO
 
 var handleVideo = function handleVideo(e) {
@@ -170,7 +171,7 @@ var handleReset = function handleReset(e) {
 
 var handleSearch = function handleSearch(e) {
   e.preventDefault();
-  var queryString = "".concat($('#searchForm').attr('action'), "?"); // Check each search field to see if anything is in them. If there is data in them, add it to the querystring
+  queryString = "".concat($('#searchForm').attr('action'), "?"); // Check each search field to see if anything is in them. If there is data in them, add it to the querystring
 
   if ($("#player1Search").val()) {
     queryString += "player1=".concat($("#player1Search").val());

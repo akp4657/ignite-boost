@@ -7,9 +7,8 @@ let loopNumber = 1;
 let videoKey = 0;
 let videoIndex = 0;
 let videoMax = 300;
+let queryString;
 let pagedVideos = [];
-
-
 
 // ADDING A VIDEO
 const handleVideo = (e) => {
@@ -187,7 +186,7 @@ const handleReset = (e) => {
 const handleSearch = (e) => {
     e.preventDefault();
 
-    let queryString = `${$('#searchForm').attr('action')}?`;
+    queryString = `${$('#searchForm').attr('action')}?`;
     
     // Check each search field to see if anything is in them. If there is data in them, add it to the querystring
     if($("#player1Search").val()){
