@@ -1,7 +1,7 @@
 "use strict";
 
 var videoIndex = 0;
-var videoMax = 750;
+var videoMax = 500;
 var queryString;
 var pagedVideos; // Sending request to handle login
 

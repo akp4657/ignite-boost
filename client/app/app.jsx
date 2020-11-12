@@ -6,7 +6,7 @@ let pageList = false;
 let loopNumber = 1;
 let videoKey = 0;
 let videoIndex = 0;
-let videoMax = 750;
+let videoMax = 500;
 let queryString;
 let pagedVideos = [];
 

@@ -1,5 +1,5 @@
 let videoIndex = 0;
-let videoMax = 750;
+let videoMax = 500;
 let queryString;
 let pagedVideos;
 

@@ -10,7 +10,7 @@ var pageList = false;
 var loopNumber = 1;
 var videoKey = 0;
 var videoIndex = 0;
-var videoMax = 750;
+var videoMax = 500;
 var queryString;
 var pagedVideos = []; // ADDING A VIDEO
 
