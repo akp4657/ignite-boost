@@ -1,5 +1,5 @@
 let videoIndex = 0;
-let videoMax = 300;
+let videoMax = 750;
 let queryString;
 let pagedVideos;
 
@@ -247,7 +247,6 @@ const VideoList = function(props) {
                 </table>
             </div>
             <button id="nextButton" className="formSubmit btn secondBtn"type="button">View More</button>
-            <button id="nextButtonSearch" className="formSubmit btn secondBtn"type="button">View More</button>
         </div>
     );
 };
@@ -277,9 +276,8 @@ const loadAllVideosFromServer = () => {
         ReactDOM.render(
             <VideoList videos={data.videos} />, document.querySelector("#content")
         );
-        document.querySelector("#nextButton").style.display = "block";
-        document.querySelector("#nextButtonSearch").style.display = "none";
-        videoMax = 300; 
+        document.querySelector("#nextButton").style.display = "none";
+        /*videoMax = 3; 
         const next = document.querySelector("#nextButton");
             next.addEventListener("click", (e) => {
             console.log(pagedVideos[videoMax-2]);
@@ -287,11 +285,11 @@ const loadAllVideosFromServer = () => {
                     handleError("ERROR | No more videos!");
                     return;
                 }
-            videoMax += 100;
+            videoMax += 1;
             ReactDOM.render(
                 <VideoList videos={data.videos} />, document.querySelector("#content")
             );
-        });
+        });*/
     });
 };
 //#endregion
@@ -325,18 +323,18 @@ const createSearchForm = () => {
             <SearchForm />,
             document.querySelector("#search")
         );
-        document.querySelector("#nextButton").style.display = "none";
         if(queryString != '')
         {
-                const next = document.querySelector("#nextButtonSearch");
-                next.style.display = "block";
-                videoMax = 300;
+                const next = document.querySelector("#nextButton");
+                next.style.display = 'block'
+                videoMax = 750;
                 next.addEventListener("click", (e) => {
+                    console.log(pagedVideos[0])
                     if(pagedVideos[videoMax-1] === undefined) {
                         handleError("ERROR | No more videos!");
                         return;
                     }
-                    videoMax += 100;
+                    videoMax += 250;
                 sendAjax('GET', queryString , null, (data) =>{
 
                     ReactDOM.render(
@@ -344,10 +342,6 @@ const createSearchForm = () => {
                     );
                 });
             });
-        }
-        else {
-            const next = document.querySelector("#nextButtonSearch");
-            next.style.display = "none";
         }
     });
 }

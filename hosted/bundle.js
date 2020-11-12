@@ -10,7 +10,7 @@ var pageList = false;
 var loopNumber = 1;
 var videoKey = 0;
 var videoIndex = 0;
-var videoMax = 300;
+var videoMax = 750;
 var queryString;
 var pagedVideos = []; // ADDING A VIDEO
 
@@ -514,23 +514,21 @@ var loadAllVideosFromServer = function loadAllVideosFromServer() {
     ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
       videos: data.videos
     }), document.querySelector("#content"));
-    document.querySelector("#nextButton").style.display = "block";
-    document.querySelector("#nextButtonSearch").style.display = "none";
-    videoMax = 300;
-    var next = document.querySelector("#nextButton");
-    next.addEventListener("click", function (e) {
-      console.log(pagedVideos);
-
-      if (pagedVideos[videoMax - 2] === undefined) {
-        handleError("ERROR | No more videos!");
-        return;
-      }
-
-      videoMax += 100;
-      ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
-        videos: data.videos
-      }), document.querySelector("#content"));
-    });
+    document.querySelector("#nextButton").style.display = "none";
+    /*document.querySelector("#nextButtonSearch").style.display = "none";
+    videoMax = 300; 
+    const next = document.querySelector("#nextButton");
+        next.addEventListener("click", (e) => {
+        console.log(pagedVideos);
+            if(pagedVideos[videoMax-2] === undefined) {
+                handleError("ERROR | No more videos!");
+                return;
+            }
+        videoMax += 100;
+        ReactDOM.render(
+            <VideoList videos={data.videos} />, document.querySelector("#content")
+        );
+    });*/
   });
 };
 
@@ -579,26 +577,24 @@ var createSearchForm = function createSearchForm() {
     document.querySelector("#nextButton").style.display = "none";
 
     if (queryString != '') {
-      var next = document.querySelector("#nextButtonSearch");
-      next.style.display = "block";
-      videoMax = 300;
+      var next = document.querySelector("#nextButton");
+      next.style.display = 'block';
+      videoMax = 750;
       next.addEventListener("click", function (e) {
-        if (pagedVideos[videoMax - 2] === undefined) {
+        console.log(pagedVideos[0]);
+
+        if (pagedVideos[videoMax - 1] === undefined) {
           handleError("ERROR | No more videos!");
           return;
         }
 
-        videoMax += 100;
+        videoMax += 250;
         sendAjax('GET', queryString, null, function (data) {
           ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
             videos: data.videos
           }), document.querySelector("#content"));
         });
       });
-    } else {
-      var _next = document.querySelector("#nextButtonSearch");
-
-      _next.style.display = "none";
     }
   });
 };

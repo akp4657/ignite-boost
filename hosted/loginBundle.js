@@ -1,7 +1,7 @@
 "use strict";
 
 var videoIndex = 0;
-var videoMax = 300;
+var videoMax = 750;
 var queryString;
 var pagedVideos; // Sending request to handle login
 
@@ -282,10 +282,6 @@ var VideoList = function VideoList(props) {
     id: "nextButton",
     className: "formSubmit btn secondBtn",
     type: "button"
-  }, "View More"), /*#__PURE__*/React.createElement("button", {
-    id: "nextButtonSearch",
-    className: "formSubmit btn secondBtn",
-    type: "button"
   }, "View More"));
 };
 
@@ -314,23 +310,20 @@ var loadAllVideosFromServer = function loadAllVideosFromServer() {
     ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
       videos: data.videos
     }), document.querySelector("#content"));
-    document.querySelector("#nextButton").style.display = "block";
-    document.querySelector("#nextButtonSearch").style.display = "none";
-    videoMax = 300;
-    var next = document.querySelector("#nextButton");
-    next.addEventListener("click", function (e) {
-      console.log(pagedVideos[videoMax - 2]);
-
-      if (pagedVideos[videoMax - 1] === undefined) {
-        handleError("ERROR | No more videos!");
-        return;
-      }
-
-      videoMax += 100;
-      ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
-        videos: data.videos
-      }), document.querySelector("#content"));
-    });
+    document.querySelector("#nextButton").style.display = "none";
+    /*videoMax = 3; 
+    const next = document.querySelector("#nextButton");
+        next.addEventListener("click", (e) => {
+        console.log(pagedVideos[videoMax-2]);
+            if(pagedVideos[videoMax-1] === undefined) {
+                handleError("ERROR | No more videos!");
+                return;
+            }
+        videoMax += 1;
+        ReactDOM.render(
+            <VideoList videos={data.videos} />, document.querySelector("#content")
+        );
+    });*/
   });
 }; //#endregion
 
@@ -354,29 +347,26 @@ var createSearchForm = function createSearchForm() {
 
   $('#searchForm').find('select').on('change', function () {
     ReactDOM.render( /*#__PURE__*/React.createElement(SearchForm, null), document.querySelector("#search"));
-    document.querySelector("#nextButton").style.display = "none";
 
     if (queryString != '') {
-      var next = document.querySelector("#nextButtonSearch");
-      next.style.display = "block";
-      videoMax = 300;
+      var next = document.querySelector("#nextButton");
+      next.style.display = 'block';
+      videoMax = 750;
       next.addEventListener("click", function (e) {
+        console.log(pagedVideos[0]);
+
         if (pagedVideos[videoMax - 1] === undefined) {
           handleError("ERROR | No more videos!");
           return;
         }
 
-        videoMax += 100;
+        videoMax += 250;
         sendAjax('GET', queryString, null, function (data) {
           ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
             videos: data.videos
           }), document.querySelector("#content"));
         });
       });
-    } else {
-      var _next = document.querySelector("#nextButtonSearch");
-
-      _next.style.display = "none";
     }
   });
 };
