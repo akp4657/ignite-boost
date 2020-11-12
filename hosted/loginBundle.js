@@ -295,6 +295,15 @@ var Load = function Load() {
   }, /*#__PURE__*/React.createElement("h3", {
     className: "emptyVideo"
   }, "Loading videos from the database..."));
+};
+
+var SiteDown = function SiteDown() {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "videoList"
+  }, /*#__PURE__*/React.createElement("h1", null, "Site Down..."), /*#__PURE__*/React.createElement("img", {
+    id: "iriyaDownImg",
+    src: "/assets/img/iriyaDown.JPG"
+  }));
 }; ///
 /// Functions to render our data on the page depending on what we need ///
 ///
@@ -376,30 +385,35 @@ var createLoad = function createLoad() {
   ReactDOM.render( /*#__PURE__*/React.createElement(Load, null), document.querySelector("#content"));
 };
 
+var createSiteDown = function createSiteDown() {
+  ReactDOM.render( /*#__PURE__*/React.createElement(SiteDown, null), document.querySelector('#content'));
+};
+
 var setup = function setup(csrf) {
   var loginButton = document.querySelector("#loginButton");
   var signupButton = document.querySelector("#signupButton");
   var homeButton = document.querySelector("#home");
   signupButton.addEventListener("click", function (e) {
-    e.preventDefault();
-    createSignupWindow(csrf);
+    e.preventDefault(); //createSignupWindow(csrf); Uncomment on site up 
+
     return false;
   });
   loginButton.addEventListener("click", function (e) {
-    e.preventDefault();
-    createLoginWindow(csrf);
+    e.preventDefault(); //createLoginWindow(csrf); Uncomment on site up
+
     return false;
   });
   homeButton.addEventListener("click", function (e) {
-    e.preventDefault();
-    createSearchForm();
-    loadAllVideosFromServer();
+    e.preventDefault(); //createSearchForm(); // Uncomment on site up
+    //loadAllVideosFromServer(); // Uncomment on site up
+
     return false;
-  });
-  createSearchForm();
-  createLoad();
-  loadAllVideosFromServer(); //Default window
+  }); //createSearchForm();
+  //createLoad();
+  //loadAllVideosFromServer() //Default window Uncomment all on sit up
   //Default loads all Videos on the server 
+
+  createSiteDown();
 };
 
 var getToken = function getToken() {

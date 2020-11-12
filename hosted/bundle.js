@@ -387,6 +387,15 @@ var Load = function Load() {
   }, /*#__PURE__*/React.createElement("h3", {
     className: "emptyVideo"
   }, "Loading videos from the database..."));
+};
+
+var SiteDown = function SiteDown() {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "videoList"
+  }, /*#__PURE__*/React.createElement("h1", null, "Site Down..."), /*#__PURE__*/React.createElement("img", {
+    id: "iriyaDownImg",
+    src: "/assets/img/iriyaDown.JPG"
+  }));
 }; /// RENDERING THE LIST
 /// Render the list depending on if it's a page list or the full list
 
@@ -598,25 +607,29 @@ var createLoad = function createLoad() {
   ReactDOM.render( /*#__PURE__*/React.createElement(Load, null), document.querySelector("#content"));
 };
 
+var createSiteDown = function createSiteDown() {
+  ReactDOM.render( /*#__PURE__*/React.createElement(SiteDown, null), document.querySelector('#content'));
+};
+
 var setup = function setup(csrf) {
   var homeButton = document.querySelector("#home"); //const pageButton = document.querySelector("#myPage");
 
   var addButton = document.querySelector("#addVideo");
   var passChangeButton = document.querySelector("#passChangeButton");
   passChangeButton.addEventListener("click", function (e) {
-    e.preventDefault();
-    createPassChangeWindow(csrf);
+    e.preventDefault(); //createPassChangeWindow(csrf); Uncomment on site up
+
     return false;
   });
   addButton.addEventListener("click", function (e) {
-    e.preventDefault();
-    createAddWindow(csrf);
+    e.preventDefault(); //createAddWindow(csrf); Uncomment on site up
+
     return false;
   });
   homeButton.addEventListener("click", function (e) {
-    e.preventDefault();
-    createSearchForm();
-    loadAllVideosFromServer();
+    e.preventDefault(); //createSearchForm();
+    //loadAllVideosFromServer(); Uncomment on site up
+
     return false;
   });
   /*pageButton.addEventListener("click", (e) => {
@@ -625,10 +638,11 @@ var setup = function setup(csrf) {
       loadVideosFromServer();
       return false;
   });*/
+  //createSearchForm();
+  //createLoad();
+  //loadAllVideosFromServer();
 
-  createSearchForm();
-  createLoad();
-  loadAllVideosFromServer();
+  createSiteDown();
 }; //And set it in getToken
 
 

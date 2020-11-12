@@ -259,6 +259,15 @@ const Load = () => {
              </div>)
 };
 
+const SiteDown = () => {
+    return (
+        <div className ='videoList'>
+            <h1>Site Down...</h1>
+            <img id='iriyaDownImg' src = '/assets/img/iriyaDown.JPG'></img>
+        </div>
+    )
+};
+
 
 ///
 /// Functions to render our data on the page depending on what we need ///
@@ -349,6 +358,13 @@ const createLoad = () => {
     );
 }
 
+const createSiteDown = () => {
+    ReactDOM.render(
+        <SiteDown />,
+        document.querySelector('#content')
+    )
+}
+
 const setup = (csrf) => {
     const loginButton = document.querySelector("#loginButton");
     const signupButton = document.querySelector("#signupButton");
@@ -356,27 +372,29 @@ const setup = (csrf) => {
 
     signupButton.addEventListener("click", (e) => {
         e.preventDefault();
-        createSignupWindow(csrf);
+        //createSignupWindow(csrf); Uncomment on site up 
         return false;
     });
 
     loginButton.addEventListener("click", (e) => {
         e.preventDefault();
-        createLoginWindow(csrf);
+        //createLoginWindow(csrf); Uncomment on site up
         return false;
     });
 
     homeButton.addEventListener("click", (e) => {
         e.preventDefault();
-        createSearchForm();
-        loadAllVideosFromServer();
+        //createSearchForm(); // Uncomment on site up
+        //loadAllVideosFromServer(); // Uncomment on site up
         return false;
     });
 
-    createSearchForm();
-    createLoad();
-    loadAllVideosFromServer() //Default window
+    //createSearchForm();
+    //createLoad();
+    //loadAllVideosFromServer() //Default window Uncomment all on sit up
     //Default loads all Videos on the server 
+    createSiteDown();
+
 };
 
 const getToken = () => {

@@ -353,6 +353,15 @@ const Load = () => {
              </div>)
 };
 
+const SiteDown = () => {
+    return (
+        <div className ='videoList'>
+            <h1>Site Down...</h1>
+            <img id='iriyaDownImg' src = '/assets/img/iriyaDown.JPG'></img>
+        </div>
+    )
+};
+
 /// RENDERING THE LIST
 /// Render the list depending on if it's a page list or the full list
 const VideoList = function(props) {
@@ -493,6 +502,7 @@ const createPassChangeWindow = (csrf) => {
 
 };
 
+
 const createAddWindow = (csrf) => {
     ReactDOM.render(
         <VideoForm csrf={csrf} />,
@@ -570,6 +580,13 @@ const createLoad = () => {
     );
 }
 
+const createSiteDown = () => {
+    ReactDOM.render(
+        <SiteDown />,
+        document.querySelector('#content')
+    )
+}
+
 const setup = function(csrf) {
     const homeButton = document.querySelector("#home");
     //const pageButton = document.querySelector("#myPage");
@@ -578,20 +595,20 @@ const setup = function(csrf) {
 
     passChangeButton.addEventListener("click", (e) => {
         e.preventDefault();
-        createPassChangeWindow(csrf);
+        //createPassChangeWindow(csrf); Uncomment on site up
         return false;
     });
 
     addButton.addEventListener("click", (e) => {
         e.preventDefault();
-        createAddWindow(csrf);
+        //createAddWindow(csrf); Uncomment on site up
         return false;
     });
 
     homeButton.addEventListener("click", (e) => {
         e.preventDefault();
-        createSearchForm();
-        loadAllVideosFromServer();
+        //createSearchForm();
+        //loadAllVideosFromServer(); Uncomment on site up
         return false;
     });
 
@@ -602,9 +619,10 @@ const setup = function(csrf) {
         return false;
     });*/
 
-    createSearchForm();
-    createLoad();
-    loadAllVideosFromServer();
+    //createSearchForm();
+    //createLoad();
+    //loadAllVideosFromServer();
+    createSiteDown();
 
 };
 
