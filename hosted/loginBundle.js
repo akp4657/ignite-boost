@@ -394,26 +394,30 @@ var setup = function setup(csrf) {
   var signupButton = document.querySelector("#signupButton");
   var homeButton = document.querySelector("#home");
   signupButton.addEventListener("click", function (e) {
-    e.preventDefault(); //createSignupWindow(csrf); Uncomment on site up 
+    e.preventDefault();
+    createSignupWindow(csrf); //Uncomment on site up 
 
     return false;
   });
   loginButton.addEventListener("click", function (e) {
-    e.preventDefault(); //createLoginWindow(csrf); Uncomment on site up
+    e.preventDefault();
+    createLoginWindow(csrf); //Uncomment on site up
 
     return false;
   });
   homeButton.addEventListener("click", function (e) {
-    e.preventDefault(); //createSearchForm(); // Uncomment on site up
-    //loadAllVideosFromServer(); // Uncomment on site up
+    e.preventDefault();
+    createSearchForm(); // Uncomment on site up
+
+    loadAllVideosFromServer(); // Uncomment on site up
 
     return false;
-  }); //createSearchForm();
-  //createLoad();
-  //loadAllVideosFromServer() //Default window Uncomment all on sit up
+  });
+  createSearchForm();
+  createLoad();
+  loadAllVideosFromServer(); //Default window Uncomment all on sit up
   //Default loads all Videos on the server 
-
-  createSiteDown();
+  //createSiteDown();
 };
 
 var getToken = function getToken() {

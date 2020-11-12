@@ -617,18 +617,21 @@ var setup = function setup(csrf) {
   var addButton = document.querySelector("#addVideo");
   var passChangeButton = document.querySelector("#passChangeButton");
   passChangeButton.addEventListener("click", function (e) {
-    e.preventDefault(); //createPassChangeWindow(csrf); Uncomment on site up
+    e.preventDefault();
+    createPassChangeWindow(csrf); //Uncomment on site up
 
     return false;
   });
   addButton.addEventListener("click", function (e) {
-    e.preventDefault(); //createAddWindow(csrf); Uncomment on site up
+    e.preventDefault();
+    createAddWindow(csrf); //Uncomment on site up
 
     return false;
   });
   homeButton.addEventListener("click", function (e) {
-    e.preventDefault(); //createSearchForm();
-    //loadAllVideosFromServer(); Uncomment on site up
+    e.preventDefault();
+    createSearchForm();
+    loadAllVideosFromServer(); //Uncomment on site up
 
     return false;
   });
@@ -638,11 +641,10 @@ var setup = function setup(csrf) {
       loadVideosFromServer();
       return false;
   });*/
-  //createSearchForm();
-  //createLoad();
-  //loadAllVideosFromServer();
 
-  createSiteDown();
+  createSearchForm();
+  createLoad();
+  loadAllVideosFromServer(); //createSiteDown();
 }; //And set it in getToken
 
 

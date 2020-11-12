@@ -595,20 +595,20 @@ const setup = function(csrf) {
 
     passChangeButton.addEventListener("click", (e) => {
         e.preventDefault();
-        //createPassChangeWindow(csrf); Uncomment on site up
+        createPassChangeWindow(csrf); //Uncomment on site up
         return false;
     });
 
     addButton.addEventListener("click", (e) => {
         e.preventDefault();
-        //createAddWindow(csrf); Uncomment on site up
+        createAddWindow(csrf); //Uncomment on site up
         return false;
     });
 
     homeButton.addEventListener("click", (e) => {
         e.preventDefault();
-        //createSearchForm();
-        //loadAllVideosFromServer(); Uncomment on site up
+        createSearchForm();
+        loadAllVideosFromServer(); //Uncomment on site up
         return false;
     });
 
@@ -619,10 +619,10 @@ const setup = function(csrf) {
         return false;
     });*/
 
-    //createSearchForm();
-    //createLoad();
-    //loadAllVideosFromServer();
-    createSiteDown();
+    createSearchForm();
+    createLoad();
+    loadAllVideosFromServer();
+    //createSiteDown();
 
 };
 
