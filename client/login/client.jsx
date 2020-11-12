@@ -372,28 +372,28 @@ const setup = (csrf) => {
 
     signupButton.addEventListener("click", (e) => {
         e.preventDefault();
-        //createSignupWindow(csrf); Uncomment on site up 
+        createSignupWindow(csrf); //Uncomment on site up 
         return false;
     });
 
     loginButton.addEventListener("click", (e) => {
         e.preventDefault();
-        //createLoginWindow(csrf); Uncomment on site up
+        createLoginWindow(csrf); //Uncomment on site up
         return false;
     });
 
     homeButton.addEventListener("click", (e) => {
         e.preventDefault();
-        //createSearchForm(); // Uncomment on site up
-        //loadAllVideosFromServer(); // Uncomment on site up
+        createSearchForm(); // Uncomment on site up
+        loadAllVideosFromServer(); // Uncomment on site up
         return false;
     });
 
-    //createSearchForm();
-    //createLoad();
-    //loadAllVideosFromServer() //Default window Uncomment all on sit up
+    createSearchForm();
+    createLoad();
+    loadAllVideosFromServer() //Default window Uncomment all on sit up
     //Default loads all Videos on the server 
-    createSiteDown();
+    //createSiteDown();
 
 };
 
