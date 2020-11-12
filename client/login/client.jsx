@@ -1,5 +1,5 @@
 let videoIndex = 0;
-let videoMax = 500;
+let videoMax = 300;
 let queryString;
 let pagedVideos;
 
@@ -327,14 +327,14 @@ const createSearchForm = () => {
         {
                 const next = document.querySelector("#nextButton");
                 next.style.display = 'block'
-                videoMax = 750;
+                videoMax = 300;
                 next.addEventListener("click", (e) => {
                     console.log(pagedVideos[0])
                     if(pagedVideos[videoMax-1] === undefined) {
                         handleError("ERROR | No more videos!");
                         return;
                     }
-                    videoMax += 250;
+                    videoMax += 100;
                 sendAjax('GET', queryString , null, (data) =>{
 
                     ReactDOM.render(

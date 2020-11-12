@@ -10,7 +10,7 @@ var pageList = false;
 var loopNumber = 1;
 var videoKey = 0;
 var videoIndex = 0;
-var videoMax = 500;
+var videoMax = 300;
 var queryString;
 var pagedVideos = []; // ADDING A VIDEO
 
@@ -579,7 +579,7 @@ var createSearchForm = function createSearchForm() {
     if (queryString != '') {
       var next = document.querySelector("#nextButton");
       next.style.display = 'block';
-      videoMax = 750;
+      videoMax = 300;
       next.addEventListener("click", function (e) {
         console.log(pagedVideos[0]);
 
@@ -588,7 +588,7 @@ var createSearchForm = function createSearchForm() {
           return;
         }
 
-        videoMax += 250;
+        videoMax += 100;
         sendAjax('GET', queryString, null, function (data) {
           ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
             videos: data.videos
