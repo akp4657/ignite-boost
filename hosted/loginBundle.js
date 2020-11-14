@@ -310,20 +310,21 @@ var loadAllVideosFromServer = function loadAllVideosFromServer() {
     ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
       videos: data.videos
     }), document.querySelector("#content"));
-    document.querySelector("#nextButton").style.display = "none";
-    /*videoMax = 3; 
-    const next = document.querySelector("#nextButton");
-        next.addEventListener("click", (e) => {
-        console.log(pagedVideos[videoMax-2]);
-            if(pagedVideos[videoMax-1] === undefined) {
-                handleError("ERROR | No more videos!");
-                return;
-            }
-        videoMax += 1;
-        ReactDOM.render(
-            <VideoList videos={data.videos} />, document.querySelector("#content")
-        );
-    });*/
+    videoMax = 300;
+    var next = document.querySelector("#nextButton");
+    next.addEventListener("click", function (e) {
+      console.log(pagedVideos[videoMax - 2]);
+
+      if (pagedVideos[videoMax - 1] === undefined) {
+        handleError("ERROR | No more videos!");
+        return;
+      }
+
+      videoMax += 100;
+      ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
+        videos: data.videos
+      }), document.querySelector("#content"));
+    });
   });
 }; //#endregion
 
@@ -343,32 +344,32 @@ var createSignupWindow = function createSignupWindow(csrf) {
 };
 
 var createSearchForm = function createSearchForm() {
-  ReactDOM.render( /*#__PURE__*/React.createElement(SearchForm, null), document.querySelector("#search")); // If theh game changes, re-render
+  ReactDOM.render( /*#__PURE__*/React.createElement(SearchForm, null), document.querySelector("#search")); // If something changes, re-render
 
   $('#searchForm').find('select').on('change', function () {
     ReactDOM.render( /*#__PURE__*/React.createElement(SearchForm, null), document.querySelector("#search"));
-
-    if (queryString != '') {
-      var next = document.querySelector("#nextButton");
-      next.style.display = 'block';
-      videoMax = 300;
-      next.addEventListener("click", function (e) {
-        console.log(pagedVideos[0]);
-
-        if (pagedVideos[videoMax - 1] === undefined) {
-          handleError("ERROR | No more videos!");
-          return;
-        }
-
-        videoMax += 100;
-        sendAjax('GET', queryString, null, function (data) {
-          ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
-            videos: data.videos
-          }), document.querySelector("#content"));
-        });
-      });
-    }
   });
+
+  if (queryString != undefined) {
+    console.log('query string isnot empty: ' + queryString);
+    var next = document.querySelector("#nextButton");
+    videoMax = 300;
+    next.addEventListener("click", function (e) {
+      console.log(pagedVideos[0]);
+
+      if (pagedVideos[videoMax - 1] === undefined) {
+        handleError("ERROR | No more videos!");
+        return;
+      }
+
+      videoMax += 100;
+      sendAjax('GET', queryString, null, function (data) {
+        ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
+          videos: data.videos
+        }), document.querySelector("#content"));
+      });
+    });
+  }
 };
 
 var createLoad = function createLoad() {

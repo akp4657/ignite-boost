@@ -446,7 +446,6 @@ const VideoList = function(props) {
                 </table>
             </div>
             <button id="nextButton" className="formSubmit btn secondBtn"type="button">View More</button>
-            <button id="nextButtonSearch" className="formSubmit btn secondBtn"type="button">View More</button>
             
         </div>
     );
@@ -472,8 +471,6 @@ const loadAllVideosFromServer = () => {
         ReactDOM.render(
             <VideoList videos={data.videos} />, document.querySelector("#content")
         );
-        document.querySelector("#nextButton").style.display = "none";
-        /*document.querySelector("#nextButtonSearch").style.display = "none";
         videoMax = 300; 
         const next = document.querySelector("#nextButton");
             next.addEventListener("click", (e) => {
@@ -486,7 +483,7 @@ const loadAllVideosFromServer = () => {
             ReactDOM.render(
                 <VideoList videos={data.videos} />, document.querySelector("#content")
             );
-        });*/
+        });
     });
 };
 
@@ -542,34 +539,33 @@ const createSearchForm = () => {
         <SearchForm />, document.querySelector("#search")  
     );
 
-    // If the game changes, re-render
+    // If something changes, re-render
     $('#searchForm').find('select').on('change', function() {
         ReactDOM.render(
             <SearchForm />,
             document.querySelector("#search")
         );
-        document.querySelector("#nextButton").style.display = "none";
-        if(queryString != '')
-        {
-            const next = document.querySelector("#nextButton");
-            next.style.display = 'block'
-            videoMax = 300;
-            next.addEventListener("click", (e) => {
-                console.log(pagedVideos[0])
-                if(pagedVideos[videoMax-1] === undefined) {
-                    handleError("ERROR | No more videos!");
-                    return;
-                }
-                videoMax += 100;
-                sendAjax('GET', queryString , null, (data) =>{
-
-                    ReactDOM.render(
-                        <VideoList videos={data.videos} />, document.querySelector("#content")
-                    );
-                });
-            });
-        }
     });
+
+    if(queryString != undefined)
+    {
+        console.log('query string isnot empty: ' + queryString)
+        const next = document.querySelector("#nextButton");
+        videoMax = 300;
+        next.addEventListener("click", (e) => {
+            console.log(pagedVideos[0])
+            if(pagedVideos[videoMax-1] === undefined) {
+                handleError("ERROR | No more videos!");
+                return;
+            }
+            videoMax += 100;
+            sendAjax('GET', queryString , null, (data) =>{
+                ReactDOM.render(
+                    <VideoList videos={data.videos} />, document.querySelector("#content")
+                );
+            });
+        });
+    }
 }
 
 const createLoad = () => {

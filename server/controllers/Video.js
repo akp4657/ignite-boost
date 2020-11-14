@@ -119,11 +119,11 @@ const searchVideos = (request, response) => {
   // $or syntax to check for name in either slot 1 or 2 for player/char
   // Using regex to be case insensitive and act like '$like' in SQL 
   if (player1) {
-    params.$and[i] = { $or: [{ player1: {$regex: `${player1}`, $options: 'i'}}, { player2: {$regex: `${player1}`, $options: 'i'}}]}
-    i++;
+      params.$and[i] = { $or: [{ player1: {$regex: RegExp('^' + player1 ), $options: 'i'}}, { player2: {$regex: RegExp('^' + player1 ), $options: 'i'}}]}
+      i++;
   }
   if (player2) {
-    params.$and[i] = { $or: [{ player1: {$regex: `${player2}`, $options: 'i'}}, { player2: {$regex: `${player2}`, $options: 'i'}}]}
+    params.$and[i] = { $or: [{ player1: {$regex: RegExp('^' + player2 ), $options: 'i'}}, { player2: {$regex: RegExp('^' + player2 ), $options: 'i'}}]}
     i++;
   }
 
@@ -174,6 +174,9 @@ const searchVideos = (request, response) => {
 
 
   if (i === 0) params = {}; // set params to empty object if no query params were sent
+  
+  console.log(params.$and[0].$or)
+  
   return Video.VideoModel.findSearch(params, (err, docs) => {
     if (err) {
       console.log(err);
