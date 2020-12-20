@@ -32,9 +32,9 @@ var handleVideo = function handleVideo(e) {
     if (this.name === 'videoLink') {
       videoObj.videoLink = this.value;
     }
-  });
+  }); // If any values are empty
 
-  if ($("#timeStamp").val() == '' || $("#playerOne").val() == '' || $("#playerTwo").val() == '' || $("#videoLink").val() == '') {
+  if ($("#timeStamp").val() == '' || $("#playerOne").val() == '' || $("#playerTwo").val() == '' || $("#videoLink").val() == '' || $("#matchDate").val() == '') {
     handleError("ERROR | All fields are required");
     return false;
   } // Check if the error uses the correct link *just copying the url
@@ -75,7 +75,8 @@ var handleVideo = function handleVideo(e) {
       // and iterate the videoKey and reset the modification values
       videoObj[videoKey].player2 = this.value;
       videoObj[videoKey].version = $('#videoForm').find('#version').find(":selected").val();
-      videoKey++;
+      videoObj[videoKey].matchDate = $('#videoForm').find('#matchDate').val();
+      deoKey++;
       modValue = -1;
     }
 
@@ -85,7 +86,7 @@ var handleVideo = function handleVideo(e) {
   videoKey = loopNumber; // For character selection
 
   $('#videoForm').find('select').each(function () {
-    // One of the selections is for the game, we don't need that
+    // One of the selections is for the game version, we don't need that
     // Also, if the key is equal to zero, skip it.
     if (this.id != "version") {
       if (videoKey > 0) {
@@ -319,7 +320,13 @@ var VideoForm = function VideoForm(props) {
     value: "2"
   }, "DFC:I"), /*#__PURE__*/React.createElement("option", {
     value: "1"
-  }, "DFC")), /*#__PURE__*/React.createElement("div", {
+  }, "DFC")), /*#__PURE__*/React.createElement("input", {
+    id: "matchDate",
+    className: "form-control",
+    type: "text",
+    name: "matchDate",
+    placeholder: "YYYY-MM-DD"
+  }), /*#__PURE__*/React.createElement("div", {
     className: "table-responsive"
   }, /*#__PURE__*/React.createElement("table", {
     id: "videoFormTable",
@@ -422,7 +429,8 @@ var VideoList = function VideoList(props) {
     var charImg2;
     var assistImg1;
     var assistImg2;
-    var versionImg;
+    var versionImg; //console.dir(video)
+
     char1Src = "/assets/img/Characters/".concat(video.char1, ".png");
     char2Src = "/assets/img/Characters/".concat(video.char2, ".png");
     assist1Src = "/assets/img/Assists/".concat(video.assist1, ".png");
@@ -465,7 +473,7 @@ var VideoList = function VideoList(props) {
       target: "_blank"
     }, /*#__PURE__*/React.createElement("i", {
       className: "fab fa-youtube fa-2x"
-    }, " "))), /*#__PURE__*/React.createElement("td", null, versionImg)));
+    }, " "))), /*#__PURE__*/React.createElement("td", null, versionImg), /*#__PURE__*/React.createElement("td", null, video.matchDate)));
   }); //console.log(videoNodes.length);
 
   for (videoIndex; videoIndex < videoMax; videoIndex++) {

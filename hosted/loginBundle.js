@@ -260,7 +260,7 @@ var VideoList = function VideoList(props) {
       target: "_blank"
     }, /*#__PURE__*/React.createElement("i", {
       className: "fab fa-youtube fa-2x"
-    }, " "))), /*#__PURE__*/React.createElement("td", null, versionImg)));
+    }, " "))), /*#__PURE__*/React.createElement("td", null, versionImg), /*#__PURE__*/React.createElement("td", null, video.matchDate)));
   }); //console.log(videoNodes.length);
 
   for (videoIndex; videoIndex < videoMax; videoIndex++) {

@@ -36,6 +36,7 @@ const makeVideo = (req, res) => {
       assist2: values[i].assist2,
       link: values[i].link,
       version: values[i].version,
+      matchDate: values[i].matchDate,
       owner: req.session.account._id,
     };
     const newVideo = new Video.VideoModel(videoData);

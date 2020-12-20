@@ -257,13 +257,18 @@ select:invalid {
 
 
 #static > #version {
-    margin-left: 5%;
+    margin-left: 3.5%;
     width: 15%;
 }
 
 #static > #videoLink {
-    width: 40%;
+    width: 30%;
     margin-left: 20%;
+}
+
+#static > #matchDate {
+    width: 10%;
+    margin-left: 3.5%;
 }
 
 #static > .btn {

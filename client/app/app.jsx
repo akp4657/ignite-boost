@@ -34,8 +34,9 @@ const handleVideo = (e) => {
         }
     });
 
+    // If any values are empty
     if($("#timeStamp").val() == '' || $("#playerOne").val() == '' || $("#playerTwo").val() == '' ||
-    $("#videoLink").val() == '') {
+    $("#videoLink").val() == '' || $("#matchDate").val() == '') {
         handleError("ERROR | All fields are required");
         return false;
     }
@@ -45,7 +46,6 @@ const handleVideo = (e) => {
         handleError("ERROR | Please use a valid YouTube link");
         return false;
     }
-
 
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Quantifiers
     // https://www.w3schools.com/jsref/jsref_replace.asp
@@ -79,7 +79,7 @@ const handleVideo = (e) => {
             // and iterate the videoKey and reset the modification values
             videoObj[videoKey].player2 = this.value;
             videoObj[videoKey].version = $('#videoForm').find('#version').find(":selected").val();
-            videoKey++;
+            videoObj[videoKey].matchDate = $('#videoForm').find('#matchDate').val();deoKey++;
             modValue=-1;
         }
 
@@ -92,7 +92,7 @@ const handleVideo = (e) => {
 
     // For character selection
     $('#videoForm').find('select').each(function() {
-        // One of the selections is for the game, we don't need that
+        // One of the selections is for the game version, we don't need that
         // Also, if the key is equal to zero, skip it.
         if(this.id != "version") {
             if(videoKey>0) {
@@ -310,6 +310,7 @@ const VideoForm = (props) => {
                 <option value="2">DFC:I</option>
                 <option value="1">DFC</option>
             </select>
+            <input id="matchDate" className='form-control' type='text' name='matchDate' placeholder='YYYY-MM-DD'/>
             <div className='table-responsive'>
                 <table id="videoFormTable" className="table table-sm table-dark">
                     {rows}
@@ -393,6 +394,7 @@ const VideoList = function(props) {
         let assistImg2;
         let versionImg;
 
+        //console.dir(video)
 
         char1Src = `/assets/img/Characters/${video.char1}.png`;
         char2Src = `/assets/img/Characters/${video.char2}.png`;
@@ -421,6 +423,7 @@ const VideoList = function(props) {
                             <a href={video.link} className="icons-sm yt-ic" target="_blank"><i className="fab fa-youtube fa-2x"> </i></a>
                         </td>
                         <td>{versionImg}</td>
+                        <td>{video.matchDate}</td>
                     </tr>
                 </tbody>
             
