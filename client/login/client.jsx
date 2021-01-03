@@ -88,6 +88,13 @@ const handleSearch = (e) => {
     });
 };
 
+const handleReport = (e) => {
+    e.preventDefault();
+
+    console.log('Im here')
+    sendAjax('POST', '/sendReport', null)
+}
+
 // Search form
 //Sets up the search form, will change the select for characters depending on the game selected
 const SearchForm = () => {
@@ -278,7 +285,11 @@ const loadAllVideosFromServer = () => {
         );
         videoMax = 300; 
         const next = document.querySelector("#nextButton");
-            next.addEventListener("click", (e) => {
+        /*const reportButton = document.querySelector("#reportButton")
+        reportButton.addEventListener("click", (e) => {
+            handleReport(e)
+        })*/
+        next.addEventListener("click", (e) => {
             console.log(pagedVideos[videoMax-2]);
                 if(pagedVideos[videoMax-1] === undefined) {
                     handleError("ERROR | No more videos!");
@@ -287,7 +298,7 @@ const loadAllVideosFromServer = () => {
             videoMax += 100;
             ReactDOM.render(
                 <VideoList videos={data.videos} />, document.querySelector("#content")
-            );
+        );
         });
     });
 };

@@ -1,4 +1,5 @@
 const models = require('../models');
+const nodemailer = require('nodemailer')
 
 const { Account } = models;
 
@@ -32,6 +33,46 @@ const login = (request, response) => {
 
     return res.json({ redirect: '/main' });
   });
+};
+
+// Sending an email to myself on reports
+const sendReport = (request, response) => {
+  const req = request;
+  const res = response;
+
+  //<button id="reportButton" className="formSubmit btn secondBtn"type="button">Report</button>
+  //
+  // force cast to strings to cover up security flaws
+  const report = `${req.body.report}`;
+
+  /*if (!report) {
+    return res.status(400).json({ error: 'ERROR | All fields are required' });
+  }*/
+
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'igniteboost.net@gmail.com',
+      pass: 'XKf57KSNuYhvYNN'
+    }
+  })
+
+  var mailOptions = {
+    from: 'igniteboost.net@gmail.com',
+    to: 'igniteboost.net@gmail.com',
+    subject: 'ignite-boost.net report',
+    text: 'Testing'
+  }
+
+  transporter.sendMail(mailOptions, function(error, info){
+    if(error) {
+      console.log(error);
+      return res.status(400).json({ error: 'ERROR | Error occured' });
+    } else {
+      console.log('Email sent!')
+      
+    }
+  })
 };
 
 // Password change that takes a lot from the signup function
@@ -141,3 +182,4 @@ module.exports.logout = logout;
 module.exports.signup = signup;
 module.exports.getToken = getToken;
 module.exports.passChange = passChange;
+module.exports.sendReport = sendReport;

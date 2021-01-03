@@ -83,6 +83,12 @@ var handleSearch = function handleSearch(e) {
       videos: data.videos
     }), document.querySelector("#content"));
   });
+};
+
+var handleReport = function handleReport(e) {
+  e.preventDefault();
+  console.log('Im here');
+  sendAjax('POST', '/sendReport', null);
 }; // Search form
 //Sets up the search form, will change the select for characters depending on the game selected
 
@@ -312,6 +318,11 @@ var loadAllVideosFromServer = function loadAllVideosFromServer() {
     }), document.querySelector("#content"));
     videoMax = 300;
     var next = document.querySelector("#nextButton");
+    /*const reportButton = document.querySelector("#reportButton")
+    reportButton.addEventListener("click", (e) => {
+        handleReport(e)
+    })*/
+
     next.addEventListener("click", function (e) {
       console.log(pagedVideos[videoMax - 2]);
 

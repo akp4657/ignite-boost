@@ -6,8 +6,8 @@ const router = (app) => {
   app.get('/getVideos', mid.requiresLogin, controllers.Video.getVideos);
   app.get('/getAllVideos', controllers.Video.getAllVideos);
   app.get('/search', controllers.Video.searchVideos);
+  app.post('/sendReport', controllers.Account.sendReport)
   app.post('/passChange', mid.requiresLogin, controllers.Account.passChange);
-  app.post('/delete', mid.requiresSecure, mid.requiresLogin, controllers.Video.delete);
   app.get('/login', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
   app.post('/login', mid.requiresSecure, mid.requiresLogout, controllers.Account.login);
   app.post('/signup', mid.requiresSecure, mid.requiresLogout, controllers.Account.signup);
