@@ -207,6 +207,18 @@ var handleSearch = function handleSearch(e) {
       videos: data.videos
     }), document.querySelector("#content"));
   });
+};
+
+var handleReport = function handleReport(e) {
+  e.preventDefault();
+
+  if ($("#report").val() == '') {
+    handleError("ERROR | Report cannot be empty");
+    return false;
+  }
+
+  sendAjax('POST', $("#reportForm").attr("action"), $("#reportForm").serialize(), redirect);
+  return false;
 }; // Search form
 //Sets up the search form, will change the select for characters depending on the game selected
 
@@ -386,6 +398,34 @@ var ChangeWindow = function ChangeWindow(props) {
     type: "submit",
     value: "Change"
   }));
+}; // Render the report window
+
+
+var ReportWindow = function ReportWindow(props) {
+  return /*#__PURE__*/React.createElement("form", {
+    id: "reportForm",
+    name: "reportForm",
+    onSubmit: handleReport,
+    action: "/sendReport",
+    method: "POST",
+    className: "searchForm"
+  }, /*#__PURE__*/React.createElement("textarea", {
+    rows: "3",
+    cols: "60",
+    id: "report",
+    type: "text",
+    name: "report",
+    placeholder: "Please be as detailed as possible. If this pertains to a match, please include the link and/or names of the players"
+  }), /*#__PURE__*/React.createElement("input", {
+    type: "hidden",
+    name: "_csrf",
+    value: props.csrf
+  }), /*#__PURE__*/React.createElement("input", {
+    id: "reportSubmit",
+    className: "formSubmit btn",
+    type: "submit",
+    value: "Submit"
+  }));
 };
 
 var Load = function Load() {
@@ -403,6 +443,12 @@ var SiteDown = function SiteDown() {
     id: "iriyaDownImg",
     src: "/assets/img/iriyaDown.JPG"
   }));
+};
+
+var createReport = function createReport(csrf) {
+  ReactDOM.render( /*#__PURE__*/React.createElement(ReportWindow, {
+    csrf: csrf
+  }), document.querySelector("#search"));
 }; /// RENDERING THE LIST
 /// Render the list depending on if it's a page list or the full list
 
@@ -615,6 +661,8 @@ var setup = function setup(csrf) {
 
   var addButton = document.querySelector("#addVideo");
   var passChangeButton = document.querySelector("#passChangeButton");
+  var reportButton = document.querySelector('#reportButton');
+  var reportSubmit = document.querySelector('#reportSubmit');
   passChangeButton.addEventListener("click", function (e) {
     e.preventDefault();
     createPassChangeWindow(csrf); //Uncomment on site up
@@ -627,6 +675,20 @@ var setup = function setup(csrf) {
 
     return false;
   });
+  reportButton.addEventListener("click", function (e) {
+    e.preventDefault();
+    createReport(csrf);
+    return false;
+  });
+
+  if (reportSubmit) {
+    reportSubmit.addEventListener("click", function (e) {
+      e.preventDefault();
+      createSearchForm(csrf);
+      return false;
+    });
+  }
+
   homeButton.addEventListener("click", function (e) {
     e.preventDefault();
     createSearchForm();

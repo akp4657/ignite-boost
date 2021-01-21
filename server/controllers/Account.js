@@ -28,7 +28,6 @@ const login = (request, response) => {
     if (err || !account) {
       return res.status(401).json({ error: 'Wrong username or password' });
     }
-
     req.session.account = Account.AccountModel.toAPI(account);
 
     return res.json({ redirect: '/main' });
@@ -55,22 +54,22 @@ const sendReport = (request, response) => {
       user: 'igniteboost.net@gmail.com',
       pass: 'XKf57KSNuYhvYNN'
     }
-  })
+  });
 
   var mailOptions = {
     from: 'igniteboost.net@gmail.com',
     to: 'igniteboost.net@gmail.com',
     subject: 'ignite-boost.net report',
-    text: 'Testing'
+    text: report
   }
 
   transporter.sendMail(mailOptions, function(error, info){
     if(error) {
       console.log(error);
-      return res.status(400).json({ error: 'ERROR | Error occured' });
+      return res.status(400).json({ error: 'ERROR | Email error occured' });
     } else {
-      console.log('Email sent!')
-      
+      console.log('Email sent: ' + info.response)
+      return res.json({ redirect: '/main' });
     }
   })
 };

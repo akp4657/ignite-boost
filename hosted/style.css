@@ -224,6 +224,13 @@ body {
     vertical-align: middle;
 }
 
+#report {
+    margin: 0 auto;
+    display: block;
+    margin-top: 7%;
+}
+
+
 select:invalid {
     color: gray;
 }

@@ -223,6 +223,20 @@ const handleSearch = (e) => {
     });
 };
 
+const handleReport = (e) => {
+    e.preventDefault();
+
+    if($("#report").val() == '') {
+        handleError("ERROR | Report cannot be empty");
+        return false;
+    }
+
+    sendAjax('POST', $("#reportForm").attr("action"), $("#reportForm").serialize(), redirect);
+
+    return false;
+
+}
+
 // Search form
 //Sets up the search form, will change the select for characters depending on the game selected
 const SearchForm = () => {
@@ -348,6 +362,23 @@ const ChangeWindow = (props) => {
     );
 };
 
+// Render the report window
+const ReportWindow = (props) => {
+    return ( 
+    <form id="reportForm" name="reportForm"
+            onSubmit={handleReport}
+            action="/sendReport"
+            method="POST"
+            className="searchForm"
+        >
+        <textarea rows="3" cols="60" id="report" type="text" name="report" placeholder="Please be as detailed as possible. If this pertains to a match, please include the link and/or names of the players"/>
+        <input type="hidden" name="_csrf" value={props.csrf}/>
+        <input id="reportSubmit" className="formSubmit btn" type="submit" value="Submit"/>
+
+    </form>
+    );
+};
+
 const Load = () => {
     return (<div className="videoList">
                 <h3 className="emptyVideo">Loading videos from the database...</h3>
@@ -362,6 +393,12 @@ const SiteDown = () => {
         </div>
     )
 };
+
+const createReport = (csrf) => {
+    ReactDOM.render(
+        <ReportWindow csrf={csrf}/>, document.querySelector("#search")
+    );
+}
 
 /// RENDERING THE LIST
 /// Render the list depending on if it's a page list or the full list
@@ -589,6 +626,8 @@ const setup = function(csrf) {
     //const pageButton = document.querySelector("#myPage");
     const addButton = document.querySelector("#addVideo");
     const passChangeButton = document.querySelector("#passChangeButton");
+    const reportButton = document.querySelector('#reportButton');
+    const reportSubmit = document.querySelector('#reportSubmit');
 
     passChangeButton.addEventListener("click", (e) => {
         e.preventDefault();
@@ -601,6 +640,20 @@ const setup = function(csrf) {
         createAddWindow(csrf); //Uncomment on site up
         return false;
     });
+
+    reportButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        createReport(csrf);
+        return false;
+    });
+
+    if(reportSubmit) {
+        reportSubmit.addEventListener("click", (e) => {
+            e.preventDefault();
+            createSearchForm(csrf);
+            return false;
+        });
+    }
 
     homeButton.addEventListener("click", (e) => {
         e.preventDefault();

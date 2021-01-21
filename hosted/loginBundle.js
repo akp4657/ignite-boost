@@ -87,8 +87,14 @@ var handleSearch = function handleSearch(e) {
 
 var handleReport = function handleReport(e) {
   e.preventDefault();
-  console.log('Im here');
-  sendAjax('POST', '/sendReport', null);
+
+  if ($("#report").val() == '') {
+    handleError("ERROR | Report cannot be empty");
+    return false;
+  }
+
+  sendAjax('POST', $("#reportForm").attr("action"), $("#reportForm").serialize(), redirect);
+  return false;
 }; // Search form
 //Sets up the search form, will change the select for characters depending on the game selected
 
@@ -202,6 +208,34 @@ var SignupWindow = function SignupWindow(props) {
     className: "formSubmit btn",
     type: "submit",
     value: "Sign Up"
+  }));
+}; // Render the report window
+
+
+var ReportWindow = function ReportWindow(props) {
+  return /*#__PURE__*/React.createElement("form", {
+    id: "reportForm",
+    name: "reportForm",
+    onSubmit: handleReport,
+    action: "/sendReport",
+    method: "POST",
+    className: "searchForm"
+  }, /*#__PURE__*/React.createElement("textarea", {
+    rows: "3",
+    cols: "60",
+    id: "report",
+    type: "text",
+    name: "report",
+    placeholder: "Please be as detailed as possible. If this pertains to a match, please include the link and/or names of the players"
+  }), /*#__PURE__*/React.createElement("input", {
+    type: "hidden",
+    name: "_csrf",
+    value: props.csrf
+  }), /*#__PURE__*/React.createElement("input", {
+    id: "reportSubmit",
+    className: "formSubmit btn",
+    type: "submit",
+    value: "Submit"
   }));
 }; //#region Home Video Code
 
@@ -387,6 +421,12 @@ var createLoad = function createLoad() {
   ReactDOM.render( /*#__PURE__*/React.createElement(Load, null), document.querySelector("#content"));
 };
 
+var createReport = function createReport(csrf) {
+  ReactDOM.render( /*#__PURE__*/React.createElement(ReportWindow, {
+    csrf: csrf
+  }), document.querySelector("#search"));
+};
+
 var createSiteDown = function createSiteDown() {
   ReactDOM.render( /*#__PURE__*/React.createElement(SiteDown, null), document.querySelector('#content'));
 };
@@ -395,6 +435,8 @@ var setup = function setup(csrf) {
   var loginButton = document.querySelector("#loginButton");
   var signupButton = document.querySelector("#signupButton");
   var homeButton = document.querySelector("#home");
+  var reportButton = document.querySelector('#reportButton');
+  var reportSubmit = document.querySelector('#reportSubmit');
   signupButton.addEventListener("click", function (e) {
     e.preventDefault();
     createSignupWindow(csrf); //Uncomment on site up 
@@ -407,6 +449,20 @@ var setup = function setup(csrf) {
 
     return false;
   });
+  reportButton.addEventListener("click", function (e) {
+    e.preventDefault();
+    createReport(csrf);
+    return false;
+  });
+
+  if (reportSubmit) {
+    reportSubmit.addEventListener("click", function (e) {
+      e.preventDefault();
+      createSearchForm(csrf);
+      return false;
+    });
+  }
+
   homeButton.addEventListener("click", function (e) {
     e.preventDefault();
     createSearchForm(); // Uncomment on site up

@@ -14,7 +14,6 @@ const handleLogin = (e) => {
     }
 
     sendAjax('POST', $("#loginForm").attr("action"), $("#loginForm").serialize(), redirect);
-
     return false;
 };
 
@@ -91,8 +90,15 @@ const handleSearch = (e) => {
 const handleReport = (e) => {
     e.preventDefault();
 
-    console.log('Im here')
-    sendAjax('POST', '/sendReport', null)
+    if($("#report").val() == '') {
+        handleError("ERROR | Report cannot be empty");
+        return false;
+    }
+
+    sendAjax('POST', $("#reportForm").attr("action"), $("#reportForm").serialize(), redirect);
+
+    return false;
+
 }
 
 // Search form
@@ -170,6 +176,23 @@ const SignupWindow = (props) => {
         <input id="pass2" type="password" name="pass2" placeholder="retype password"/>
         <input type="hidden" name="_csrf" value={props.csrf}/>
         <input className="formSubmit btn" type="submit" value="Sign Up"/>
+
+    </form>
+    );
+};
+
+// Render the report window
+const ReportWindow = (props) => {
+    return ( 
+    <form id="reportForm" name="reportForm"
+            onSubmit={handleReport}
+            action="/sendReport"
+            method="POST"
+            className="searchForm"
+        >
+        <textarea rows="3" cols="60" id="report" type="text" name="report" placeholder="Please be as detailed as possible. If this pertains to a match, please include the link and/or names of the players"/>
+        <input type="hidden" name="_csrf" value={props.csrf}/>
+        <input id="reportSubmit" className="formSubmit btn" type="submit" value="Submit"/>
 
     </form>
     );
@@ -362,6 +385,12 @@ const createLoad = () => {
     );
 }
 
+const createReport = (csrf) => {
+    ReactDOM.render(
+        <ReportWindow csrf={csrf}/>, document.querySelector("#search")
+    );
+}
+
 const createSiteDown = () => {
     ReactDOM.render(
         <SiteDown />,
@@ -373,6 +402,8 @@ const setup = (csrf) => {
     const loginButton = document.querySelector("#loginButton");
     const signupButton = document.querySelector("#signupButton");
     const homeButton = document.querySelector("#home");
+    const reportButton = document.querySelector('#reportButton');
+    const reportSubmit = document.querySelector('#reportSubmit');
 
     signupButton.addEventListener("click", (e) => {
         e.preventDefault();
@@ -385,6 +416,20 @@ const setup = (csrf) => {
         createLoginWindow(csrf); //Uncomment on site up
         return false;
     });
+
+    reportButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        createReport(csrf);
+        return false;
+    });
+
+    if(reportSubmit) {
+        reportSubmit.addEventListener("click", (e) => {
+            e.preventDefault();
+            createSearchForm(csrf);
+            return false;
+        });
+    }
 
     homeButton.addEventListener("click", (e) => {
         e.preventDefault();
