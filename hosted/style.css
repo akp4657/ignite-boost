@@ -21,6 +21,22 @@ body {
     border-radius: 8px;
 }
 
+#content {
+    border: solid red 5px;
+    width: 75%;
+    float: right;
+}
+
+#secondary {
+    border: solid blue 5px;
+    width: 25%;
+    float: left;
+}
+
+#container {
+    border: solid green 5px;
+}
+
 #nextButton {
     position: relative;
 }
