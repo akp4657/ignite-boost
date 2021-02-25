@@ -160,12 +160,12 @@ var LoginWindow = function LoginWindow(props) {
     type: "text",
     name: "username",
     placeholder: "username"
-  }), /*#__PURE__*/React.createElement("input", {
+  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
     id: "pass",
     type: "password",
     name: "pass",
     placeholder: "password"
-  }), /*#__PURE__*/React.createElement("input", {
+  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
     type: "hidden",
     name: "_csrf",
     value: props.csrf
@@ -340,6 +340,13 @@ var SiteDown = function SiteDown() {
     id: "iriyaDownImg",
     src: "/assets/img/iriyaDown.JPG"
   }));
+};
+
+var GifBack = function GifBack() {
+  return /*#__PURE__*/React.createElement("img", {
+    id: "gifs",
+    src: "/assets/img/background.gif"
+  });
 }; ///
 /// Functions to render our data on the page depending on what we need ///
 ///
@@ -428,7 +435,11 @@ var createReport = function createReport(csrf) {
 };
 
 var createSiteDown = function createSiteDown() {
-  ReactDOM.render( /*#__PURE__*/React.createElement(SiteDown, null), document.querySelector('#content'));
+  ReactDOM.render( /*#__PURE__*/React.createElement(SiteDown, null), document.querySelector('#secondary'));
+};
+
+var createGifs = function createGifs() {
+  ReactDOM.render( /*#__PURE__*/React.createElement(GifBack, null), document.querySelector("#secondary"));
 };
 
 var setup = function setup(csrf) {
@@ -447,6 +458,7 @@ var setup = function setup(csrf) {
     e.preventDefault();
     createLoginWindow(csrf); //Uncomment on site up
 
+    createGifs();
     return false;
   });
   reportButton.addEventListener("click", function (e) {

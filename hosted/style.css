@@ -23,18 +23,22 @@ body {
 
 #content {
     border: solid red 5px;
-    width: 75%;
+    width: 60%;
     float: right;
+    height: 100%
 }
 
 #secondary {
     border: solid blue 5px;
-    width: 25%;
+    width: 40%;
     float: left;
+    height: 100%;
+    position: fixed;
 }
 
 #container {
     border: solid green 5px;
+    height: 100%;
 }
 
 #nextButton {
@@ -56,13 +60,18 @@ body {
     color: #68f2d5;
 }
 
-.mainForm {
-    height: 20px;
+#content .mainForm {
     width: 350px;
-    margin: 0 auto;
-    padding-top: 350px;
+    position: absolute;
+    bottom: 0;
     font-size: 1.2em;
-    margin-top: -10%;
+    height: 55%;
+    margin-left: 23.5%;
+}
+
+#gifs {
+    width: 100%;
+    height: 100%;
 }
 
 .videoList {
@@ -79,12 +88,10 @@ body {
     text-align: center;
 }
 
-
 .formSubmit {
     transition: background-color 0.4s ease;
     display: block;
     text-align: center;
-    margin: 0 auto;
     margin-top: 14px;
     font-size: 1.1em;
     width: 100px;
@@ -93,6 +100,7 @@ body {
     padding: 3px 0px;
     color: white;
     text-shadow: 2px 2px 4px black;
+    margin-left: 28%;
 
 }
 
@@ -129,10 +137,9 @@ body {
 #user, #pass, #pass2, #pass3 {
     text-align: center;
     font-size: 1.1em;
-    width: 190px;
+    width: 300px;
     border-radius: 6px;
-    margin-left: 23%;
-    margin-top: 10px;
+    margin: 0 auto;
 }
 
 #user:focus, #pass:focus, #pass2:focus, #pass3:focus {
@@ -163,6 +170,8 @@ body {
     border-radius: 5px;
     font-weight: bold;
     font-size: 20px;
+    background-color: transparent;
+
 }
 
 
@@ -316,32 +325,6 @@ select:invalid {
 button.delete {
     float:right;
     text-align: left;
-}
-
-#ad {
-    position: fixed;
-    width: 8%;
-    height: 40%;
-    border: 10px solid #F76902;
-    right: 50;
-    top: 11%;
-    color: #F76902;
-    display: table-cell;
-    vertical-align: middle;
-    text-align: center;
-}
-
-#adtwo {
-    position: fixed;
-    width: 8%;
-    height: 40%;
-    border: 10px solid #F76902;
-    right: 50;
-    top: 55%;
-    color: #F76902;
-    display: table-cell;
-    vertical-align: middle;
-    text-align: center;
 }
 
 .flip {

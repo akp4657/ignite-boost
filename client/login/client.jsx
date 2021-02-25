@@ -143,7 +143,6 @@ const SearchForm = () => {
     )
 };
 
-
 // Render our login window
 const LoginWindow = (props) => {
     return ( 
@@ -154,7 +153,10 @@ const LoginWindow = (props) => {
             method="POST"
         >
         <input id="user" type="text" name="username" placeholder="username"/>
+        <br></br>
+        <br></br>
         <input id="pass" type="password" name="pass" placeholder="password"/>
+        <br></br>
         <input type="hidden" name="_csrf" value={props.csrf}/>
         <input className="formSubmit btn" type="submit" value="Sign In"/>
 
@@ -297,6 +299,12 @@ const SiteDown = () => {
     )
 };
 
+const GifBack = () => {
+    return (
+        <img id="gifs" src="/assets/img/background.gif"/>
+    )
+}
+
 
 ///
 /// Functions to render our data on the page depending on what we need ///
@@ -394,9 +402,17 @@ const createReport = (csrf) => {
 const createSiteDown = () => {
     ReactDOM.render(
         <SiteDown />,
-        document.querySelector('#content')
+        document.querySelector('#secondary')
     )
 }
+
+const createGifs = () => {
+    ReactDOM.render(
+        <GifBack />,
+        document.querySelector("#secondary")
+    );
+}
+
 
 const setup = (csrf) => {
     const loginButton = document.querySelector("#loginButton");
@@ -414,6 +430,7 @@ const setup = (csrf) => {
     loginButton.addEventListener("click", (e) => {
         e.preventDefault();
         createLoginWindow(csrf); //Uncomment on site up
+        createGifs();
         return false;
     });
 
