@@ -1,7 +1,7 @@
 "use strict";
 
 var videoIndex = 0;
-var videoMax = 300;
+var videoMax = 350;
 var queryString;
 var pagedVideos; // Sending request to handle login
 
@@ -342,6 +342,27 @@ var SiteDown = function SiteDown() {
   }));
 };
 
+var AssistInfo = function AssistInfo() {
+  var selected = $("#assistInfoSelect").find(":selected").text();
+  var assistSrc = "/assets/img/assistSprites/".concat(selected, ".png");
+  var info;
+  assistInfo.forEach(function (a) {
+    console.log(a.props.value);
+
+    if (a.props.value === selected) {
+      info = a;
+    }
+  });
+  console.log(selected);
+  return /*#__PURE__*/React.createElement("div", {
+    className: "videoList"
+  }, assistInfoSelect, /*#__PURE__*/React.createElement("h1", null, info), /*#__PURE__*/React.createElement("img", {
+    id: "assistInfoImg",
+    src: assistSrc,
+    alt: selected
+  }));
+};
+
 var GifBack = function GifBack() {
   return /*#__PURE__*/React.createElement("img", {
     id: "gifs",
@@ -442,6 +463,13 @@ var createGifs = function createGifs() {
   ReactDOM.render( /*#__PURE__*/React.createElement(GifBack, null), document.querySelector("#secondary"));
 };
 
+var createAssistSelect = function createAssistSelect() {
+  ReactDOM.render( /*#__PURE__*/React.createElement(AssistInfo, null), document.querySelector("#info"));
+  $('#info').find('select').on('change', function () {
+    ReactDOM.render( /*#__PURE__*/React.createElement(AssistInfo, null), document.querySelector("#info"));
+  });
+};
+
 var setup = function setup(csrf) {
   var loginButton = document.querySelector("#loginButton");
   var signupButton = document.querySelector("#signupButton");
@@ -479,6 +507,7 @@ var setup = function setup(csrf) {
   homeButton.addEventListener("click", function (e) {
     e.preventDefault();
     createSearchForm(); // Uncomment on site up
+    //createAssistSelect();
 
     loadAllVideosFromServer(); // Uncomment on site up
 
@@ -486,6 +515,7 @@ var setup = function setup(csrf) {
   });
   createSearchForm();
   createLoad();
+  createAssistSelect();
   loadAllVideosFromServer(); //Default window Uncomment all on sit up
   //Default loads all Videos on the server 
   //createSiteDown();
@@ -749,7 +779,90 @@ var assist2Search = /*#__PURE__*/React.createElement("select", {
   value: "Wilhelmina"
 }, "Wilhelmina"), /*#__PURE__*/React.createElement("option", {
   value: "Zero"
-}, "Zero")); //#endregion
+}, "Zero"));
+var assistInfoSelect = /*#__PURE__*/React.createElement("select", {
+  id: "assistInfoSelect",
+  className: "form-control"
+}, /*#__PURE__*/React.createElement("option", {
+  value: "",
+  disabled: true,
+  selected: true,
+  hidden: true
+}, "Assist 1"), /*#__PURE__*/React.createElement("option", {
+  value: "Anyone"
+}, "Anyone"), /*#__PURE__*/React.createElement("option", {
+  value: "Accelerator"
+}, "Accelerator"), /*#__PURE__*/React.createElement("option", {
+  value: "Alicia"
+}, "Alicia"), /*#__PURE__*/React.createElement("option", {
+  value: "Boogiepop"
+}, "Boogiepop"), /*#__PURE__*/React.createElement("option", {
+  value: "Celty"
+}, "Celty"), /*#__PURE__*/React.createElement("option", {
+  value: "Dokuro"
+}, "Dokuro"), /*#__PURE__*/React.createElement("option", {
+  value: "Enju"
+}, "Enju"), /*#__PURE__*/React.createElement("option", {
+  value: "Erio"
+}, "Erio"), /*#__PURE__*/React.createElement("option", {
+  value: "Froleytia"
+}, "Froleytia"), /*#__PURE__*/React.createElement("option", {
+  value: "Haruyuki"
+}, "Haruyuki"), /*#__PURE__*/React.createElement("option", {
+  value: "Holo"
+}, "Holo"), /*#__PURE__*/React.createElement("option", {
+  value: "Innocent Charm"
+}, "Innocent Charm"), /*#__PURE__*/React.createElement("option", {
+  value: "Iriya"
+}, "Iriya"), /*#__PURE__*/React.createElement("option", {
+  value: "Izaya"
+}, "Izaya"), /*#__PURE__*/React.createElement("option", {
+  value: "Kino"
+}, "Kino"), /*#__PURE__*/React.createElement("option", {
+  value: "Kojou"
+}, "Kojou"), /*#__PURE__*/React.createElement("option", {
+  value: "Kouko"
+}, "Kouko"), /*#__PURE__*/React.createElement("option", {
+  value: "Kuroneko"
+}, "Kuroneko"), /*#__PURE__*/React.createElement("option", {
+  value: "Leafa"
+}, "Leafa"), /*#__PURE__*/React.createElement("option", {
+  value: "LLENN"
+}, "LLENN"), /*#__PURE__*/React.createElement("option", {
+  value: "Mashiro"
+}, "Mashiro"), /*#__PURE__*/React.createElement("option", {
+  value: "Miyuki"
+}, "Miyuki"), /*#__PURE__*/React.createElement("option", {
+  value: "Pai"
+}, "Pai"), /*#__PURE__*/React.createElement("option", {
+  value: "Rusian"
+}, "Rusian"), /*#__PURE__*/React.createElement("option", {
+  value: "Ryuuji"
+}, "Ryuuji"), /*#__PURE__*/React.createElement("option", {
+  value: "Sadao"
+}, "Sadao"), /*#__PURE__*/React.createElement("option", {
+  value: "Tatsuya"
+}, "Tatsuya"), /*#__PURE__*/React.createElement("option", {
+  value: "Touma"
+}, "Touma"), /*#__PURE__*/React.createElement("option", {
+  value: "Tomo"
+}, "Tomo"), /*#__PURE__*/React.createElement("option", {
+  value: "Uiharu"
+}, "Uiharu"), /*#__PURE__*/React.createElement("option", {
+  value: "Wilhelmina"
+}, "Wilhelmina"), /*#__PURE__*/React.createElement("option", {
+  value: "Zero"
+}, "Zero"));
+var assistInfo = [/*#__PURE__*/React.createElement("div", {
+  id: "aInfo",
+  value: "Accelerator"
+}, /*#__PURE__*/React.createElement("h2", null, "line1"), /*#__PURE__*/React.createElement("h2", null, "line2")), /*#__PURE__*/React.createElement("div", {
+  id: "aInfo",
+  value: "Boogiepop"
+}, /*#__PURE__*/React.createElement("h2", null, "line1 - Boogie"), /*#__PURE__*/React.createElement("h2", null, "line2 - Woogie"))]; //#endregion
+
+var assistTest = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Testing1"));
+var assistTest2 = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Testing2"));
 "use strict";
 
 // https://stackoverflow.com/questions/32704027/how-to-call-bootstrap-alert-with-jquery

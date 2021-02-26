@@ -22,22 +22,30 @@ body {
 }
 
 #content {
-    /*border: solid red 5px;*/
+    border: solid red 5px;
     width: 60%;
     float: right;
     height: 100%
 }
 
 #secondary {
-    /*border: solid blue 5px;*/
+    border: solid blue 5px;
     width: 40%;
     float: left;
     height: 100%;
     position: fixed;
 }
 
+#info { 
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    bottom: 0;
+    border: solid yellow 5px;
+}
+
 #container {
-    /*border: solid green 5px;*/
+    border: solid green 5px;
     height: 100%;
 }
 
@@ -80,7 +88,7 @@ body {
     margin: 0 auto;
     font-size: 1.2em;
     margin-top: 10%;
-    color: white;
+    color: rgb(34, 34, 34);
     text-align: center;
 }
 
@@ -349,9 +357,6 @@ button.delete {
 
 /* The emerging W3C standard
    that is currently Firefox-only */
-   * {
-    scrollbar-color: #D0D3D4 #7C878E;
-  }
   
   /* Works on Chrome/Edge/Safari */
   *::-webkit-scrollbar {

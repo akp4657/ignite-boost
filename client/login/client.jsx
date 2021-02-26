@@ -1,5 +1,5 @@
 let videoIndex = 0;
-let videoMax = 300;
+let videoMax = 350;
 let queryString;
 let pagedVideos;
 
@@ -304,11 +304,33 @@ const SiteDown = () => {
     )
 };
 
+const AssistInfo = () => {
+    let selected = $("#assistInfoSelect").find(":selected").text();
+    let assistSrc = `/assets/img/assistSprites/${selected}.png`;
+    let info;
+
+    assistInfo.forEach(a => {
+        console.log(a.props.value)
+        if(a.props.value === selected) {
+            info = a;
+        }
+    })
+    console.log(selected)
+
+    return (
+        <div className = 'videoList'>
+            {assistInfoSelect}
+            <h1>{info}</h1>
+            <img id="assistInfoImg" src={assistSrc} alt={selected} />
+        </div>
+    )
+};
+
 const GifBack = () => {
     return (
         <img id="gifs" src="/assets/img/background.gif"/>
     )
-}
+};
 
 
 ///
@@ -418,6 +440,20 @@ const createGifs = () => {
     );
 }
 
+const createAssistSelect = () => {
+    ReactDOM.render(
+        <AssistInfo />,
+        document.querySelector("#info")
+    );
+
+    $('#info').find('select').on('change', function() {
+        ReactDOM.render(
+            <AssistInfo />,
+            document.querySelector("#info")
+        );
+    });
+}
+
 
 const setup = (csrf) => {
     const loginButton = document.querySelector("#loginButton");
@@ -457,12 +493,15 @@ const setup = (csrf) => {
     homeButton.addEventListener("click", (e) => {
         e.preventDefault();
         createSearchForm(); // Uncomment on site up
+        //createAssistSelect();
         loadAllVideosFromServer(); // Uncomment on site up
         return false;
     });
 
     createSearchForm();
     createLoad();
+    createAssistSelect();
+
     loadAllVideosFromServer() //Default window Uncomment all on sit up
     //Default loads all Videos on the server 
     //createSiteDown();
@@ -534,4 +573,38 @@ const assist2Search = <select id = "assist2Search" className='form-control'>
     <option value="Touma">Touma</option><option value="Tomo">Tomo</option><option value="Uiharu">Uiharu</option>
     <option value="Wilhelmina">Wilhelmina</option><option value="Zero">Zero</option>
     </select>;
+
+const assistInfoSelect = <select id = "assistInfoSelect" className='form-control'>
+    <option value="" disabled selected hidden>Assist 1</option><option value="Anyone">Anyone</option>
+    <option value="Accelerator">Accelerator</option><option value="Alicia">Alicia</option>
+    <option value="Boogiepop">Boogiepop</option><option value="Celty">Celty</option><option value="Dokuro">Dokuro</option>
+    <option value="Enju">Enju</option><option value="Erio">Erio</option><option value="Froleytia">Froleytia</option>
+    <option value="Haruyuki">Haruyuki</option><option value="Holo">Holo</option><option value="Innocent Charm">Innocent Charm</option>
+    <option value="Iriya">Iriya</option><option value="Izaya">Izaya</option><option value="Kino">Kino</option>
+    <option value="Kojou">Kojou</option><option value="Kouko">Kouko</option><option value="Kuroneko">Kuroneko</option>
+    <option value="Leafa">Leafa</option><option value="LLENN">LLENN</option><option value="Mashiro">Mashiro</option>
+    <option value="Miyuki">Miyuki</option><option value="Pai">Pai</option><option value="Rusian">Rusian</option>
+    <option value="Ryuuji">Ryuuji</option><option value="Sadao">Sadao</option><option value="Tatsuya">Tatsuya</option>
+    <option value="Touma">Touma</option><option value="Tomo">Tomo</option><option value="Uiharu">Uiharu</option>
+    <option value="Wilhelmina">Wilhelmina</option><option value="Zero">Zero</option>
+    </select>;
+
+const assistInfo = [
+    <div id = 'aInfo' value ='Accelerator'>
+        <h2>line1</h2>
+        <h2>line2</h2>
+    </div>,
+    <div id = 'aInfo' value ='Boogiepop'>
+        <h2>line1 - Boogie</h2>
+        <h2>line2 - Woogie</h2>
+    </div>
+]
 //#endregion
+
+const assistTest = <div>
+    <h1>Testing1</h1>
+</div>
+
+const assistTest2 = <div>
+    <h1>Testing2</h1>
+</div>
