@@ -190,17 +190,17 @@ var SignupWindow = function SignupWindow(props) {
     type: "text",
     name: "username",
     placeholder: "username"
-  }), /*#__PURE__*/React.createElement("input", {
+  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
     id: "pass",
     type: "password",
     name: "pass",
     placeholder: "password"
-  }), /*#__PURE__*/React.createElement("input", {
+  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
     id: "pass2",
     type: "password",
     name: "pass2",
     placeholder: "retype password"
-  }), /*#__PURE__*/React.createElement("input", {
+  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
     type: "hidden",
     name: "_csrf",
     value: props.csrf
@@ -452,6 +452,7 @@ var setup = function setup(csrf) {
     e.preventDefault();
     createSignupWindow(csrf); //Uncomment on site up 
 
+    createGifs();
     return false;
   });
   loginButton.addEventListener("click", function (e) {

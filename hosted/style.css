@@ -9,7 +9,7 @@ html, body {
 
 body {
     /*background-color: #1C1F24;*/
-    background-color: rgb(34, 34, 34)
+    background-color: #F0F7FF;
 }
 
 #logo {
@@ -22,14 +22,14 @@ body {
 }
 
 #content {
-    border: solid red 5px;
+    /*border: solid red 5px;*/
     width: 60%;
     float: right;
     height: 100%
 }
 
 #secondary {
-    border: solid blue 5px;
+    /*border: solid blue 5px;*/
     width: 40%;
     float: left;
     height: 100%;
@@ -37,7 +37,7 @@ body {
 }
 
 #container {
-    border: solid green 5px;
+    /*border: solid green 5px;*/
     height: 100%;
 }
 
@@ -140,6 +140,8 @@ body {
     width: 300px;
     border-radius: 6px;
     margin: 0 auto;
+    background-color: #F0F7FF;
+    color:rgb(34, 34, 34);
 }
 
 #user:focus, #pass:focus, #pass2:focus, #pass3:focus {
@@ -165,13 +167,16 @@ body {
     width: 65%; 
     margin: 0 auto;
     margin-top: 5%;
-    background-color: #586073;
-    color: #ffffff;
+    color: rgb(34, 34, 34);
     border-radius: 5px;
     font-weight: bold;
     font-size: 20px;
     background-color: transparent;
+    border-top: 2px solid rgb(34, 34, 34);
+}
 
+#content .table tr {
+    border-bottom: 2px solid rgb(34, 34, 34);
 }
 
 

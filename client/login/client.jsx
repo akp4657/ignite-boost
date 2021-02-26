@@ -174,8 +174,13 @@ const SignupWindow = (props) => {
             className="mainForm"
         >
         <input id="user" type="text" name="username" placeholder="username"/>
+        <br></br>
+        <br></br>
         <input id="pass" type="password" name="pass" placeholder="password"/>
+        <br></br>
+        <br></br>
         <input id="pass2" type="password" name="pass2" placeholder="retype password"/>
+        <br></br>
         <input type="hidden" name="_csrf" value={props.csrf}/>
         <input className="formSubmit btn" type="submit" value="Sign Up"/>
 
@@ -424,6 +429,7 @@ const setup = (csrf) => {
     signupButton.addEventListener("click", (e) => {
         e.preventDefault();
         createSignupWindow(csrf); //Uncomment on site up 
+        createGifs();
         return false;
     });
 
