@@ -16,7 +16,7 @@ const router = (app) => {
   app.post('/main', mid.requiresLogin, controllers.Video.make);
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
 
-  app.get('/*', controllers.Video.mainPage);
+  app.get('/*', controllers.Account.loginPage);
 };
 
 module.exports = router;

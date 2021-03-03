@@ -83,7 +83,20 @@ var handleSearch = function handleSearch(e) {
       videos: data.videos
     }), document.querySelector("#content"));
   });
-};
+}; // On the shelf for handling URLs
+
+/*const handleURL = (e) => {
+    e.preventDefault();
+
+    queryString = "Segawa"
+
+    sendAjax('GET', queryString , null, (data) =>{
+        ReactDOM.render(
+            <VideoList videos={data.videos} />, document.querySelector("#content")
+        );
+    });
+};*/
+
 
 var handleReport = function handleReport(e) {
   e.preventDefault();
@@ -96,14 +109,24 @@ var handleReport = function handleReport(e) {
   sendAjax('POST', $("#reportForm").attr("action"), $("#reportForm").serialize(), redirect);
   return false;
 }; // Search form
-//Sets up the search form, will change the select for characters depending on the game selected
+//Sets up the search form
 
 
 var SearchForm = function SearchForm() {
-  var charSelection = char1Search;
-  var char2Selection = char2Search;
-  var assist1Selection = assist1Search;
-  var assist2Selection = assist2Search;
+  // Obsolete, but uncomment just in case
+
+  /*let charSelection = char1Search;
+  let char2Selection = char2Search;
+  let assist1Selection = assist1Search;
+  let assist2Selection = assist2Search;*/
+  var char1Select = $("#char1Search").find(":selected").text();
+  var char2Select = $("#char2Search").find(":selected").text();
+  var assist1Select = $("#assist1Search").find(":selected").text();
+  var assist2Select = $("#assist2Search").find(":selected").text();
+  var char1Src = "/assets/img/Characters/".concat(char1Select, ".png");
+  var char2Src = "/assets/img/Characters/".concat(char2Select, ".png");
+  var assist1Src = "/assets/img/Assists/".concat(assist1Select, ".png");
+  var assist2Src = "/assets/img/Assists/".concat(assist2Select, ".png");
   var gameSelection = /*#__PURE__*/React.createElement("select", {
     id: "gameSec",
     className: "form-control"
@@ -130,21 +153,35 @@ var SearchForm = function SearchForm() {
   }, /*#__PURE__*/React.createElement("table", {
     id: "searchFormTable",
     className: "table table-sm"
-  }, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+  }, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
+    id: "assist1Img",
+    src: assist1Src,
+    alt: assist1Select
+  })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
+    id: "char1Img",
+    src: char1Src,
+    alt: char1Select
+  })), /*#__PURE__*/React.createElement("td", null, assist1Search), /*#__PURE__*/React.createElement("td", null, char1Search), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
     className: "form-control",
     id: "player1Search",
     type: "text",
     name: "player1",
     placeholder: "Player 1"
-  })), /*#__PURE__*/React.createElement("td", null, assist1Selection), /*#__PURE__*/React.createElement("td", null, charSelection), /*#__PURE__*/React.createElement("td", {
-    id: "vs"
-  }, "vs"), /*#__PURE__*/React.createElement("td", null, char2Selection), /*#__PURE__*/React.createElement("td", null, assist2Selection), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+  }))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
+    id: "assist2Img",
+    src: assist2Src,
+    alt: assist2Select
+  })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
+    id: "char2Img",
+    src: char2Src,
+    alt: char2Select
+  })), /*#__PURE__*/React.createElement("td", null, assist2Search), /*#__PURE__*/React.createElement("td", null, char2Search), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
     className: "form-control",
     id: "player2Search",
     type: "text",
     name: "player2",
     placeholder: "Player 2"
-  })), /*#__PURE__*/React.createElement("td", null, gameSelection)))));
+  }))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null), /*#__PURE__*/React.createElement("td", null, gameSelection), /*#__PURE__*/React.createElement("td", null)))));
 }; // Render our login window
 
 
@@ -294,7 +331,7 @@ var VideoList = function VideoList(props) {
       src: versionSrc,
       alt: video.version
     });
-    return /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, video.player1), /*#__PURE__*/React.createElement("td", null, assistImg1), /*#__PURE__*/React.createElement("td", null, charImg1), /*#__PURE__*/React.createElement("td", null, "vs"), /*#__PURE__*/React.createElement("td", null, charImg2), /*#__PURE__*/React.createElement("td", null, assistImg2), /*#__PURE__*/React.createElement("td", null, video.player2), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("a", {
+    return /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, video.player1), /*#__PURE__*/React.createElement("td", null, assistImg1), /*#__PURE__*/React.createElement("td", null, charImg1), /*#__PURE__*/React.createElement("td", null, charImg2), /*#__PURE__*/React.createElement("td", null, assistImg2), /*#__PURE__*/React.createElement("td", null, video.player2), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("a", {
       href: video.link,
       className: "icons-sm yt-ic",
       target: "_blank"
@@ -345,22 +382,24 @@ var SiteDown = function SiteDown() {
 var AssistInfo = function AssistInfo() {
   var selected = $("#assistInfoSelect").find(":selected").text();
   var assistSrc = "/assets/img/assistSprites/".concat(selected, ".png");
-  var info;
-  assistInfo.forEach(function (a) {
-    console.log(a.props.value);
+  var info; // At the bottom of the file, there's an array of HTML objects, each correlating to the 
+  // character. Find the one we want and put it here
 
+  assistInfo.forEach(function (a) {
     if (a.props.value === selected) {
       info = a;
     }
   });
-  console.log(selected);
-  return /*#__PURE__*/React.createElement("div", {
-    className: "videoList"
-  }, assistInfoSelect, /*#__PURE__*/React.createElement("h1", null, info), /*#__PURE__*/React.createElement("img", {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: "infoList"
+  }, assistInfoSelect, /*#__PURE__*/React.createElement("img", {
     id: "assistInfoImg",
     src: assistSrc,
     alt: selected
-  }));
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "textList",
+    id: "textInfo"
+  }, /*#__PURE__*/React.createElement("h1", null, info)));
 };
 
 var GifBack = function GifBack() {
@@ -516,6 +555,16 @@ var setup = function setup(csrf) {
   createSearchForm();
   createLoad();
   createAssistSelect();
+  console.log(window.location.pathname);
+  /*if(window.location.pathname != '/') {
+      console.log('true')
+      handleURL();
+  }
+  else {
+      console.log('false')
+      loadAllVideosFromServer() //Default window Uncomment all on sit up
+  }*/
+
   loadAllVideosFromServer(); //Default window Uncomment all on sit up
   //Default loads all Videos on the server 
   //createSiteDown();
@@ -788,9 +837,7 @@ var assistInfoSelect = /*#__PURE__*/React.createElement("select", {
   disabled: true,
   selected: true,
   hidden: true
-}, "Assist 1"), /*#__PURE__*/React.createElement("option", {
-  value: "Anyone"
-}, "Anyone"), /*#__PURE__*/React.createElement("option", {
+}, "Assist Information"), /*#__PURE__*/React.createElement("option", {
   value: "Accelerator"
 }, "Accelerator"), /*#__PURE__*/React.createElement("option", {
   value: "Alicia"
@@ -859,7 +906,7 @@ var assistInfo = [/*#__PURE__*/React.createElement("div", {
 }, /*#__PURE__*/React.createElement("h2", null, "line1"), /*#__PURE__*/React.createElement("h2", null, "line2")), /*#__PURE__*/React.createElement("div", {
   id: "aInfo",
   value: "Boogiepop"
-}, /*#__PURE__*/React.createElement("h2", null, "line1 - Boogie"), /*#__PURE__*/React.createElement("h2", null, "line2 - Woogie"))]; //#endregion
+}, /*#__PURE__*/React.createElement("h2", null, "5S"), /*#__PURE__*/React.createElement("p", null, "Boogiepop appears in front of the player and uses a ranged attack"), /*#__PURE__*/React.createElement("li", null, "Launches on hit"), /*#__PURE__*/React.createElement("li", null, "Only hits a specific area, can whiff if too close or too far away"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("h2", null, "6S"), /*#__PURE__*/React.createElement("p", null, "Boogiepop appears in front of the player for a long amount of time as a flute plays. Afterwards they turn around, the screen goes dark, then they attack the entire screen. "), /*#__PURE__*/React.createElement("li", null, "Launches on hit"), /*#__PURE__*/React.createElement("li", null, "Hits full screen and is air unblockable"), /*#__PURE__*/React.createElement("li", null, "Deals 500 damage and 1500 white damage when blocked"), /*#__PURE__*/React.createElement("li", null, "During the startup you gain 65% of a bar of meter"))]; //#endregion
 
 var assistTest = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Testing1"));
 var assistTest2 = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Testing2"));

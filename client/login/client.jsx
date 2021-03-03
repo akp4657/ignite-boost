@@ -87,6 +87,19 @@ const handleSearch = (e) => {
     });
 };
 
+// On the shelf for handling URLs
+/*const handleURL = (e) => {
+    e.preventDefault();
+
+    queryString = "Segawa"
+
+    sendAjax('GET', queryString , null, (data) =>{
+        ReactDOM.render(
+            <VideoList videos={data.videos} />, document.querySelector("#content")
+        );
+    });
+};*/
+
 const handleReport = (e) => {
     e.preventDefault();
 
@@ -102,19 +115,29 @@ const handleReport = (e) => {
 }
 
 // Search form
-//Sets up the search form, will change the select for characters depending on the game selected
+//Sets up the search form
 const SearchForm = () => {
 
-    let charSelection = char1Search;
+    // Obsolete, but uncomment just in case
+    /*let charSelection = char1Search;
     let char2Selection = char2Search;
     let assist1Selection = assist1Search;
-    let assist2Selection = assist2Search;
+    let assist2Selection = assist2Search;*/
+
+    let char1Select = $("#char1Search").find(":selected").text()
+    let char2Select = $("#char2Search").find(":selected").text()
+    let assist1Select = $("#assist1Search").find(":selected").text()
+    let assist2Select = $("#assist2Search").find(":selected").text()
+
+    let char1Src = `/assets/img/Characters/${char1Select}.png`
+    let char2Src = `/assets/img/Characters/${char2Select}.png`
+    let assist1Src = `/assets/img/Assists/${assist1Select}.png`
+    let assist2Src = `/assets/img/Assists/${assist2Select}.png`
 
     const gameSelection = <select id = "gameSec" className = 'form-control'>
     <option value="" disabled selected hidden>Version</option><option value="Any">Any</option>
     <option value="2">DFC:I</option><option value="1">DFC</option>
     </select>;
-
     return(
         <form
             id="searchForm"
@@ -128,14 +151,23 @@ const SearchForm = () => {
           <table id="searchFormTable" className="table table-sm">
                 <tbody>
                     <tr>
+                        <td><img id="assist1Img" src={assist1Src} alt={assist1Select}/></td>
+                        <td><img id="char1Img" src={char1Src} alt={char1Select}/></td>
+                        <td>{assist1Search}</td>
+                        <td>{char1Search}</td>
                         <td><input className="form-control" id="player1Search" type="text" name="player1" placeholder="Player 1"/></td>
-                        <td>{assist1Selection}</td>
-                        <td>{charSelection}</td>
-                        <td id="vs">vs</td>
-                        <td>{char2Selection}</td>
-                        <td>{assist2Selection}</td>
+                    </tr>
+                    <tr>
+                        <td><img id="assist2Img" src={assist2Src} alt={assist2Select}/></td>
+                        <td><img id="char2Img" src={char2Src} alt={char2Select}/></td>
+                        <td>{assist2Search}</td>
+                        <td>{char2Search}</td>
                         <td><input className="form-control" id="player2Search" type="text" name="player2" placeholder="Player 2"/></td>
+                    </tr>
+                    <tr>
+                        <td></td>
                         <td>{gameSelection}</td>
+                        <td></td>
                     </tr>
                 </tbody>
             </table>
@@ -207,7 +239,6 @@ const ReportWindow = (props) => {
 
 //#region Home Video Code
 const VideoList = function(props) {
-
     pagedVideos = [];
 
     if(props.videos.length === 0) {
@@ -250,7 +281,6 @@ const VideoList = function(props) {
                         <td>{video.player1}</td>
                         <td>{assistImg1}</td>
                         <td>{charImg1}</td>
-                        <td>vs</td>
                         <td>{charImg2}</td>
                         <td>{assistImg2}</td>
                         <td>{video.player2}</td>
@@ -309,19 +339,23 @@ const AssistInfo = () => {
     let assistSrc = `/assets/img/assistSprites/${selected}.png`;
     let info;
 
+    // At the bottom of the file, there's an array of HTML objects, each correlating to the 
+    // character. Find the one we want and put it here
     assistInfo.forEach(a => {
-        console.log(a.props.value)
         if(a.props.value === selected) {
             info = a;
         }
     })
-    console.log(selected)
 
     return (
-        <div className = 'videoList'>
-            {assistInfoSelect}
-            <h1>{info}</h1>
-            <img id="assistInfoImg" src={assistSrc} alt={selected} />
+        <div>
+            <div className = 'infoList'>
+                {assistInfoSelect}
+                <img id="assistInfoImg" src={assistSrc} alt={selected} />
+            </div>
+            <div className = 'textList' id='textInfo'>
+                <h1>{info}</h1>
+            </div>
         </div>
     )
 };
@@ -502,7 +536,18 @@ const setup = (csrf) => {
     createLoad();
     createAssistSelect();
 
+    console.log(window.location.pathname)
+
+    /*if(window.location.pathname != '/') {
+        console.log('true')
+        handleURL();
+    }
+    else {
+        console.log('false')
+        loadAllVideosFromServer() //Default window Uncomment all on sit up
+    }*/
     loadAllVideosFromServer() //Default window Uncomment all on sit up
+
     //Default loads all Videos on the server 
     //createSiteDown();
 
@@ -575,7 +620,7 @@ const assist2Search = <select id = "assist2Search" className='form-control'>
     </select>;
 
 const assistInfoSelect = <select id = "assistInfoSelect" className='form-control'>
-    <option value="" disabled selected hidden>Assist 1</option><option value="Anyone">Anyone</option>
+    <option value="" disabled selected hidden>Assist Information</option>
     <option value="Accelerator">Accelerator</option><option value="Alicia">Alicia</option>
     <option value="Boogiepop">Boogiepop</option><option value="Celty">Celty</option><option value="Dokuro">Dokuro</option>
     <option value="Enju">Enju</option><option value="Erio">Erio</option><option value="Froleytia">Froleytia</option>
@@ -595,8 +640,17 @@ const assistInfo = [
         <h2>line2</h2>
     </div>,
     <div id = 'aInfo' value ='Boogiepop'>
-        <h2>line1 - Boogie</h2>
-        <h2>line2 - Woogie</h2>
+        <h2>5S</h2>
+        <p>Boogiepop appears in front of the player and uses a ranged attack</p>
+        <li>Launches on hit</li>
+        <li>Only hits a specific area, can whiff if too close or too far away</li>
+        <br></br>
+        <h2>6S</h2>
+        <p>Boogiepop appears in front of the player for a long amount of time as a flute plays. Afterwards they turn around, the screen goes dark, then they attack the entire screen. </p>
+        <li>Launches on hit</li>
+        <li>Hits full screen and is air unblockable</li>
+        <li>Deals 500 damage and 1500 white damage when blocked</li>
+        <li>During the startup you gain 65% of a bar of meter</li>
     </div>
 ]
 //#endregion

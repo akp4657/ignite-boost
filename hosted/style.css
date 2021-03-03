@@ -92,6 +92,41 @@ body {
     text-align: center;
 }
 
+.infoList {
+    border: solid salmon 5px;
+}
+
+.textList {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    border: solid paleturquoise 5px;
+}
+
+.textList h1 {
+    margin-left: 25%;
+    margin-top: 10%;
+}
+
+#assistInfoImg {
+    position: absolute;
+    bottom: 0;
+    max-height: 100%;
+    max-width: 100%;
+    border: solid blueviolet 5px;
+}
+
+#aInfo p, #aInfo li {
+    font-size: x-large;
+}
+
+#aInfo {
+    overflow-x:hidden;
+    overflow-y: auto;
+    background-color: mediumslateblue;
+    height: 85%;
+}
+
 .mainForm h3 {
     text-align: center;
 }

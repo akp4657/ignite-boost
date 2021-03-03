@@ -188,9 +188,48 @@ const searchVideos = (request, response) => {
   });
 };
 
+/* URL Searching on the shelf
+const searchURL = (request, response) => {
+  const req = request;
+  const res = response;
+
+  console.log(req)
+
+  let params = { $and: [] };
+
+  // check if the params exist
+  const {
+    player1
+  } = req.params[0]
+  let i = 0; // keeps track of position in params.$and array
+
+  // If param exists, add it to the $and array with the
+  // $or syntax to check for name in either slot 1 or 2 for player/char
+  // Using regex to be case insensitive and act like '$like' in SQL 
+  if (player1) {
+      params.$and[i] = { $or: [{ player1: {$regex: RegExp('^' + player1 ), $options: 'i'}}, { player2: {$regex: RegExp('^' + player1 ), $options: 'i'}}]}
+      i++;
+  }
+
+  if (i === 0) params = {}; // set params to empty object if no query params were sent
+  
+  //console.log(params.$and[0].$or)
+  
+  return Video.VideoModel.findSearch(params, (err, docs) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ error: 'An error occured' });
+    }
+
+    return res.render('app', { videos: docs });
+
+  });
+};*/
+
 module.exports.mainPage = mainPage;
 module.exports.getVideos = getVideos;
 module.exports.getAllVideos = getAllVideos;
 module.exports.make = makeVideo;
 module.exports.delete = deleteEntry;
 module.exports.searchVideos = searchVideos;
+//module.exports.searchURL = searchURL;
