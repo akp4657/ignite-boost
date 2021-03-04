@@ -119,14 +119,6 @@ var SearchForm = function SearchForm() {
   let char2Selection = char2Search;
   let assist1Selection = assist1Search;
   let assist2Selection = assist2Search;*/
-  var char1Select = $("#char1Search").find(":selected").text();
-  var char2Select = $("#char2Search").find(":selected").text();
-  var assist1Select = $("#assist1Search").find(":selected").text();
-  var assist2Select = $("#assist2Search").find(":selected").text();
-  var char1Src = "/assets/img/Characters/".concat(char1Select, ".png");
-  var char2Src = "/assets/img/Characters/".concat(char2Select, ".png");
-  var assist1Src = "/assets/img/Assists/".concat(assist1Select, ".png");
-  var assist2Src = "/assets/img/Assists/".concat(assist2Select, ".png");
   var gameSelection = /*#__PURE__*/React.createElement("select", {
     id: "gameSec",
     className: "form-control"
@@ -142,6 +134,16 @@ var SearchForm = function SearchForm() {
   }, "DFC:I"), /*#__PURE__*/React.createElement("option", {
     value: "1"
   }, "DFC"));
+  var char1Select = $("#char1Search").find(":selected").text();
+  var char2Select = $("#char2Search").find(":selected").text();
+  var assist1Select = $("#assist1Search").find(":selected").text();
+  var assist2Select = $("#assist2Search").find(":selected").text();
+  var versionSelect = $("#gameSec").find(":selected").val();
+  var char1Src = "/assets/img/Characters/".concat(char1Select, ".png");
+  var char2Src = "/assets/img/Characters/".concat(char2Select, ".png");
+  var assist1Src = "/assets/img/Assists/".concat(assist1Select, ".png");
+  var assist2Src = "/assets/img/Assists/".concat(assist2Select, ".png");
+  var gameSrc = "/assets/img/Version/".concat(versionSelect, ".png");
   return /*#__PURE__*/React.createElement("form", {
     id: "searchForm",
     onChange: handleSearch,
@@ -161,7 +163,7 @@ var SearchForm = function SearchForm() {
     id: "char1Img",
     src: char1Src,
     alt: char1Select
-  })), /*#__PURE__*/React.createElement("td", null, assist1Search), /*#__PURE__*/React.createElement("td", null, char1Search), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+  })), /*#__PURE__*/React.createElement("td", null)), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, assist1Search), /*#__PURE__*/React.createElement("td", null, char1Search), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
     className: "form-control",
     id: "player1Search",
     type: "text",
@@ -175,13 +177,17 @@ var SearchForm = function SearchForm() {
     id: "char2Img",
     src: char2Src,
     alt: char2Select
-  })), /*#__PURE__*/React.createElement("td", null, assist2Search), /*#__PURE__*/React.createElement("td", null, char2Search), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+  })), /*#__PURE__*/React.createElement("td", null)), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, assist2Search), /*#__PURE__*/React.createElement("td", null, char2Search), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
     className: "form-control",
     id: "player2Search",
     type: "text",
     name: "player2",
     placeholder: "Player 2"
-  }))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null), /*#__PURE__*/React.createElement("td", null, gameSelection), /*#__PURE__*/React.createElement("td", null)))));
+  }))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
+    id: "versionImgSearch",
+    src: gameSrc,
+    alt: versionSelect
+  }), gameSelection), /*#__PURE__*/React.createElement("td", null)))));
 }; // Render our login window
 
 

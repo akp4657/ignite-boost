@@ -25,7 +25,8 @@ body {
     border: solid red 5px;
     width: 60%;
     float: right;
-    height: 100%
+    height: 100%;
+    overflow-x: auto
 }
 
 #secondary {
@@ -123,8 +124,10 @@ body {
 #aInfo {
     overflow-x:hidden;
     overflow-y: auto;
+    height: 75%;
+    margin-top: -10%;
     background-color: mediumslateblue;
-    height: 85%;
+    padding: 15px;
 }
 
 .mainForm h3 {
@@ -227,10 +230,10 @@ body {
     width: 15%;
     position: absolute;
     margin: 0 auto; 
-    margin-left: 2%;
+    margin-left: 40%;
     z-index: 1;
     text-align: center;
-    margin-top: 20%;
+    margin-top: 10%;
 }
 
 .fa-youtube {
@@ -282,8 +285,19 @@ body {
     font-size: 16px;
     border: 5px solid transparent;
     margin-bottom: -3%;
-    margin-top: 7%;
+    margin-top: 9%;
 }
+
+#player1Search, #player2Search {
+    width: 125px;
+}
+
+#versionImgSearch {
+    height: 50px;
+    width: 50px;
+    text-align: center;
+}
+
 
 #searchFormTable > tbody > tr > td > .form-control {
     vertical-align: middle;
@@ -326,6 +340,12 @@ select:invalid {
 
 .table > tbody > tr > .td{
     vertical-align: middle;
+}
+
+#assistInfoSelect {
+    width: 25%;
+    margin-top: 4%;
+    margin-left: 37.5%;
 }
 
 #static > .form-control {

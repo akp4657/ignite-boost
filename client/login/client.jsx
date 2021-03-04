@@ -123,21 +123,23 @@ const SearchForm = () => {
     let char2Selection = char2Search;
     let assist1Selection = assist1Search;
     let assist2Selection = assist2Search;*/
+    const gameSelection = <select id = "gameSec" className = 'form-control'>
+    <option value="" disabled selected hidden>Version</option><option value="Any">Any</option>
+    <option value="2">DFC:I</option><option value="1">DFC</option>
+    </select>;
 
     let char1Select = $("#char1Search").find(":selected").text()
     let char2Select = $("#char2Search").find(":selected").text()
     let assist1Select = $("#assist1Search").find(":selected").text()
     let assist2Select = $("#assist2Search").find(":selected").text()
+    let versionSelect = $("#gameSec").find(":selected").val()
 
     let char1Src = `/assets/img/Characters/${char1Select}.png`
     let char2Src = `/assets/img/Characters/${char2Select}.png`
     let assist1Src = `/assets/img/Assists/${assist1Select}.png`
     let assist2Src = `/assets/img/Assists/${assist2Select}.png`
+    let gameSrc = `/assets/img/Version/${versionSelect}.png`
 
-    const gameSelection = <select id = "gameSec" className = 'form-control'>
-    <option value="" disabled selected hidden>Version</option><option value="Any">Any</option>
-    <option value="2">DFC:I</option><option value="1">DFC</option>
-    </select>;
     return(
         <form
             id="searchForm"
@@ -153,6 +155,9 @@ const SearchForm = () => {
                     <tr>
                         <td><img id="assist1Img" src={assist1Src} alt={assist1Select}/></td>
                         <td><img id="char1Img" src={char1Src} alt={char1Select}/></td>
+                        <td></td>
+                    </tr>
+                    <tr>
                         <td>{assist1Search}</td>
                         <td>{char1Search}</td>
                         <td><input className="form-control" id="player1Search" type="text" name="player1" placeholder="Player 1"/></td>
@@ -160,13 +165,16 @@ const SearchForm = () => {
                     <tr>
                         <td><img id="assist2Img" src={assist2Src} alt={assist2Select}/></td>
                         <td><img id="char2Img" src={char2Src} alt={char2Select}/></td>
+                        <td></td>
+                    </tr>
+                    <tr>
                         <td>{assist2Search}</td>
                         <td>{char2Search}</td>
                         <td><input className="form-control" id="player2Search" type="text" name="player2" placeholder="Player 2"/></td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td>{gameSelection}</td>
+                        <td><img id="versionImgSearch" src={gameSrc} alt={versionSelect}/>{gameSelection}</td>
                         <td></td>
                     </tr>
                 </tbody>
