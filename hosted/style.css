@@ -343,7 +343,13 @@ body {
 #report {
     margin: 0 auto;
     display: block;
-    margin-top: 7%;
+    margin-top: 20%;
+}
+
+#reportSubmit {
+    margin: 0 auto; 
+    margin-top: 2%;
+    margin-bottom: 1%;
 }
 
 
