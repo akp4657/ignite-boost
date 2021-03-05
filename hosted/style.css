@@ -22,7 +22,8 @@ body {
 }
 
 #content {
-    border: solid red 5px;
+    border-left: solid rgb(88, 96, 115, .2) 3px;
+
     width: 60%;
     float: right;
     height: 100%;
@@ -30,7 +31,7 @@ body {
 }
 
 #secondary {
-    border: solid blue 5px;
+    /*border: solid blue 5px;*/
     width: 40%;
     float: left;
     height: 100%;
@@ -42,16 +43,20 @@ body {
     width: 100%;
     height: 50%;
     bottom: 0;
-    border: solid yellow 5px;
+    /*border: solid yellow 5px;*/
+    z-index: -1;
 }
 
 #container {
-    border: solid green 5px;
+    /*border: solid green 5px;*/
     height: 100%;
 }
 
 #nextButton {
     position: relative;
+    margin: 0 auto;
+    margin-top: 2%;
+    margin-bottom: 1%;
 }
 
 #nextButtonSearch { 
@@ -94,14 +99,14 @@ body {
 }
 
 .infoList {
-    border: solid salmon 5px;
+    /*border: solid salmon 5px;*/
 }
 
 .textList {
     height: 100%;
     position: absolute;
     width: 100%;
-    border: solid paleturquoise 5px;
+    /*border: solid paleturquoise 5px;*/
 }
 
 .textList h1 {
@@ -114,7 +119,7 @@ body {
     bottom: 0;
     max-height: 100%;
     max-width: 100%;
-    border: solid blueviolet 5px;
+    /*border: solid blueviolet 5px;*/
 }
 
 #aInfo p, #aInfo li {
@@ -126,8 +131,10 @@ body {
     overflow-y: auto;
     height: 75%;
     margin-top: -10%;
-    background-color: mediumslateblue;
+    margin-right: 3%;
+    background-color:rgb(88, 96, 115, .2);
     padding: 15px;
+    padding-bottom: 15px;
 }
 
 .mainForm h3 {
@@ -193,6 +200,28 @@ body {
 #user:focus, #pass:focus, #pass2:focus, #pass3:focus {
     outline: none;
     box-shadow: 0px 0px 1px 1px #68f2d5;
+}
+
+#char1Search:focus, #char2Search:focus, #assist1Search:focus, #assist2Search:focus, #gameSec:focus, #assistInfoSelect:focus {
+    outline: none;
+    box-shadow: 0px 0px 1px 1px #68f2d5;
+}
+
+#player1Search:focus, #player2Search:focus {
+    outline: none;
+    box-shadow: 0px 0px 1px 1px #68f2d5;
+}
+
+#char1Search, #char2Search, #assist1Search, #assist2Search, #gameSec, #assistInfoSelect {
+    background-color: #f9fcff;
+    color:rgb(34, 34, 34);
+    text-align: center;
+}
+
+#player1Search, #player2Search {
+    background-color: #f9fcff;
+    color:rgb(34, 34, 34);
+    text-align: center;
 }
 
 #video {
@@ -285,7 +314,7 @@ body {
     font-size: 16px;
     border: 5px solid transparent;
     margin-bottom: -3%;
-    margin-top: 9%;
+    margin-top: 10%;
 }
 
 #player1Search, #player2Search {
