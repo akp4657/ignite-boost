@@ -1003,9 +1003,6 @@ var assistInfo = [/*#__PURE__*/React.createElement("div", {
   id: "aInfo",
   value: "Zero"
 }, /*#__PURE__*/React.createElement("h2", null, "5S"), /*#__PURE__*/React.createElement("p", null, "Parry attack, then blowback opponent into wallbounce "), /*#__PURE__*/React.createElement("li", null, "Allows for easy followup combos"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("h2", null, "6S"), /*#__PURE__*/React.createElement("p", null, "Summon vines that travel horizontally fullscreen. Launches opponent on hit "), /*#__PURE__*/React.createElement("li", null, "Doesn't seem to really hit airborn opponents"), /*#__PURE__*/React.createElement("li", null, "Very small amount of active frames; not good Oki"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("h2", null, "S"), /*#__PURE__*/React.createElement("p", null, "Knock attacking opponent away from you. Dead angle attack "), /*#__PURE__*/React.createElement("li", null, "Can only be used during blockstun at the cost of 2 meter"))]; //#endregion
-
-var assistTest = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Testing1"));
-var assistTest2 = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Testing2"));
 "use strict";
 
 // https://stackoverflow.com/questions/32704027/how-to-call-bootstrap-alert-with-jquery

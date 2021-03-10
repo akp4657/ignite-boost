@@ -1076,11 +1076,3 @@ const assistInfo = [
     </div>,
 ]
 //#endregion
-
-const assistTest = <div>
-    <h1>Testing1</h1>
-</div>
-
-const assistTest2 = <div>
-    <h1>Testing2</h1>
-</div>
