@@ -347,11 +347,13 @@ var VideoForm = function VideoForm(props) {
     assist1Src = "/assets/img/Assists/".concat(assist1Sel, ".png");
     assist2Src = "/assets/img/Assists/".concat(assist2Sel, ".png");
     rows.push( /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+      className: "form-control",
       id: "timestamp",
       type: "text",
       name: "timestamp",
       placeholder: "00:00:00"
     })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+      className: "form-control",
       id: "playerOne",
       type: "text",
       name: "playerOne",
@@ -364,9 +366,7 @@ var VideoForm = function VideoForm(props) {
       id: "char1Img",
       src: char1Src,
       alt: char1Sel
-    }), charSelection), /*#__PURE__*/React.createElement("td", {
-      id: "vs"
-    }, "vs"), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
+    }), charSelection), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
       id: "char2Img",
       src: char2Src,
       alt: char2Sel
@@ -375,6 +375,7 @@ var VideoForm = function VideoForm(props) {
       src: assist2Src,
       alt: assist2Sel
     }), assist2Selection), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+      className: "form-control",
       id: "playerTwo",
       type: "text",
       name: "playerTwo",
@@ -416,26 +417,26 @@ var VideoForm = function VideoForm(props) {
     type: "text",
     name: "matchDate",
     placeholder: "YYYY-MM-DD"
-  }), /*#__PURE__*/React.createElement("div", {
-    className: "table-responsive"
-  }, /*#__PURE__*/React.createElement("table", {
+  }), /*#__PURE__*/React.createElement("table", {
     id: "videoFormTable",
     className: "table table-sm table-dark"
-  }, rows)), /*#__PURE__*/React.createElement("input", (_React$createElement = {
+  }, rows), /*#__PURE__*/React.createElement("input", (_React$createElement = {
     className: "makeVideoSubmit"
   }, _defineProperty(_React$createElement, "className", "formSubmit btn mainBtn"), _defineProperty(_React$createElement, "type", "submit"), _defineProperty(_React$createElement, "value", "Add Video"), _React$createElement)), /*#__PURE__*/React.createElement("input", {
     type: "hidden",
     name: "_csrf",
     value: props.csrf
-  }), /*#__PURE__*/React.createElement("button", {
+  }), /*#__PURE__*/React.createElement("input", {
     id: "addMatchButton",
     className: "formSubmit btn secondBtn",
-    type: "button"
-  }, "Add a Match"), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    value: "Add Match"
+  }), /*#__PURE__*/React.createElement("input", {
     id: "removeMatchButton",
     className: "formSubmit btn thirdBtn",
-    type: "button"
-  }, "Remove a Match")));
+    type: "button",
+    value: "Remove Match"
+  })));
 }; /// CHANGE PASSWORD WINDOW
 
 
@@ -617,7 +618,7 @@ var VideoList = function VideoList(props) {
     });
     return /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", {
       id: "name"
-    }, video.player1), /*#__PURE__*/React.createElement("td", null, assistImg1), /*#__PURE__*/React.createElement("td", null, charImg1), /*#__PURE__*/React.createElement("td", null, "vs"), /*#__PURE__*/React.createElement("td", null, charImg2), /*#__PURE__*/React.createElement("td", null, assistImg2), /*#__PURE__*/React.createElement("td", null, video.player2), /*#__PURE__*/React.createElement("td", {
+    }, video.player1), /*#__PURE__*/React.createElement("td", null, assistImg1), /*#__PURE__*/React.createElement("td", null, charImg1), /*#__PURE__*/React.createElement("td", null, charImg2), /*#__PURE__*/React.createElement("td", null, assistImg2), /*#__PURE__*/React.createElement("td", null, video.player2), /*#__PURE__*/React.createElement("td", {
       id: "name2"
     }, /*#__PURE__*/React.createElement("a", {
       href: video.link,
@@ -744,6 +745,7 @@ var createAddWindow = function createAddWindow(csrf) {
       };
     });
   });
+  ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
 };
 
 var createSearchForm = function createSearchForm() {
@@ -862,8 +864,7 @@ $(document).ready(function () {
 //Separated the character forms for ease of reference and readability in above code
 
 var char1Select = /*#__PURE__*/React.createElement("select", null, /*#__PURE__*/React.createElement("option", {
-  value: "Akira",
-  selected: true
+  value: "Akira"
 }, "Akira"), /*#__PURE__*/React.createElement("option", {
   value: "Ako"
 }, "Ako"), /*#__PURE__*/React.createElement("option", {
@@ -906,8 +907,7 @@ var char1Select = /*#__PURE__*/React.createElement("select", null, /*#__PURE__*/
 var assist1Select = /*#__PURE__*/React.createElement("select", {
   id: "assist1"
 }, /*#__PURE__*/React.createElement("option", {
-  value: "Accelerator",
-  selected: true
+  value: "Accelerator"
 }, "Accelerator"), /*#__PURE__*/React.createElement("option", {
   value: "Alicia"
 }, "Alicia"), /*#__PURE__*/React.createElement("option", {
@@ -972,8 +972,7 @@ var assist1Select = /*#__PURE__*/React.createElement("select", {
 var char2Select = /*#__PURE__*/React.createElement("select", {
   id: "char2"
 }, /*#__PURE__*/React.createElement("option", {
-  value: "Akira",
-  selected: true
+  value: "Akira"
 }, "Akira"), /*#__PURE__*/React.createElement("option", {
   value: "Ako"
 }, "Ako"), /*#__PURE__*/React.createElement("option", {
@@ -1016,8 +1015,7 @@ var char2Select = /*#__PURE__*/React.createElement("select", {
 var assist2Select = /*#__PURE__*/React.createElement("select", {
   id: "assist2"
 }, /*#__PURE__*/React.createElement("option", {
-  value: "Accelerator",
-  selected: true
+  value: "Accelerator"
 }, "Accelerator"), /*#__PURE__*/React.createElement("option", {
   value: "Alicia"
 }, "Alicia"), /*#__PURE__*/React.createElement("option", {

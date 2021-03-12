@@ -153,7 +153,6 @@ body {
     padding: 3px 0px;
     color: white;
     text-shadow: 2px 2px 4px black;
-    margin-left: 28%;
 
 }
 
@@ -285,13 +284,16 @@ body {
     color: gray;
 }
 
+
 #static {
     margin: 0 auto;
-    margin-top: 5%;
-    padding: 10px;
-    color: black;
-    border-radius: 5px;
+    font-size: 1.2em;
+    margin-top: 15%;
+    margin-left: 2%;
+    color: rgb(34, 34, 34);
+    text-align: center;
 }
+
 
 #videoFormTable {
     width: 50%; 
@@ -305,7 +307,11 @@ body {
 
 #videoFormTable > tbody > tr > td > input {
     width: 150px;
+    text-align: center;
     margin: 0 auto;
+}
+#videoFormTable select {
+    text-align: center;
 }
 
 #searchFormTable {
@@ -399,7 +405,6 @@ select:invalid {
 
 #static > #videoLink {
     width: 30%;
-    margin-left: 20%;
 }
 
 #static > #matchDate {
@@ -418,7 +423,6 @@ select:invalid {
      
 
 #static > .mainBtn {
-    margin-left: 35%;
     margin-right: 40px;
 }
 

@@ -364,14 +364,13 @@ const VideoForm = (props) => {
         rows.push(
             <tbody>
                 <tr>
-                    <td><input id="timestamp" type="text" name="timestamp" placeholder="00:00:00"/></td>
-                    <td><input id="playerOne" type="text" name="playerOne" placeholder="Player 1"/></td>
+                    <td><input className="form-control" id="timestamp" type="text" name="timestamp" placeholder="00:00:00"/></td>
+                    <td><input className="form-control" id="playerOne" type="text" name="playerOne" placeholder="Player 1"/></td>
                     <td><img id="assist1Img" src={assist1Src} alt={assist1Sel}/>{assist1Selection}</td>
                     <td><img id="char1Img" src={char1Src} alt={char1Sel}/>{charSelection}</td>
-                    <td id="vs">vs</td>
                     <td><img id="char2Img" src={char2Src} alt={char2Sel}/>{char2Selection}</td>
                     <td><img id="assist2Img" src={assist2Src} alt={assist2Sel}/>{assist2Selection}</td>
-                    <td><input id="playerTwo" type="text" name="playerTwo" placeholder="Player 2"/></td>
+                    <td><input className="form-control" id="playerTwo" type="text" name="playerTwo" placeholder="Player 2"/></td>
                 </tr>
             </tbody>
         )
@@ -394,15 +393,13 @@ const VideoForm = (props) => {
                 <option value="1">DFC</option>
             </select>
             <input id="matchDate" className='form-control' type='text' name='matchDate' placeholder='YYYY-MM-DD'/>
-            <div className='table-responsive'>
                 <table id="videoFormTable" className="table table-sm table-dark">
                     {rows}
                 </table>
-            </div>
             <input className="makeVideoSubmit" className="formSubmit btn mainBtn" type="submit" value="Add Video"/>
             <input type="hidden" name="_csrf" value={props.csrf}/>
-            <button id="addMatchButton" className="formSubmit btn secondBtn"type="button">Add a Match</button>
-            <button id="removeMatchButton" className="formSubmit btn thirdBtn"type="button">Remove a Match</button>
+            <input id="addMatchButton" className="formSubmit btn secondBtn"type="button" value="Add Match"/>
+            <input id="removeMatchButton" className="formSubmit btn thirdBtn"type="button" value="Remove Match"/>
 
         </div>
 
@@ -560,7 +557,6 @@ const VideoList = function(props) {
                         <td id="name">{video.player1}</td>
                         <td>{assistImg1}</td>
                         <td>{charImg1}</td>
-                        <td>vs</td>
                         <td>{charImg2}</td>
                         <td>{assistImg2}</td>
                         <td>{video.player2}</td>
@@ -705,6 +701,9 @@ const createAddWindow = (csrf) => {
             }
         });
     });
+
+    ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
+
 };
 
 const createSearchForm = () => {
@@ -847,7 +846,7 @@ $(document).ready(function() {
 //#region Character Forms
 //Separated the character forms for ease of reference and readability in above code
 const char1Select = <select>
-    <option value="Akira" selected>Akira</option><option value="Ako">Ako</option>
+    <option value="Akira">Akira</option><option value="Ako">Ako</option>
     <option value="Asuna">Asuna</option><option value="Emi">Emi</option><option value="Kirino">Kirino</option>
     <option value="Kirito">Kirito</option><option value="Kuroko">Kuroko</option><option value="Kuroyukihime">Kuroyukihime</option>
     <option value="Mikoto">Mikoto</option><option value="Miyuki">Miyuki</option>
@@ -858,7 +857,7 @@ const char1Select = <select>
     </select>;
 
 const assist1Select = <select id = "assist1">
-    <option value="Accelerator" selected>Accelerator</option><option value="Alicia">Alicia</option>
+    <option value="Accelerator">Accelerator</option><option value="Alicia">Alicia</option>
     <option value="Boogiepop">Boogiepop</option><option value="Celty">Celty</option><option value="Dokuro">Dokuro</option>
     <option value="Enju">Enju</option><option value="Erio">Erio</option><option value="Froleytia">Froleytia</option>
     <option value="Haruyuki">Haruyuki</option><option value="Holo">Holo</option><option value="Innocent Charm">Innocent Charm</option>
@@ -872,7 +871,7 @@ const assist1Select = <select id = "assist1">
     </select>;
 
 const char2Select = <select id = "char2">
-    <option value="Akira" selected>Akira</option><option value="Ako">Ako</option>
+    <option value="Akira">Akira</option><option value="Ako">Ako</option>
     <option value="Asuna">Asuna</option><option value="Emi">Emi</option><option value="Kirino">Kirino</option>
     <option value="Kirito">Kirito</option><option value="Kuroko">Kuroko</option><option value="Kuroyukihime">Kuroyukihime</option>
     <option value="Mikoto">Mikoto</option><option value="Miyuki">Miyuki</option>
@@ -883,7 +882,7 @@ const char2Select = <select id = "char2">
     </select>;
 
 const assist2Select = <select id = "assist2">
-    <option value="Accelerator" selected>Accelerator</option><option value="Alicia">Alicia</option>
+    <option value="Accelerator">Accelerator</option><option value="Alicia">Alicia</option>
     <option value="Boogiepop">Boogiepop</option><option value="Celty">Celty</option><option value="Dokuro">Dokuro</option>
     <option value="Enju">Enju</option><option value="Erio">Erio</option><option value="Froleytia">Froleytia</option>
     <option value="Haruyuki">Haruyuki</option><option value="Holo">Holo</option><option value="Innocent Charm">Innocent Charm</option>
