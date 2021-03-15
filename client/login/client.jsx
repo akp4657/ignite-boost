@@ -86,6 +86,8 @@ const handleSearch = (player) => {
         }
     } 
 
+    //console.log(queryString)
+
     sendAjax('GET', queryString , null, (data) =>{
         ReactDOM.render(
             <VideoList videos={data.videos} />, document.querySelector("#content")
@@ -449,8 +451,8 @@ const setup = (csrf) => {
     // Player links
     if(window.location.pathname != '/') {
         //console.log('true')
-        let player = /[^r]*$/.exec(window.location.pathname)[0]
-        console.log(player)
+        let player = /[^/]*$/.exec(window.location.pathname)[0]
+        //console.log(player)
         handleSearch(player);
     }
     else {

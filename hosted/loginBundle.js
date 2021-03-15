@@ -83,7 +83,8 @@ var handleSearch = function handleSearch(player) {
     if ($("#gameSec").val() && $("#gameSec").val() != 'Any') {
       queryString += "&version=".concat($("#gameSec").val());
     }
-  }
+  } //console.log(queryString)
+
 
   sendAjax('GET', queryString, null, function (data) {
     ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
@@ -483,8 +484,8 @@ var setup = function setup(csrf) {
 
   if (window.location.pathname != '/') {
     //console.log('true')
-    var player = /[^r]*$/.exec(window.location.pathname)[0];
-    console.log(player);
+    var player = /[^/]*$/.exec(window.location.pathname)[0]; //console.log(player)
+
     handleSearch(player);
   } else {
     //console.log('false')
