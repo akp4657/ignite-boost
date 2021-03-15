@@ -836,7 +836,7 @@ const setup = function(csrf) {
     // Player links
     if(window.location.pathname != '/main') {
         console.log('true')
-        let player = /[^r]*$/.exec(window.location.pathname)[0]
+        let player = /[^/]*$/.exec(window.location.pathname)[0]
         console.log(player)
         handleSearch(player);
     }

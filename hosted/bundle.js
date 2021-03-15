@@ -857,7 +857,7 @@ var setup = function setup(csrf) {
 
   if (window.location.pathname != '/main') {
     console.log('true');
-    var player = /[^r]*$/.exec(window.location.pathname)[0];
+    var player = /[^/]*$/.exec(window.location.pathname)[0];
     console.log(player);
     handleSearch(player);
   } else {
