@@ -441,6 +441,7 @@ const ChangeWindow = (props) => {
 // Render the report window
 const ReportWindow = (props) => {
     return ( 
+    alert(
     <form id="reportForm" name="reportForm"
             onSubmit={handleReport}
             action="/sendReport"
@@ -451,7 +452,7 @@ const ReportWindow = (props) => {
         <input type="hidden" name="_csrf" value={props.csrf}/>
         <input id="reportSubmit" className="formSubmit btn" type="submit" value="Submit"/>
 
-    </form>
+    </form>)
     );
 };
 

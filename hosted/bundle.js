@@ -483,7 +483,7 @@ var ChangeWindow = function ChangeWindow(props) {
 
 
 var ReportWindow = function ReportWindow(props) {
-  return /*#__PURE__*/React.createElement("form", {
+  return alert( /*#__PURE__*/React.createElement("form", {
     id: "reportForm",
     name: "reportForm",
     onSubmit: handleReport,
@@ -506,7 +506,7 @@ var ReportWindow = function ReportWindow(props) {
     className: "formSubmit btn",
     type: "submit",
     value: "Submit"
-  }));
+  })));
 };
 
 var Load = function Load() {

@@ -263,6 +263,10 @@ body {
     border-top: 2px solid rgb(34, 34, 34);
 }
 
+.table-responsive {
+    margin-top: 2%;
+}
+
 #content .table tr {
     border-bottom: 2px solid rgb(34, 34, 34);
 }
