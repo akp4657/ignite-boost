@@ -116,10 +116,24 @@ body {
 
 #assistInfoImg {
     position: absolute;
-    bottom: 0;
+    bottom: 5%;
     max-height: 100%;
     max-width: 100%;
+    margin-left: 3%;
     /*border: solid blueviolet 5px;*/
+}
+
+#vidSrc {
+    margin-top: 40%;
+    max-height: 100%;
+    max-width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: transparent;
+}
+
+#videoDiv {
+    width: 100%;
 }
 
 #aInfo p, #aInfo li {
@@ -131,8 +145,8 @@ body {
     overflow-y: auto;
     height: 75%;
     margin-top: -10%;
-    margin-right: 3%;
-    background-color:rgb(88, 96, 115, .2);
+    margin-right: 5%;
+    background-color:rgba(211, 216, 226, 0.8);
     padding: 15px;
     padding-bottom: 15px;
 }
@@ -305,6 +319,16 @@ body {
     font-size: 16px;
 }
 
+#videoListTable {
+    word-wrap: break-word;
+    width: 70%;
+}
+
+#tdP1, #tdP2 {
+    width: 110px;
+    max-width: 110px;
+}
+
 #videoFormTable > tbody > tr > td > input {
     width: 150px;
     text-align: center;
@@ -367,13 +391,6 @@ select:invalid {
 .table > tbody > tr > td{
     vertical-align: middle;
     text-align: center;
-}
-
-.table > tbody > tr > #name{
-    padding-left: 20px;
-}
-.table > tbody > tr > #name2{
-    padding-right: 20px;
 }
 
 .table > tbody > tr > th  {

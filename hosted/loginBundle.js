@@ -331,7 +331,11 @@ var VideoList = function VideoList(props) {
       src: versionSrc,
       alt: video.version
     });
-    return /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, video.player1), /*#__PURE__*/React.createElement("td", null, assistImg1), /*#__PURE__*/React.createElement("td", null, charImg1), /*#__PURE__*/React.createElement("td", null, charImg2), /*#__PURE__*/React.createElement("td", null, assistImg2), /*#__PURE__*/React.createElement("td", null, video.player2), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("a", {
+    return /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", {
+      id: "tdP1"
+    }, video.player1), /*#__PURE__*/React.createElement("td", null, assistImg1), /*#__PURE__*/React.createElement("td", null, charImg1), /*#__PURE__*/React.createElement("td", null, charImg2), /*#__PURE__*/React.createElement("td", null, assistImg2), /*#__PURE__*/React.createElement("td", {
+      id: "tdP2"
+    }, video.player2), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("a", {
       href: video.link,
       className: "icons-sm yt-ic",
       target: "_blank"
@@ -354,7 +358,8 @@ var VideoList = function VideoList(props) {
   }, /*#__PURE__*/React.createElement("div", {
     className: "table-responsive"
   }, /*#__PURE__*/React.createElement("table", {
-    className: "table table-sm"
+    className: "table table-sm",
+    id: "videoListTable"
   }, pagedVideos)), /*#__PURE__*/React.createElement("button", {
     id: "nextButton",
     className: "formSubmit btn secondBtn",
@@ -561,7 +566,7 @@ var setup = function setup(csrf) {
 
   if (window.location.pathname != '/') {
     console.log('true');
-    var player = /[^r]*$/.exec(window.location.pathname)[0];
+    var player = /[^/]*$/.exec(window.location.pathname)[0];
     console.log(player);
     handleSearch(player);
   } else {

@@ -470,6 +470,24 @@ const SiteDown = () => {
     )
 };
 
+const SideVideo = () => {
+    let link = $("#videoLink").val()
+    let videoSource = sourceObj
+
+    let embedLink = link.replace('watch?v=', 'embed/')
+    console.log(embedLink)
+
+    videoSource.props.src = `${embedLink}`
+
+    console.log(videoSource)
+
+    return(
+        <div id = "videoDiv">
+            {videoSource}
+        </div>
+    )
+}
+
 const AssistInfo = () => {
     let selected = $("#assistInfoSelect").find(":selected").text();
     let assistSrc = `/assets/img/assistSprites/${selected}.png`;
@@ -560,13 +578,13 @@ const VideoList = function(props) {
         return (
                 <tbody>
                     <tr>
-                        <td id="name">{video.player1}</td>
+                        <td id='tdP1'>{video.player1}</td>
                         <td>{assistImg1}</td>
                         <td>{charImg1}</td>
                         <td>{charImg2}</td>
                         <td>{assistImg2}</td>
-                        <td>{video.player2}</td>
-                        <td id ="name2">
+                        <td id='tdP2'>{video.player2}</td>
+                        <td>
                             <a href={video.link} className="icons-sm yt-ic" target="_blank"><i className="fab fa-youtube fa-2x"> </i></a>
                         </td>
                         <td>{versionImg}</td>
@@ -708,7 +726,18 @@ const createAddWindow = (csrf) => {
         });
     });
 
+    const videoInput = document.querySelector("#videoLink");
+    videoInput.addEventListener("focusout", (e) => {
+        console.log('Hello')
+        ReactDOM.render(
+            <SideVideo />,
+            document.querySelector("#secondary")
+        );
+        //$('vidSrc').hide().show();
+    })
+
     ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
+    ReactDOM.unmountComponentAtNode(document.querySelector("#info"));
 
 };
 
@@ -980,6 +1009,8 @@ const assistInfoSelect = <select id = "assistInfoSelect" className='form-control
     <option value="Touma">Touma</option><option value="Tomo">Tomo</option><option value="Uiharu">Uiharu</option>
     <option value="Wilhelmina">Wilhelmina</option><option value="Zero">Zero</option>
     </select>;
+
+const sourceObj = <iframe height="550" width="1100" id="vidSrc"></iframe>
 
 const assistInfo = [
     <div id = 'aInfo' value ='Accelerator'>

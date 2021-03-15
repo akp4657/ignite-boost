@@ -279,12 +279,12 @@ const VideoList = function(props) {
         return (
                 <tbody>
                     <tr>
-                        <td>{video.player1}</td>
+                        <td id='tdP1'>{video.player1}</td>
                         <td>{assistImg1}</td>
                         <td>{charImg1}</td>
                         <td>{charImg2}</td>
                         <td>{assistImg2}</td>
-                        <td>{video.player2}</td>
+                        <td id='tdP2'>{video.player2}</td>
                         <td>
                             <a href={video.link} className="icons-sm yt-ic" target="_blank"><i className="fab fa-youtube fa-2x"> </i></a>
                         </td>
@@ -310,7 +310,7 @@ const VideoList = function(props) {
     return (
         <div id="pageContainer">
             <div className="table-responsive">
-                <table className="table table-sm">
+                <table className="table table-sm" id = 'videoListTable'>
                     {pagedVideos}
                 </table>
             </div>
@@ -543,7 +543,7 @@ const setup = (csrf) => {
     // Player links
     if(window.location.pathname != '/') {
         console.log('true')
-        let player = /[^r]*$/.exec(window.location.pathname)[0]
+        let player = /[^/]*$/.exec(window.location.pathname)[0]
         console.log(player)
         handleSearch(player);
     }

@@ -526,6 +526,18 @@ var SiteDown = function SiteDown() {
   }));
 };
 
+var SideVideo = function SideVideo() {
+  var link = $("#videoLink").val();
+  var videoSource = sourceObj;
+  var embedLink = link.replace('watch?v=', 'embed/');
+  console.log(embedLink);
+  videoSource.props.src = "".concat(embedLink);
+  console.log(videoSource);
+  return /*#__PURE__*/React.createElement("div", {
+    id: "videoDiv"
+  }, videoSource);
+};
+
 var AssistInfo = function AssistInfo() {
   var selected = $("#assistInfoSelect").find(":selected").text();
   var assistSrc = "/assets/img/assistSprites/".concat(selected, ".png");
@@ -624,10 +636,10 @@ var VideoList = function VideoList(props) {
       alt: video.version
     });
     return /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", {
-      id: "name"
-    }, video.player1), /*#__PURE__*/React.createElement("td", null, assistImg1), /*#__PURE__*/React.createElement("td", null, charImg1), /*#__PURE__*/React.createElement("td", null, charImg2), /*#__PURE__*/React.createElement("td", null, assistImg2), /*#__PURE__*/React.createElement("td", null, video.player2), /*#__PURE__*/React.createElement("td", {
-      id: "name2"
-    }, /*#__PURE__*/React.createElement("a", {
+      id: "tdP1"
+    }, video.player1), /*#__PURE__*/React.createElement("td", null, assistImg1), /*#__PURE__*/React.createElement("td", null, charImg1), /*#__PURE__*/React.createElement("td", null, charImg2), /*#__PURE__*/React.createElement("td", null, assistImg2), /*#__PURE__*/React.createElement("td", {
+      id: "tdP2"
+    }, video.player2), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("a", {
       href: video.link,
       className: "icons-sm yt-ic",
       target: "_blank"
@@ -752,7 +764,13 @@ var createAddWindow = function createAddWindow(csrf) {
       };
     });
   });
+  var videoInput = document.querySelector("#videoLink");
+  videoInput.addEventListener("focusout", function (e) {
+    console.log('Hello');
+    ReactDOM.render( /*#__PURE__*/React.createElement(SideVideo, null), document.querySelector("#secondary")); //$('vidSrc').hide().show();
+  });
   ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
+  ReactDOM.unmountComponentAtNode(document.querySelector("#info"));
 };
 
 var createSearchForm = function createSearchForm() {
@@ -1413,6 +1431,11 @@ var assistInfoSelect = /*#__PURE__*/React.createElement("select", {
 }, "Wilhelmina"), /*#__PURE__*/React.createElement("option", {
   value: "Zero"
 }, "Zero"));
+var sourceObj = /*#__PURE__*/React.createElement("iframe", {
+  height: "550",
+  width: "1100",
+  id: "vidSrc"
+});
 var assistInfo = [/*#__PURE__*/React.createElement("div", {
   id: "aInfo",
   value: "Accelerator"
