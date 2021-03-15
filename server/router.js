@@ -14,9 +14,10 @@ const router = (app) => {
   app.get('/logout', mid.requiresLogin, controllers.Account.logout);
   app.get('/main', mid.requiresLogin, controllers.Video.mainPage);
   app.post('/main', mid.requiresLogin, controllers.Video.make);
+  app.get('/main*', mid.requiresLogin, controllers.Video.mainPage);
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
 
-  app.get('/*', controllers.Video.mainPage);
+  app.get('/*', controllers.Account.loginPage);
 };
 
 module.exports = router;

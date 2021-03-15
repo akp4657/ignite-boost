@@ -46,36 +46,43 @@ var handleReset = function handleReset(e) {
 // If they exist put them into the query string them send it to the server with the GET command
 
 
-var handleSearch = function handleSearch(e) {
-  e.preventDefault();
-  queryString = "".concat($('#searchForm').attr('action'), "?"); // Check each search field to see if anything is in them. If there is data in them, add it to the querystring
+var handleSearch = function handleSearch(player) {
+  //e.preventDefault();
+  queryString = "".concat($('#searchForm').attr('action'), "?"); // Check if the player is a string. It'll default to an object if it doesn't exist
+  // If it is, search for this specific player in DFC:I matches
 
-  if ($("#player1Search").val()) {
-    queryString += "player1=".concat($("#player1Search").val());
-  }
+  if (typeof player === 'string' || player instanceof String) {
+    queryString += "player1=".concat(player);
+    queryString += "&version=".concat(2);
+  } else {
+    // Check each search field to see if anything is in them. If there is data in them, add it to the querystring
+    if ($("#player1Search").val()) {
+      queryString += "player1=".concat($("#player1Search").val());
+    }
 
-  if ($("#player2Search").val()) {
-    queryString += "&player2=".concat($("#player2Search").val());
-  }
+    if ($("#player2Search").val()) {
+      queryString += "&player2=".concat($("#player2Search").val());
+    }
 
-  if ($("#char1Search").find(":selected").text() !== 'Character 1' && $("#char1Search").find(":selected").text() !== 'Anyone') {
-    queryString += "&char1=".concat($("#char1Search").find(":selected").text());
-  }
+    if ($("#char1Search").find(":selected").text() !== 'Character 1' && $("#char1Search").find(":selected").text() !== 'Anyone') {
+      queryString += "&char1=".concat($("#char1Search").find(":selected").text());
+    }
 
-  if ($("#char2Search").find(":selected").text() !== 'Character 2' && $("#char2Search").find(":selected").text() !== 'Anyone') {
-    queryString += "&char2=".concat($("#char2Search").find(":selected").text());
-  }
+    if ($("#char2Search").find(":selected").text() !== 'Character 2' && $("#char2Search").find(":selected").text() !== 'Anyone') {
+      queryString += "&char2=".concat($("#char2Search").find(":selected").text());
+    }
 
-  if ($("#assist1Search").find(":selected").text() !== 'Assist 1' && $("#assist1Search").find(":selected").text() !== 'Anyone') {
-    queryString += "&assist1=".concat($("#assist1Search").find(":selected").text());
-  }
+    if ($("#assist1Search").find(":selected").text() !== 'Assist 1' && $("#assist1Search").find(":selected").text() !== 'Anyone') {
+      queryString += "&assist1=".concat($("#assist1Search").find(":selected").text());
+    }
 
-  if ($("#assist2Search").find(":selected").text() !== 'Assist 2' && $("#assist2Search").find(":selected").text() !== 'Anyone') {
-    queryString += "&assist2=".concat($("#assist2Search").find(":selected").text());
-  }
+    if ($("#assist2Search").find(":selected").text() !== 'Assist 2' && $("#assist2Search").find(":selected").text() !== 'Anyone') {
+      queryString += "&assist2=".concat($("#assist2Search").find(":selected").text());
+    }
 
-  if ($("#gameSec").val() && $("#gameSec").val() != 'Any') {
-    queryString += "&version=".concat($("#gameSec").val());
+    if ($("#gameSec").val() && $("#gameSec").val() != 'Any') {
+      queryString += "&version=".concat($("#gameSec").val());
+    }
   }
 
   sendAjax('GET', queryString, null, function (data) {
@@ -472,10 +479,17 @@ var setup = function setup(csrf) {
     return false;
   });
   createSearchForm();
-  createLoad();
-  loadAllVideosFromServer(); //Default window Uncomment all on sit up
-  //Default loads all Videos on the server 
-  //createSiteDown();
+  createLoad(); // Player links
+
+  if (window.location.pathname != '/') {
+    //console.log('true')
+    var player = /[^r]*$/.exec(window.location.pathname)[0];
+    console.log(player);
+    handleSearch(player);
+  } else {
+    //console.log('false')
+    loadAllVideosFromServer(); //Default window Uncomment all on sit up
+  }
 };
 
 var getToken = function getToken() {
