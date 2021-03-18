@@ -226,6 +226,23 @@ var handleReport = function handleReport(e) {
 
   sendAjax('POST', $("#reportForm").attr("action"), $("#reportForm").serialize(), redirect);
   return false;
+};
+
+var handleCharacterData = function handleCharacterData() {
+  // console.log('handling data')
+  var characterQuery = "".concat($('#dataForm').attr('action'), "?");
+
+  if ($("#charDataSearch").val() != 'undefined') {
+    characterQuery += "character=".concat($("#charDataSearch").val());
+  } //console.log(characterQuery)
+
+
+  sendAjax('GET', characterQuery, null, function (data) {
+    //console.log('sent query')
+    ReactDOM.render( /*#__PURE__*/React.createElement(CharacterData, {
+      character: data.character
+    }), document.querySelector("#content"));
+  });
 }; // Search form
 //Sets up the search form, will change the select for characters depending on the game selected
 
@@ -509,6 +526,47 @@ var ReportWindow = function ReportWindow(props) {
   })));
 };
 
+var CharacterData = function CharacterData(props) {
+  var characterNodes = props.character.map(function (character) {
+    return /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, character.move), /*#__PURE__*/React.createElement("td", null, character.startup), /*#__PURE__*/React.createElement("td", null, character.active), /*#__PURE__*/React.createElement("td", null, character.frameAdv)));
+  });
+  return /*#__PURE__*/React.createElement("div", {
+    id: "pageContainer"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "table-responsive"
+  }, /*#__PURE__*/React.createElement("table", {
+    className: "table table-sm",
+    id: "characterDataTable"
+  }, characterNodes)));
+}; //Sets up the search form
+
+
+var DataSearchForm = function DataSearchForm() {
+  return /*#__PURE__*/React.createElement("form", {
+    id: "dataForm",
+    onChange: handleCharacterData,
+    name: "dataSearchForm",
+    action: "/getData",
+    method: "GET",
+    className: "searchForm form-inline"
+  }, /*#__PURE__*/React.createElement("table", {
+    id: "dataFormTable",
+    className: "table table-sm"
+  }, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, charDataSearch)))));
+};
+
+var CharacterDataImage = function CharacterDataImage() {
+  var charSelect = $("#charDataSearch").find(":selected").val();
+  var charSrc = "/assets/img/characterSprites/".concat(charSelect, ".png");
+  return /*#__PURE__*/React.createElement("div", {
+    id: "characterDataDiv"
+  }, /*#__PURE__*/React.createElement("img", {
+    id: "characterData",
+    src: charSrc,
+    alt: charSelect
+  }));
+};
+
 var Load = function Load() {
   return /*#__PURE__*/React.createElement("div", {
     className: "videoList"
@@ -529,10 +587,10 @@ var SiteDown = function SiteDown() {
 var SideVideo = function SideVideo() {
   var link = $("#videoLink").val();
   var videoSource = sourceObj;
-  var embedLink = link.replace('watch?v=', 'embed/');
-  console.log(embedLink);
-  videoSource.props.src = "".concat(embedLink);
-  console.log(videoSource);
+  var embedLink = link.replace('watch?v=', 'embed/'); // console.log(embedLink)
+
+  videoSource.props.src = "".concat(embedLink); //console.log(videoSource)
+
   return /*#__PURE__*/React.createElement("div", {
     id: "videoDiv"
   }, videoSource);
@@ -693,8 +751,7 @@ var loadAllVideosFromServer = function loadAllVideosFromServer() {
     videoMax = 300;
     var next = document.querySelector("#nextButton");
     next.addEventListener("click", function (e) {
-      console.log(pagedVideos);
-
+      // console.log(pagedVideos);
       if (pagedVideos[videoMax - 2] === undefined) {
         handleError("ERROR | No more videos!");
         return;
@@ -766,7 +823,7 @@ var createAddWindow = function createAddWindow(csrf) {
   });
   var videoInput = document.querySelector("#videoLink");
   videoInput.addEventListener("focusout", function (e) {
-    console.log('Hello');
+    // console.log('Hello')
     ReactDOM.render( /*#__PURE__*/React.createElement(SideVideo, null), document.querySelector("#secondary")); //$('vidSrc').hide().show();
   });
   ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
@@ -781,12 +838,11 @@ var createSearchForm = function createSearchForm() {
   });
 
   if (queryString != undefined) {
-    console.log('query string isnot empty: ' + queryString);
+    // console.log('query string isnot empty: ' + queryString)
     var next = document.querySelector("#nextButton");
     videoMax = 300;
     next.addEventListener("click", function (e) {
-      console.log(pagedVideos[0]);
-
+      // console.log(pagedVideos[0])
       if (pagedVideos[videoMax - 1] === undefined) {
         handleError("ERROR | No more videos!");
         return;
@@ -800,6 +856,17 @@ var createSearchForm = function createSearchForm() {
       });
     });
   }
+};
+
+var createDataForm = function createDataForm() {
+  ReactDOM.unmountComponentAtNode(document.querySelector("#content"));
+  ReactDOM.unmountComponentAtNode(document.querySelector("#info"));
+  ReactDOM.unmountComponentAtNode(document.querySelector("#secondary"));
+  ReactDOM.render( /*#__PURE__*/React.createElement(DataSearchForm, null), document.querySelector("#search"));
+  $("#dataForm").find('select').on('change', function () {
+    ReactDOM.render( /*#__PURE__*/React.createElement(DataSearchForm, null), document.querySelector("#search"));
+    ReactDOM.render( /*#__PURE__*/React.createElement(CharacterDataImage, null), document.querySelector('#info'));
+  });
 };
 
 var createLoad = function createLoad() {
@@ -828,6 +895,7 @@ var setup = function setup(csrf) {
   var passChangeButton = document.querySelector("#passChangeButton");
   var reportButton = document.querySelector('#reportButton');
   var reportSubmit = document.querySelector('#reportSubmit');
+  var dataButton = document.querySelector('#dataButton');
   passChangeButton.addEventListener("click", function (e) {
     e.preventDefault();
     createGifs();
@@ -855,6 +923,11 @@ var setup = function setup(csrf) {
     });
   }
 
+  dataButton.addEventListener("click", function (e) {
+    e.preventDefault();
+    createDataForm();
+    return false;
+  });
   homeButton.addEventListener("click", function (e) {
     e.preventDefault();
     createSearchForm();
@@ -874,12 +947,12 @@ var setup = function setup(csrf) {
   createAssistSelect(); // Player links
 
   if (window.location.pathname != '/main') {
-    console.log('true');
-    var player = /[^/]*$/.exec(window.location.pathname)[0];
-    console.log(player);
+    // console.log('true')
+    var player = /[^/]*$/.exec(window.location.pathname)[0]; // console.log(player)
+
     handleSearch(player);
   } else {
-    console.log('false');
+    // console.log('false')
     loadAllVideosFromServer(); //Default window Uncomment all on sit up
   } //createSiteDown();
 
@@ -1431,6 +1504,55 @@ var assistInfoSelect = /*#__PURE__*/React.createElement("select", {
 }, "Wilhelmina"), /*#__PURE__*/React.createElement("option", {
   value: "Zero"
 }, "Zero"));
+var charDataSearch = /*#__PURE__*/React.createElement("select", {
+  id: "charDataSearch",
+  className: "form-control"
+}, /*#__PURE__*/React.createElement("option", {
+  value: "undefined",
+  disabled: true,
+  selected: true,
+  hidden: true
+}, "Character"), /*#__PURE__*/React.createElement("option", {
+  value: "Akira"
+}, "Akira"), /*#__PURE__*/React.createElement("option", {
+  value: "Ako"
+}, "Ako"), /*#__PURE__*/React.createElement("option", {
+  value: "Asuna"
+}, "Asuna"), /*#__PURE__*/React.createElement("option", {
+  value: "Emi"
+}, "Emi"), /*#__PURE__*/React.createElement("option", {
+  value: "Kirino"
+}, "Kirino"), /*#__PURE__*/React.createElement("option", {
+  value: "Kirito"
+}, "Kirito"), /*#__PURE__*/React.createElement("option", {
+  value: "Kuroko"
+}, "Kuroko"), /*#__PURE__*/React.createElement("option", {
+  value: "Kuroyukihime"
+}, "Kuroyukihime"), /*#__PURE__*/React.createElement("option", {
+  value: "Mikoto"
+}, "Mikoto"), /*#__PURE__*/React.createElement("option", {
+  value: "Miyuki"
+}, "Miyuki"), /*#__PURE__*/React.createElement("option", {
+  value: "Quenser"
+}, "Quenser"), /*#__PURE__*/React.createElement("option", {
+  value: "Rentaro"
+}, "Rentaro"), /*#__PURE__*/React.createElement("option", {
+  value: "Selvaria"
+}, "Selvaria"), /*#__PURE__*/React.createElement("option", {
+  value: "Shana"
+}, "Shana"), /*#__PURE__*/React.createElement("option", {
+  value: "Shizuo"
+}, "Shizuo"), /*#__PURE__*/React.createElement("option", {
+  value: "Taiga"
+}, "Taiga"), /*#__PURE__*/React.createElement("option", {
+  value: "Tatsuya"
+}, "Tatsuya"), /*#__PURE__*/React.createElement("option", {
+  value: "Tomoka"
+}, "Tomoka"), /*#__PURE__*/React.createElement("option", {
+  value: "Yukina"
+}, "Yukina"), /*#__PURE__*/React.createElement("option", {
+  value: "Yuuki"
+}, "Yuuki"));
 var sourceObj = /*#__PURE__*/React.createElement("iframe", {
   height: "550",
   width: "1100",

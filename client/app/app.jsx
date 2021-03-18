@@ -244,6 +244,25 @@ const handleReport = (e) => {
 
 }
 
+const handleCharacterData = () => {
+    // console.log('handling data')
+ 
+     let characterQuery = `${$('#dataForm').attr('action')}?`;
+     
+     if($("#charDataSearch").val() != 'undefined') {
+         characterQuery += `character=${$("#charDataSearch").val()}`
+     }
+ 
+     //console.log(characterQuery)
+ 
+     sendAjax('GET', characterQuery, null, (data) =>{
+         //console.log('sent query')
+         ReactDOM.render(
+             <CharacterData character={data.character} />, document.querySelector("#content")
+         );
+     })
+ }
+
 // Search form
 //Sets up the search form, will change the select for characters depending on the game selected
 const SearchForm = () => {
@@ -456,6 +475,67 @@ const ReportWindow = (props) => {
     );
 };
 
+const CharacterData = function(props) {
+
+    const characterNodes = props.character.map(function(character) {
+        
+        return (
+                <tbody>
+                    <tr>
+                        <td>{character.move}</td>
+                        <td>{character.startup}</td>
+                        <td>{character.active}</td>
+                        <td>{character.frameAdv}</td>
+                    </tr>
+                </tbody>
+        );
+    });
+
+    return (
+        <div id="pageContainer">
+            <div className="table-responsive">
+                <table className="table table-sm" id = 'characterDataTable'>
+                    {characterNodes}
+                </table>
+            </div>
+        </div>
+    );
+};
+
+//Sets up the search form
+const DataSearchForm = () => {
+    return(
+        <form
+            id="dataForm"
+            onChange={handleCharacterData}
+            name="dataSearchForm"
+            action="/getData"
+            method="GET"
+            className="searchForm form-inline"
+        >
+          <table id="dataFormTable" className="table table-sm">
+                <tbody>
+                    <tr>
+                        <td>{charDataSearch}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    )
+};
+
+const CharacterDataImage = () => {
+    let charSelect = $("#charDataSearch").find(":selected").val()
+
+    let charSrc = `/assets/img/characterSprites/${charSelect}.png`
+
+    return (
+        <div id ="characterDataDiv">
+            <img id="characterData" src={charSrc} alt={charSelect} />
+        </div>
+    )
+}
+
 const Load = () => {
     return (<div className="videoList">
                 <h3 className="emptyVideo">Loading videos from the database...</h3>
@@ -476,11 +556,11 @@ const SideVideo = () => {
     let videoSource = sourceObj
 
     let embedLink = link.replace('watch?v=', 'embed/')
-    console.log(embedLink)
+   // console.log(embedLink)
 
     videoSource.props.src = `${embedLink}`
 
-    console.log(videoSource)
+    //console.log(videoSource)
 
     return(
         <div id = "videoDiv">
@@ -643,7 +723,7 @@ const loadAllVideosFromServer = () => {
         videoMax = 300; 
         const next = document.querySelector("#nextButton");
             next.addEventListener("click", (e) => {
-            console.log(pagedVideos);
+           // console.log(pagedVideos);
                 if(pagedVideos[videoMax-2] === undefined) {
                     handleError("ERROR | No more videos!");
                     return;
@@ -729,7 +809,7 @@ const createAddWindow = (csrf) => {
 
     const videoInput = document.querySelector("#videoLink");
     videoInput.addEventListener("focusout", (e) => {
-        console.log('Hello')
+       // console.log('Hello')
         ReactDOM.render(
             <SideVideo />,
             document.querySelector("#secondary")
@@ -757,11 +837,11 @@ const createSearchForm = () => {
 
     if(queryString != undefined)
     {
-        console.log('query string isnot empty: ' + queryString)
+       // console.log('query string isnot empty: ' + queryString)
         const next = document.querySelector("#nextButton");
         videoMax = 300;
         next.addEventListener("click", (e) => {
-            console.log(pagedVideos[0])
+           // console.log(pagedVideos[0])
             if(pagedVideos[videoMax-1] === undefined) {
                 handleError("ERROR | No more videos!");
                 return;
@@ -774,6 +854,26 @@ const createSearchForm = () => {
             });
         });
     }
+}
+
+const createDataForm = () => {
+    ReactDOM.unmountComponentAtNode(document.querySelector("#content"));
+    ReactDOM.unmountComponentAtNode(document.querySelector("#info"));
+    ReactDOM.unmountComponentAtNode(document.querySelector("#secondary"));
+    
+    ReactDOM.render(
+        <DataSearchForm />, document.querySelector("#search")
+    )
+    
+    $("#dataForm").find('select').on('change', function() {
+        ReactDOM.render(
+            <DataSearchForm />, document.querySelector("#search")
+        )
+        ReactDOM.render(
+            <CharacterDataImage />, 
+            document.querySelector('#info')
+        )
+    })
 }
 
 const createLoad = () => {
@@ -817,6 +917,8 @@ const setup = function(csrf) {
     const passChangeButton = document.querySelector("#passChangeButton");
     const reportButton = document.querySelector('#reportButton');
     const reportSubmit = document.querySelector('#reportSubmit');
+    const dataButton = document.querySelector('#dataButton');
+
 
     passChangeButton.addEventListener("click", (e) => {
         e.preventDefault();
@@ -845,6 +947,12 @@ const setup = function(csrf) {
         });
     }
 
+    dataButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        createDataForm();
+        return false;
+    })
+
     homeButton.addEventListener("click", (e) => {
         e.preventDefault();
         createSearchForm();
@@ -865,13 +973,13 @@ const setup = function(csrf) {
     
     // Player links
     if(window.location.pathname != '/main') {
-        console.log('true')
+       // console.log('true')
         let player = /[^/]*$/.exec(window.location.pathname)[0]
-        console.log(player)
+       // console.log(player)
         handleSearch(player);
     }
     else {
-        console.log('false')
+       // console.log('false')
         loadAllVideosFromServer() //Default window Uncomment all on sit up
     }
     //createSiteDown();
@@ -1009,6 +1117,18 @@ const assistInfoSelect = <select id = "assistInfoSelect" className='form-control
     <option value="Ryuuji">Ryuuji</option><option value="Sadao">Sadao</option><option value="Tatsuya">Tatsuya</option>
     <option value="Touma">Touma</option><option value="Tomo">Tomo</option><option value="Uiharu">Uiharu</option>
     <option value="Wilhelmina">Wilhelmina</option><option value="Zero">Zero</option>
+    </select>;
+
+const charDataSearch = <select id = "charDataSearch" className='form-control'>
+    <option value="undefined" disabled selected hidden>Character</option>
+    <option value="Akira">Akira</option><option value="Ako">Ako</option>
+    <option value="Asuna">Asuna</option><option value="Emi">Emi</option><option value="Kirino">Kirino</option>
+    <option value="Kirito">Kirito</option><option value="Kuroko">Kuroko</option><option value="Kuroyukihime">Kuroyukihime</option>
+    <option value="Mikoto">Mikoto</option><option value="Miyuki">Miyuki</option>
+    <option value="Quenser">Quenser</option><option value="Rentaro">Rentaro</option><option value="Selvaria">Selvaria</option>
+    <option value="Shana">Shana</option><option value="Shizuo">Shizuo</option><option value="Taiga">Taiga</option>
+    <option value="Tatsuya">Tatsuya</option><option value="Tomoka">Tomoka</option><option value="Yukina">Yukina</option>
+    <option value="Yuuki">Yuuki</option>
     </select>;
 
 const sourceObj = <iframe height="550" width="1100" id="vidSrc"></iframe>

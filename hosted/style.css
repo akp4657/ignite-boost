@@ -98,9 +98,6 @@ body {
     text-align: center;
 }
 
-.infoList {
-    /*border: solid salmon 5px;*/
-}
 
 .textList {
     height: 100%;
@@ -215,7 +212,7 @@ body {
     box-shadow: 0px 0px 1px 1px #68f2d5;
 }
 
-#char1Search:focus, #char2Search:focus, #assist1Search:focus, #assist2Search:focus, #gameSec:focus, #assistInfoSelect:focus {
+#char1Search:focus, #charDataSearch:focus, #char2Search:focus, #assist1Search:focus, #assist2Search:focus, #gameSec:focus, #assistInfoSelect:focus {
     outline: none;
     box-shadow: 0px 0px 1px 1px #68f2d5;
 }
@@ -225,7 +222,7 @@ body {
     box-shadow: 0px 0px 1px 1px #68f2d5;
 }
 
-#char1Search, #char2Search, #assist1Search, #assist2Search, #gameSec, #assistInfoSelect {
+#char1Search, #charDataSearch, #char2Search, #assist1Search, #assist2Search, #gameSec, #assistInfoSelect {
     background-color: #f9fcff;
     color:rgb(34, 34, 34);
     text-align: center;
@@ -418,6 +415,39 @@ select:invalid {
     margin-bottom: 2%;
 }
 
+#dataFormTable {
+    width: 65%;
+    margin: 0 auto;
+    margin-top: 0px;
+    margin-top: 11%;
+    color: rgb(34, 34, 34);
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 20px;
+    background-color: transparent;
+    border-top: 0px solid transparent;
+    padding: 10px;
+}
+
+#characterData {
+    max-height: 70%;
+    max-width: 70%;
+    bottom: 0;
+    position: fixed;
+    z-index: -10;
+}
+
+#characterDataTable {
+    /*background-color: rgba(211, 216, 226, 0.8);*/
+}
+
+#loginForm .btn {
+    margin-left: 28%;
+}
+
+#signupForm .btn {
+    margin-left: 28%;
+}
 
 #static > #version {
     margin-left: 3.5%;

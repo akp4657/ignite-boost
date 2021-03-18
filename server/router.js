@@ -5,7 +5,7 @@ const router = (app) => {
   app.get('/getToken', mid.requiresSecure, controllers.Account.getToken);
   app.get('/getVideos', mid.requiresLogin, controllers.Video.getVideos);
   app.get('/getAllVideos', controllers.Video.getAllVideos);
- // app.get('/getAllData', controllers.Char);
+  app.get('/getData', controllers.Character.getData);
   app.get('/search', controllers.Video.searchVideos);
   app.post('/sendReport', controllers.Account.sendReport);
   app.post('/passChange', mid.requiresLogin, controllers.Account.passChange);
