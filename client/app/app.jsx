@@ -482,17 +482,17 @@ const CharacterData = function(props) {
         return (
                 <tbody>
                     <tr>
-                        <td>{character.move}</td>
-                        <td>{character.startup}</td>
-                        <td>{character.active}</td>
-                        <td>{character.frameAdv}</td>
+                    <td id="moveRow"><div id="moveDiv">{character.move}</div></td>
+                        <td><div id="ignition">{character.startup}</div></td>
+                        <td><div id="ignition">{character.active}</div></td>
+                        <td><div id="ignition">{character.frameAdv}</div></td>
                     </tr>
                 </tbody>
         );
     });
 
     return (
-        <div id="pageContainer">
+        <div id="charDataContainer">
             <div className="table-responsive">
                 <table className="table table-sm" id = 'characterDataTable'>
                     {characterNodes}
@@ -819,6 +819,7 @@ const createAddWindow = (csrf) => {
 
     ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
     ReactDOM.unmountComponentAtNode(document.querySelector("#info"));
+    ReactDOM.unmountComponentAtNode(document.querySelector("#secondary"));
 
 };
 

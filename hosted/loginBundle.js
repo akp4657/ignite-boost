@@ -386,10 +386,20 @@ var VideoList = function VideoList(props) {
 
 var CharacterData = function CharacterData(props) {
   var characterNodes = props.character.map(function (character) {
-    return /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, character.move), /*#__PURE__*/React.createElement("td", null, character.startup), /*#__PURE__*/React.createElement("td", null, character.active), /*#__PURE__*/React.createElement("td", null, character.frameAdv)));
+    return /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", {
+      id: "moveRow"
+    }, /*#__PURE__*/React.createElement("div", {
+      id: "moveDiv"
+    }, character.move)), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
+      id: "ignition"
+    }, character.startup)), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
+      id: "ignition"
+    }, character.active)), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
+      id: "ignition"
+    }, character.frameAdv))));
   });
   return /*#__PURE__*/React.createElement("div", {
-    id: "pageContainer"
+    id: "charDataContainer"
   }, /*#__PURE__*/React.createElement("div", {
     className: "table-responsive"
   }, /*#__PURE__*/React.createElement("table", {

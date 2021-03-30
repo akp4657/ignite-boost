@@ -437,8 +437,55 @@ select:invalid {
     z-index: -10;
 }
 
-#characterDataTable {
-    /*background-color: rgba(211, 216, 226, 0.8);*/
+#characterDataTable{
+    background-color: rgba(211, 216, 226, 0.85);
+    margin-bottom: 2%;
+
+}
+
+#charDataContainer {
+    background-image: url("/assets/img/bg.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#characterDataTable td{
+    max-width: 100px;
+    width: 100px;
+    font-size: 24px;
+    font-family: Arial;
+    font-style: italic;
+    font-weight: bold;
+}
+
+#characterDataTable tr{
+    max-height: 75px;
+    height: 75px;
+}
+
+#characterDataTable tbody:first-child #ignition{
+    background-color:#060000;
+    color: white;
+    border-bottom: 4px solid #393269;
+    border-right: 4px solid #393269;
+    padding: 5px;
+    font-size: 24px;
+    font-family: Arial;
+    font-style: italic;
+    font-weight: bold;
+}
+
+#moveDiv:not(:empty) {
+    background-image: linear-gradient(to bottom right, #eff4f1, #a3a6ad);
+    font-size: 24px;
+    width: 80%;
+    padding: 10px;
+    color: #ca7b14;
+    border: 2px solid darkgray;
+    font-family: Arial;
+    font-style: italic;
+    font-weight: bold;
 }
 
 #loginForm .btn {
@@ -446,6 +493,10 @@ select:invalid {
 }
 
 #signupForm .btn {
+    margin-left: 28%;
+}
+
+#changeForm .btn {
     margin-left: 28%;
 }
 
