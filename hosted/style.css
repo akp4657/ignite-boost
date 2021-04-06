@@ -440,7 +440,6 @@ select:invalid {
 #characterDataTable{
     background-color: rgba(211, 216, 226, 0.85);
     margin-bottom: 2%;
-
 }
 
 #charDataContainer {
@@ -474,18 +473,22 @@ select:invalid {
     font-family: Arial;
     font-style: italic;
     font-weight: bold;
+    transform: skewX(-15deg);
 }
 
 #moveDiv:not(:empty) {
+    transform: skewX(-15deg);
     background-image: linear-gradient(to bottom right, #eff4f1, #a3a6ad);
     font-size: 24px;
-    width: 80%;
+    width: 60%;
+    margin-left: 15%;
     padding: 10px;
     color: #ca7b14;
     border: 2px solid darkgray;
     font-family: Arial;
     font-style: italic;
     font-weight: bold;
+    font-size: 26px;
 }
 
 #loginForm .btn {
