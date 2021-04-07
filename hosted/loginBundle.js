@@ -386,11 +386,19 @@ var VideoList = function VideoList(props) {
 
 var CharacterData = function CharacterData(props) {
   var characterNodes = props.character.map(function (character) {
+    var moveText;
+
+    if (character.move) {
+      moveText = /*#__PURE__*/React.createElement("h1", {
+        id: "moveDiv"
+      }, character.move);
+    }
+
     return /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", {
       id: "moveRow"
     }, /*#__PURE__*/React.createElement("div", {
-      id: "moveDiv"
-    }, character.move)), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
+      id: "moveDivContainer"
+    }, moveText)), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
       id: "ignition"
     }, character.startup)), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
       id: "ignition"

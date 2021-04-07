@@ -452,7 +452,7 @@ select:invalid {
 #characterDataTable td{
     max-width: 100px;
     width: 100px;
-    font-size: 24px;
+    font-size: 32px;
     font-family: Arial;
     font-style: italic;
     font-weight: bold;
@@ -461,6 +461,7 @@ select:invalid {
 #characterDataTable tr{
     max-height: 75px;
     height: 75px;
+    padding-right: 3px;
 }
 
 #characterDataTable tbody:first-child #ignition{
@@ -476,19 +477,24 @@ select:invalid {
     transform: skewX(-15deg);
 }
 
-#moveDiv:not(:empty) {
-    transform: skewX(-15deg);
-    background-image: linear-gradient(to bottom right, #eff4f1, #a3a6ad);
-    font-size: 24px;
-    width: 60%;
-    margin-left: 15%;
-    padding: 10px;
-    color: #ca7b14;
-    border: 2px solid darkgray;
+#moveDiv{
+    font-size: 34px;
     font-family: Arial;
     font-style: italic;
     font-weight: bold;
-    font-size: 26px;
+    -webkit-text-fill-color: transparent; /* Webkit Disable Fallback */
+    background: -webkit-linear-gradient(#f2bc3e, #f8c761, #da9d32, #cc8325, #e79225, #f69e23);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#moveDivContainer:not(:empty)  { 
+    transform: skewX(-15deg);
+    width: 70%;
+    margin-left: 15%;
+    background-image: linear-gradient(to bottom right, #eff4f1, #a3a6ad);
+    padding: 10px;
+    border: 1px solid #d5d8d6
 }
 
 #loginForm .btn {

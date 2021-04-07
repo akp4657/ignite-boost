@@ -340,11 +340,15 @@ const VideoList = function(props) {
 const CharacterData = function(props) {
 
     const characterNodes = props.character.map(function(character) {
-        
+        let moveText;
+
+        if(character.move) {
+            moveText = <h1 id="moveDiv">{character.move}</h1>
+        }
         return (
                 <tbody>
                     <tr>
-                        <td id="moveRow"><div id="moveDiv">{character.move}</div></td>
+                        <td id="moveRow"><div id="moveDivContainer">{moveText}</div></td>
                         <td><div id="ignition">{character.startup}</div></td>
                         <td><div id="ignition">{character.active}</div></td>
                         <td><div id="ignition">{character.frameAdv}</div></td>
