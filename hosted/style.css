@@ -486,6 +486,9 @@ select:invalid {
     background: -webkit-linear-gradient(#f2bc3e, #f8c761, #da9d32, #cc8325, #e79225, #f69e23);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    -webkit-text-stroke-width: .25px;
+    -webkit-text-stroke-color: transparent;
+    -webkit-text-stroke-color: black;
 }
 
 #moveDivContainer:not(:empty)  { 
