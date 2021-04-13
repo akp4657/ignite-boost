@@ -291,38 +291,38 @@ var SearchForm = function SearchForm() {
     id: "searchFormTable",
     className: "table table-sm"
   }, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
-    id: "assist1Img",
-    src: assist1Src,
-    alt: assist1Select
-  })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
     id: "char1Img",
     src: char1Src,
     alt: char1Select
-  })), /*#__PURE__*/React.createElement("td", null)), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, assist1Search), /*#__PURE__*/React.createElement("td", null, char1Search), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+  })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
+    id: "assist1Img",
+    src: assist1Src,
+    alt: assist1Select
+  })), /*#__PURE__*/React.createElement("td", null)), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, char1Search), /*#__PURE__*/React.createElement("td", null, assist1Search), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
     className: "form-control",
     id: "player1Search",
     type: "text",
     name: "player1",
     placeholder: "Player 1"
-  }))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
-    id: "assist2Img",
-    src: assist2Src,
-    alt: assist2Select
   })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
+    id: "versionImgSearch",
+    src: gameSrc,
+    alt: versionSelect
+  }))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
     id: "char2Img",
     src: char2Src,
     alt: char2Select
-  })), /*#__PURE__*/React.createElement("td", null)), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, assist2Search), /*#__PURE__*/React.createElement("td", null, char2Search), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+  })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
+    id: "assist2Img",
+    src: assist2Src,
+    alt: assist2Select
+  })), /*#__PURE__*/React.createElement("td", null), /*#__PURE__*/React.createElement("td", null, gameSelection)), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, char2Search), /*#__PURE__*/React.createElement("td", null, assist2Search), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
     className: "form-control",
     id: "player2Search",
     type: "text",
     name: "player2",
     placeholder: "Player 2"
-  }))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
-    id: "versionImgSearch",
-    src: gameSrc,
-    alt: versionSelect
-  })), /*#__PURE__*/React.createElement("td", null, gameSelection), /*#__PURE__*/React.createElement("td", null)))));
+  })), /*#__PURE__*/React.createElement("td", null)))));
 }; /// FORM TO SUBMIT NEW DATA
 // Don't think the images thing is going to work out
 // Just make the page look very nice is probably the only way to go
@@ -370,6 +370,11 @@ var VideoForm = function VideoForm(props) {
     char2Src = "/assets/img/Characters/".concat(char2Sel, ".png");
     assist1Src = "/assets/img/Assists/".concat(assist1Sel, ".png");
     assist2Src = "/assets/img/Assists/".concat(assist2Sel, ".png");
+    /*<td><img id="assist1Img" src={assist1Src} alt={assist1Sel}/>{assist1Selection}</td>
+    <td><img id="char1Img" src={char1Src} alt={char1Sel}/>{charSelection}</td>
+    <td><img id="char2Img" src={char2Src} alt={char2Sel}/>{char2Selection}</td>
+    <td><img id="assist2Img" src={assist2Src} alt={assist2Sel}/>{assist2Selection}</td>*/
+
     rows.push( /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
       className: "form-control",
       id: "timestamp",
@@ -382,23 +387,7 @@ var VideoForm = function VideoForm(props) {
       type: "text",
       name: "playerOne",
       placeholder: "Player 1"
-    })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
-      id: "assist1Img",
-      src: assist1Src,
-      alt: assist1Sel
-    }), assist1Selection), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
-      id: "char1Img",
-      src: char1Src,
-      alt: char1Sel
-    }), charSelection), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
-      id: "char2Img",
-      src: char2Src,
-      alt: char2Sel
-    }), char2Selection), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
-      id: "assist2Img",
-      src: assist2Src,
-      alt: assist2Sel
-    }), assist2Selection), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+    })), /*#__PURE__*/React.createElement("td", null, assist1Selection), /*#__PURE__*/React.createElement("td", null, charSelection), /*#__PURE__*/React.createElement("td", null, char2Selection), /*#__PURE__*/React.createElement("td", null, assist2Selection), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
       className: "form-control",
       id: "playerTwo",
       type: "text",
@@ -785,6 +774,9 @@ var createPassChangeWindow = function createPassChangeWindow(csrf) {
 };
 
 var createAddWindow = function createAddWindow(csrf) {
+  ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
+  ReactDOM.unmountComponentAtNode(document.querySelector("#info"));
+  ReactDOM.unmountComponentAtNode(document.querySelector("#secondary"));
   ReactDOM.render( /*#__PURE__*/React.createElement(VideoForm, {
     csrf: csrf
   }), document.querySelector("#content")); //If something changes, re-render for picture purposes
@@ -836,9 +828,11 @@ var createAddWindow = function createAddWindow(csrf) {
     // console.log('Hello')
     ReactDOM.render( /*#__PURE__*/React.createElement(SideVideo, null), document.querySelector("#secondary")); //$('vidSrc').hide().show();
   });
-  ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
-  ReactDOM.unmountComponentAtNode(document.querySelector("#info"));
-  ReactDOM.unmountComponentAtNode(document.querySelector("#secondary"));
+  ReactDOM.render( /*#__PURE__*/React.createElement("div", {
+    id: "videoDiv"
+  }, /*#__PURE__*/React.createElement("div", {
+    id: "videoPreview"
+  }, "Video Preview")), document.querySelector("#secondary"));
 };
 
 var createSearchForm = function createSearchForm() {
@@ -982,7 +976,9 @@ $(document).ready(function () {
 }); //#region Character Forms
 //Separated the character forms for ease of reference and readability in above code
 
-var char1Select = /*#__PURE__*/React.createElement("select", null, /*#__PURE__*/React.createElement("option", {
+var char1Select = /*#__PURE__*/React.createElement("select", {
+  className: "form-control"
+}, /*#__PURE__*/React.createElement("option", {
   value: "Akira"
 }, "Akira"), /*#__PURE__*/React.createElement("option", {
   value: "Ako"
@@ -1024,7 +1020,8 @@ var char1Select = /*#__PURE__*/React.createElement("select", null, /*#__PURE__*/
   value: "Yuuki"
 }, "Yuuki"));
 var assist1Select = /*#__PURE__*/React.createElement("select", {
-  id: "assist1"
+  id: "assist1",
+  className: "form-control"
 }, /*#__PURE__*/React.createElement("option", {
   value: "Accelerator"
 }, "Accelerator"), /*#__PURE__*/React.createElement("option", {
@@ -1089,7 +1086,8 @@ var assist1Select = /*#__PURE__*/React.createElement("select", {
   value: "Zero"
 }, "Zero"));
 var char2Select = /*#__PURE__*/React.createElement("select", {
-  id: "char2"
+  id: "char2",
+  className: "form-control"
 }, /*#__PURE__*/React.createElement("option", {
   value: "Akira"
 }, "Akira"), /*#__PURE__*/React.createElement("option", {
@@ -1132,7 +1130,8 @@ var char2Select = /*#__PURE__*/React.createElement("select", {
   value: "Yuuki"
 }, "Yuuki"));
 var assist2Select = /*#__PURE__*/React.createElement("select", {
-  id: "assist2"
+  id: "assist2",
+  className: "form-control"
 }, /*#__PURE__*/React.createElement("option", {
   value: "Accelerator"
 }, "Accelerator"), /*#__PURE__*/React.createElement("option", {

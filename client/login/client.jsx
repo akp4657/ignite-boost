@@ -136,7 +136,7 @@ const SearchForm = () => {
     let assist1Selection = assist1Search;
     let assist2Selection = assist2Search;*/
     const gameSelection = <select id = "gameSec" className = 'form-control'>
-    <option value="undefined" disabled selected hidden>Version</option><option value="Any">Any</option>
+    <option value="undefined" disabled selected hidden>Vers.</option><option value="Any">Any</option>
     <option value="2">DFC:I</option><option value="1">DFC</option>
     </select>;
 
@@ -165,29 +165,56 @@ const SearchForm = () => {
           <table id="searchFormTable" className="table table-sm">
                 <tbody>
                     <tr>
-                        <td><img id="assist1Img" src={assist1Src} alt={assist1Select}/></td>
                         <td><img id="char1Img" src={char1Src} alt={char1Select}/></td>
+                        <td><img id="assist1Img" src={assist1Src} alt={assist1Select}/></td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td>{assist1Search}</td>
                         <td>{char1Search}</td>
+                        <td>{assist1Search}</td>
+                        <td><input className="form-control" id="player1Search" type="text" name="player1" placeholder="Player 1"/></td>
+                        <td><img id="versionImgSearch" src={gameSrc} alt={versionSelect}/></td>
+                    </tr>
+                    <tr>
+                        <td><img id="char2Img" src={char2Src} alt={char2Select}/></td>
+                        <td><img id="assist2Img" src={assist2Src} alt={assist2Select}/></td>
+                        <td></td>
+                        <td>{gameSelection}</td>
+                    </tr>
+                    <tr>
+                        <td>{char2Search}</td>
+                        <td>{assist2Search}</td>
+                        <td><input className="form-control" id="player2Search" type="text" name="player2" placeholder="Player 2"/></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    )
+};
+
+const PlayerSearchForm = () => {
+
+    return(
+        <form
+            id="searchForm"
+            onChange={handleSearch}
+            onReset={handleReset}
+            name="searchForm"
+            action="/search"
+            method="GET"
+            className="searchForm form-inline"
+        >
+          <table id="searchFormTable" className="table table-sm">
+                <tbody>
+                    <tr>
                         <td><input className="form-control" id="player1Search" type="text" name="player1" placeholder="Player 1"/></td>
                     </tr>
                     <tr>
-                        <td><img id="assist2Img" src={assist2Src} alt={assist2Select}/></td>
-                        <td><img id="char2Img" src={char2Src} alt={char2Select}/></td>
-                        <td></td>
+                        vs
                     </tr>
                     <tr>
-                        <td>{assist2Search}</td>
-                        <td>{char2Search}</td>
                         <td><input className="form-control" id="player2Search" type="text" name="player2" placeholder="Player 2"/></td>
-                    </tr>
-                    <tr>
-                        <td><img id="versionImgSearch" src={gameSrc} alt={versionSelect}/></td>
-                        <td>{gameSelection}</td>
-                        <td></td>
                     </tr>
                 </tbody>
             </table>
@@ -535,6 +562,33 @@ const createSearchForm = () => {
     }
 }
 
+const createPlayerSearchForm = () => {
+    ReactDOM.render(
+        <PlayerSearchForm />, document.querySelector("#searchontent")  
+    );
+
+
+    if(queryString != undefined)
+    {
+        //console.log('query string isnot empty: ' + queryString)
+        const next = document.querySelector("#nextButton");
+        videoMax = 300;
+        next.addEventListener("click", (e) => {
+            //console.log(pagedVideos[0])
+            if(pagedVideos[videoMax-1] === undefined) {
+                handleError("ERROR | No more videos!");
+                return;
+            }
+            videoMax += 100;
+            sendAjax('GET', queryString , null, (data) =>{
+                ReactDOM.render(
+                    <VideoList videos={data.videos} />, document.querySelector("#content")
+                );
+            });
+        });
+    }
+}
+
 const createDataForm = () => {
     ReactDOM.unmountComponentAtNode(document.querySelector("#content"));
     ReactDOM.unmountComponentAtNode(document.querySelector("#info"));
@@ -621,6 +675,9 @@ const setup = (csrf) => {
     reportButton.addEventListener("click", (e) => {
         e.preventDefault();
         createReport(csrf);
+        //var report = prompt('Please be as detailed as possible with your report')
+        //sendAjax('POST', $("#reportForm").attr("action"), {report: report, _csrf: csrf}, true);
+        //console.log(report)
         return false;
     });
 
@@ -628,6 +685,8 @@ const setup = (csrf) => {
         reportSubmit.addEventListener("click", (e) => {
             e.preventDefault();
             createSearchForm(csrf);
+            //var report = prompt('Please be as detailed as possible with your report')
+            //console.log(report)
             return false;
         });
     }
@@ -642,6 +701,7 @@ const setup = (csrf) => {
         e.preventDefault();
         createSearchForm(); // Uncomment on site up
         createAssistSelect();
+        //createPlayerSearchForm();
         loadAllVideosFromServer(); // Uncomment on site up
         return false;
     });
@@ -659,6 +719,7 @@ const setup = (csrf) => {
     }
     else {
         //console.log('false')
+     //   createPlayerSearchForm();
         loadAllVideosFromServer() //Default window Uncomment all on sit up
     }
 

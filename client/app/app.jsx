@@ -302,28 +302,26 @@ const SearchForm = () => {
           <table id="searchFormTable" className="table table-sm">
                 <tbody>
                     <tr>
-                        <td><img id="assist1Img" src={assist1Src} alt={assist1Select}/></td>
                         <td><img id="char1Img" src={char1Src} alt={char1Select}/></td>
+                        <td><img id="assist1Img" src={assist1Src} alt={assist1Select}/></td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td>{assist1Search}</td>
                         <td>{char1Search}</td>
+                        <td>{assist1Search}</td>
                         <td><input className="form-control" id="player1Search" type="text" name="player1" placeholder="Player 1"/></td>
-                    </tr>
-                    <tr>
-                        <td><img id="assist2Img" src={assist2Src} alt={assist2Select}/></td>
-                        <td><img id="char2Img" src={char2Src} alt={char2Select}/></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>{assist2Search}</td>
-                        <td>{char2Search}</td>
-                        <td><input className="form-control" id="player2Search" type="text" name="player2" placeholder="Player 2"/></td>
-                    </tr>
-                    <tr>
                         <td><img id="versionImgSearch" src={gameSrc} alt={versionSelect}/></td>
+                    </tr>
+                    <tr>
+                        <td><img id="char2Img" src={char2Src} alt={char2Select}/></td>
+                        <td><img id="assist2Img" src={assist2Src} alt={assist2Select}/></td>
+                        <td></td>
                         <td>{gameSelection}</td>
+                    </tr>
+                    <tr>
+                        <td>{char2Search}</td>
+                        <td>{assist2Search}</td>
+                        <td><input className="form-control" id="player2Search" type="text" name="player2" placeholder="Player 2"/></td>
                         <td></td>
                     </tr>
                 </tbody>
@@ -386,15 +384,20 @@ const VideoForm = (props) => {
         char2Src = `/assets/img/Characters/${char2Sel}.png`
         assist1Src = `/assets/img/Assists/${assist1Sel}.png`
         assist2Src = `/assets/img/Assists/${assist2Sel}.png`
+
+        /*<td><img id="assist1Img" src={assist1Src} alt={assist1Sel}/>{assist1Selection}</td>
+        <td><img id="char1Img" src={char1Src} alt={char1Sel}/>{charSelection}</td>
+        <td><img id="char2Img" src={char2Src} alt={char2Sel}/>{char2Selection}</td>
+        <td><img id="assist2Img" src={assist2Src} alt={assist2Sel}/>{assist2Selection}</td>*/
         rows.push(
             <tbody>
                 <tr>
                     <td><input className="form-control" id="timestamp" type="text" name="timestamp" placeholder="00:00:00"/></td>
                     <td><input className="form-control" id="playerOne" type="text" name="playerOne" placeholder="Player 1"/></td>
-                    <td><img id="assist1Img" src={assist1Src} alt={assist1Sel}/>{assist1Selection}</td>
-                    <td><img id="char1Img" src={char1Src} alt={char1Sel}/>{charSelection}</td>
-                    <td><img id="char2Img" src={char2Src} alt={char2Sel}/>{char2Selection}</td>
-                    <td><img id="assist2Img" src={assist2Src} alt={assist2Sel}/>{assist2Selection}</td>
+                    <td>{assist1Selection}</td>
+                    <td>{charSelection}</td>
+                    <td>{char2Selection}</td>
+                    <td>{assist2Selection}</td>
                     <td><input className="form-control" id="playerTwo" type="text" name="playerTwo" placeholder="Player 2"/></td>
                 </tr>
             </tbody>
@@ -749,6 +752,11 @@ const createPassChangeWindow = (csrf) => {
 };
 
 const createAddWindow = (csrf) => {
+
+    ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
+    ReactDOM.unmountComponentAtNode(document.querySelector("#info"));
+    ReactDOM.unmountComponentAtNode(document.querySelector("#secondary"));
+
     ReactDOM.render(
         <VideoForm csrf={csrf} />,
         document.querySelector("#content")
@@ -817,9 +825,12 @@ const createAddWindow = (csrf) => {
         //$('vidSrc').hide().show();
     })
 
-    ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
-    ReactDOM.unmountComponentAtNode(document.querySelector("#info"));
-    ReactDOM.unmountComponentAtNode(document.querySelector("#secondary"));
+    ReactDOM.render(
+        <div id="videoDiv">
+            <div id="videoPreview">Video Preview</div>
+        </div>,
+        document.querySelector("#secondary")
+    )
 
 };
 
@@ -1001,7 +1012,7 @@ $(document).ready(function() {
 
 //#region Character Forms
 //Separated the character forms for ease of reference and readability in above code
-const char1Select = <select>
+const char1Select = <select className='form-control'>
     <option value="Akira">Akira</option><option value="Ako">Ako</option>
     <option value="Asuna">Asuna</option><option value="Emi">Emi</option><option value="Kirino">Kirino</option>
     <option value="Kirito">Kirito</option><option value="Kuroko">Kuroko</option><option value="Kuroyukihime">Kuroyukihime</option>
@@ -1012,7 +1023,7 @@ const char1Select = <select>
     <option value="Yuuki">Yuuki</option>
     </select>;
 
-const assist1Select = <select id = "assist1">
+const assist1Select = <select id = "assist1" className='form-control'>
     <option value="Accelerator">Accelerator</option><option value="Alicia">Alicia</option>
     <option value="Boogiepop">Boogiepop</option><option value="Celty">Celty</option><option value="Dokuro">Dokuro</option>
     <option value="Enju">Enju</option><option value="Erio">Erio</option><option value="Froleytia">Froleytia</option>
@@ -1026,7 +1037,7 @@ const assist1Select = <select id = "assist1">
     <option value="Wilhelmina">Wilhelmina</option><option value="Zero">Zero</option>
     </select>;
 
-const char2Select = <select id = "char2">
+const char2Select = <select id = "char2" className='form-control'>
     <option value="Akira">Akira</option><option value="Ako">Ako</option>
     <option value="Asuna">Asuna</option><option value="Emi">Emi</option><option value="Kirino">Kirino</option>
     <option value="Kirito">Kirito</option><option value="Kuroko">Kuroko</option><option value="Kuroyukihime">Kuroyukihime</option>
@@ -1037,7 +1048,7 @@ const char2Select = <select id = "char2">
     <option value="Yuuki">Yuuki</option>
     </select>;
 
-const assist2Select = <select id = "assist2">
+const assist2Select = <select id = "assist2" className='form-control'>
     <option value="Accelerator">Accelerator</option><option value="Alicia">Alicia</option>
     <option value="Boogiepop">Boogiepop</option><option value="Celty">Celty</option><option value="Dokuro">Dokuro</option>
     <option value="Enju">Enju</option><option value="Erio">Erio</option><option value="Froleytia">Froleytia</option>

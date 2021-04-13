@@ -138,7 +138,7 @@ var SearchForm = function SearchForm() {
     disabled: true,
     selected: true,
     hidden: true
-  }, "Version"), /*#__PURE__*/React.createElement("option", {
+  }, "Vers."), /*#__PURE__*/React.createElement("option", {
     value: "Any"
   }, "Any"), /*#__PURE__*/React.createElement("option", {
     value: "2"
@@ -167,38 +167,65 @@ var SearchForm = function SearchForm() {
     id: "searchFormTable",
     className: "table table-sm"
   }, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
-    id: "assist1Img",
-    src: assist1Src,
-    alt: assist1Select
-  })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
     id: "char1Img",
     src: char1Src,
     alt: char1Select
-  })), /*#__PURE__*/React.createElement("td", null)), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, assist1Search), /*#__PURE__*/React.createElement("td", null, char1Search), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+  })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
+    id: "assist1Img",
+    src: assist1Src,
+    alt: assist1Select
+  })), /*#__PURE__*/React.createElement("td", null)), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, char1Search), /*#__PURE__*/React.createElement("td", null, assist1Search), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
     className: "form-control",
     id: "player1Search",
     type: "text",
     name: "player1",
     placeholder: "Player 1"
-  }))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
-    id: "assist2Img",
-    src: assist2Src,
-    alt: assist2Select
   })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
+    id: "versionImgSearch",
+    src: gameSrc,
+    alt: versionSelect
+  }))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
     id: "char2Img",
     src: char2Src,
     alt: char2Select
-  })), /*#__PURE__*/React.createElement("td", null)), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, assist2Search), /*#__PURE__*/React.createElement("td", null, char2Search), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+  })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
+    id: "assist2Img",
+    src: assist2Src,
+    alt: assist2Select
+  })), /*#__PURE__*/React.createElement("td", null), /*#__PURE__*/React.createElement("td", null, gameSelection)), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, char2Search), /*#__PURE__*/React.createElement("td", null, assist2Search), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
     className: "form-control",
     id: "player2Search",
     type: "text",
     name: "player2",
     placeholder: "Player 2"
-  }))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
-    id: "versionImgSearch",
-    src: gameSrc,
-    alt: versionSelect
-  })), /*#__PURE__*/React.createElement("td", null, gameSelection), /*#__PURE__*/React.createElement("td", null)))));
+  })), /*#__PURE__*/React.createElement("td", null)))));
+};
+
+var PlayerSearchForm = function PlayerSearchForm() {
+  return /*#__PURE__*/React.createElement("form", {
+    id: "searchForm",
+    onChange: handleSearch,
+    onReset: handleReset,
+    name: "searchForm",
+    action: "/search",
+    method: "GET",
+    className: "searchForm form-inline"
+  }, /*#__PURE__*/React.createElement("table", {
+    id: "searchFormTable",
+    className: "table table-sm"
+  }, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+    className: "form-control",
+    id: "player1Search",
+    type: "text",
+    name: "player1",
+    placeholder: "Player 1"
+  }))), /*#__PURE__*/React.createElement("tr", null, "vs"), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+    className: "form-control",
+    id: "player2Search",
+    type: "text",
+    name: "player2",
+    placeholder: "Player 2"
+  }))))));
 }; // Render our login window
 
 
@@ -566,6 +593,30 @@ var createSearchForm = function createSearchForm() {
   }
 };
 
+var createPlayerSearchForm = function createPlayerSearchForm() {
+  ReactDOM.render( /*#__PURE__*/React.createElement(PlayerSearchForm, null), document.querySelector("#searchontent"));
+
+  if (queryString != undefined) {
+    //console.log('query string isnot empty: ' + queryString)
+    var next = document.querySelector("#nextButton");
+    videoMax = 300;
+    next.addEventListener("click", function (e) {
+      //console.log(pagedVideos[0])
+      if (pagedVideos[videoMax - 1] === undefined) {
+        handleError("ERROR | No more videos!");
+        return;
+      }
+
+      videoMax += 100;
+      sendAjax('GET', queryString, null, function (data) {
+        ReactDOM.render( /*#__PURE__*/React.createElement(VideoList, {
+          videos: data.videos
+        }), document.querySelector("#content"));
+      });
+    });
+  }
+};
+
 var createDataForm = function createDataForm() {
   ReactDOM.unmountComponentAtNode(document.querySelector("#content"));
   ReactDOM.unmountComponentAtNode(document.querySelector("#info"));
@@ -625,14 +676,19 @@ var setup = function setup(csrf) {
   });
   reportButton.addEventListener("click", function (e) {
     e.preventDefault();
-    createReport(csrf);
+    createReport(csrf); //var report = prompt('Please be as detailed as possible with your report')
+    //sendAjax('POST', $("#reportForm").attr("action"), {report: report, _csrf: csrf}, true);
+    //console.log(report)
+
     return false;
   });
 
   if (reportSubmit) {
     reportSubmit.addEventListener("click", function (e) {
       e.preventDefault();
-      createSearchForm(csrf);
+      createSearchForm(csrf); //var report = prompt('Please be as detailed as possible with your report')
+      //console.log(report)
+
       return false;
     });
   }
@@ -646,7 +702,8 @@ var setup = function setup(csrf) {
     e.preventDefault();
     createSearchForm(); // Uncomment on site up
 
-    createAssistSelect();
+    createAssistSelect(); //createPlayerSearchForm();
+
     loadAllVideosFromServer(); // Uncomment on site up
 
     return false;
@@ -662,6 +719,7 @@ var setup = function setup(csrf) {
     handleSearch(player);
   } else {
     //console.log('false')
+    //   createPlayerSearchForm();
     loadAllVideosFromServer(); //Default window Uncomment all on sit up
   }
 };

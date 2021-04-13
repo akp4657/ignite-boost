@@ -38,6 +38,10 @@ body {
     position: fixed;
 }
 
+#searchcontent {
+    border: 5 px solid red
+}
+
 #info { 
     position: absolute;
     width: 100%;
@@ -311,13 +315,29 @@ body {
 
 
 #videoFormTable {
-    width: 50%; 
+    width: 80%; 
     margin: 0 auto;
     background-color: transparent;
     color: rgb(34, 34, 34);
     border-radius: 5px;
     border-top: 2px solid rgb(34, 34, 34);
     font-size: 16px;
+}
+
+#videoFormTable tr {
+    height: 80px;
+}
+
+#videoPreview { 
+    background-color: black;
+    margin-top: 40%;
+    color: white;
+    text-align: center;
+    width: 1100;
+    height: 550;
+    max-height: 100%;
+    max-width: 99%;
+    margin-left: 5px;
 }
 
 #videoListTable {
@@ -393,6 +413,7 @@ select:invalid {
     vertical-align: middle;
     text-align: center;
 }
+
 
 .table > tbody > tr > th  {
     vertical-align: middle;
