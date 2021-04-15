@@ -333,6 +333,11 @@ body {
     margin-top: 40%;
     color: white;
     text-align: center;
+    padding-top: 20%;
+    font-size: 75px;
+    font-family: Arial;
+    font-style: italic;
+    font-weight: bold;
     width: 1100;
     height: 550;
     max-height: 100%;
@@ -357,6 +362,7 @@ body {
 }
 #videoFormTable select {
     text-align: center;
+    width: 150px;
 }
 
 #searchFormTable {
@@ -432,7 +438,7 @@ select:invalid {
 #static > .form-control {
     display: inline;
     margin: 0 auto;
-    width: 25%;
+    width: 100%;
     margin-bottom: 2%;
 }
 
@@ -463,6 +469,7 @@ select:invalid {
     margin-bottom: 2%;
 }
 
+
 #charDataContainer {
     background-image: url("/assets/img/bg.png");
     background-position: center;
@@ -480,8 +487,8 @@ select:invalid {
 }
 
 #characterDataTable tr{
-    max-height: 75px;
-    height: 75px;
+    max-height: 100px;
+    height: 100px;
     padding-right: 3px;
 }
 
@@ -510,15 +517,19 @@ select:invalid {
     -webkit-text-stroke-width: .25px;
     -webkit-text-stroke-color: transparent;
     -webkit-text-stroke-color: black;
+
 }
 
 #moveDivContainer:not(:empty)  { 
     transform: skewX(-15deg);
     width: 70%;
     margin-left: 15%;
-    background-image: linear-gradient(to bottom right, #eff4f1, #a3a6ad);
+    background-color: #f1f2f6;
+    background-image: linear-gradient(315deg, #f1f2f6 0%, #c9c6c6 74%);
     padding: 10px;
-    border: 1px solid #d5d8d6
+    border: 1px solid #b8b8b8;
+    -moz-box-shadow: 0 0 1px 2px #999;
+    -webkit-box-shadow: 0 0 1px 2px #999;
 }
 
 #loginForm .btn {
@@ -535,16 +546,19 @@ select:invalid {
 
 #static > #version {
     margin-left: 3.5%;
-    width: 15%;
+    width: 8%;
+    text-align: center;
 }
 
 #static > #videoLink {
-    width: 30%;
+    width: 45%;
+    text-align: center;
 }
 
 #static > #matchDate {
-    width: 10%;
+    width: 12%;
     margin-left: 3.5%;
+    text-align: center;
 }
 
 #static > .btn {

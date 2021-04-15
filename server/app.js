@@ -13,7 +13,7 @@ const url = require('url');
 const redis = require('redis');
 const csrf = require('csurf');
 
-const port = process.env.PORT || process.env.NODE_PORT || 3000;
+const port = process.env.PORT || process.env.NODE_PORT || 3001;
 
 //const devURL = process.env.MONGODB_URI || 'mongodb://localhost/DFCDatabase';
 const prodURL = 'mongodb+srv://heroku_lh6d56zl:root@ignite-boost-cluster.o0f86.mongodb.net/heroku_lh6d56zl?retryWrites=true&w=majority'

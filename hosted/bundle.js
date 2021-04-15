@@ -216,18 +216,6 @@ var handleSearch = function handleSearch(player) {
   });
 };
 
-var handleReport = function handleReport(e) {
-  e.preventDefault();
-
-  if ($("#report").val() == '') {
-    handleError("ERROR | Report cannot be empty");
-    return false;
-  }
-
-  sendAjax('POST', $("#reportForm").attr("action"), $("#reportForm").serialize(), redirect);
-  return false;
-};
-
 var handleCharacterData = function handleCharacterData() {
   // console.log('handling data')
   var characterQuery = "".concat($('#dataForm').attr('action'), "?");
@@ -420,7 +408,7 @@ var VideoForm = function VideoForm(props) {
     disabled: true,
     selected: true,
     hidden: true
-  }, "Version"), /*#__PURE__*/React.createElement("option", {
+  }, "Vers."), /*#__PURE__*/React.createElement("option", {
     value: "2"
   }, "DFC:I"), /*#__PURE__*/React.createElement("option", {
     value: "1"
@@ -485,43 +473,23 @@ var ChangeWindow = function ChangeWindow(props) {
     type: "submit",
     value: "Change"
   }));
-}; // Render the report window
-
-
-var ReportWindow = function ReportWindow(props) {
-  return alert( /*#__PURE__*/React.createElement("form", {
-    id: "reportForm",
-    name: "reportForm",
-    onSubmit: handleReport,
-    action: "/sendReport",
-    method: "POST",
-    className: "searchForm"
-  }, /*#__PURE__*/React.createElement("textarea", {
-    rows: "3",
-    cols: "60",
-    id: "report",
-    type: "text",
-    name: "report",
-    placeholder: "Please be as detailed as possible. If this pertains to a match, please include the link and/or names of the players"
-  }), /*#__PURE__*/React.createElement("input", {
-    type: "hidden",
-    name: "_csrf",
-    value: props.csrf
-  }), /*#__PURE__*/React.createElement("input", {
-    id: "reportSubmit",
-    className: "formSubmit btn",
-    type: "submit",
-    value: "Submit"
-  })));
 };
 
 var CharacterData = function CharacterData(props) {
   var characterNodes = props.character.map(function (character) {
+    var moveText;
+
+    if (character.move) {
+      moveText = /*#__PURE__*/React.createElement("h1", {
+        id: "moveDiv"
+      }, character.move);
+    }
+
     return /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", {
       id: "moveRow"
     }, /*#__PURE__*/React.createElement("div", {
-      id: "moveDiv"
-    }, character.move)), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
+      id: "moveDivContainer"
+    }, moveText)), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
       id: "ignition"
     }, character.startup)), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
       id: "ignition"
@@ -626,12 +594,6 @@ var GifBack = function GifBack() {
     id: "gifs",
     src: "/assets/img/background.gif"
   });
-};
-
-var createReport = function createReport(csrf) {
-  ReactDOM.render( /*#__PURE__*/React.createElement(ReportWindow, {
-    csrf: csrf
-  }), document.querySelector("#search"));
 }; /// RENDERING THE LIST
 /// Render the list depending on if it's a page list or the full list
 
@@ -916,18 +878,13 @@ var setup = function setup(csrf) {
   });
   reportButton.addEventListener("click", function (e) {
     e.preventDefault();
-    createReport(csrf);
+    var report = prompt('Please be as detailed as possible with your report');
+    sendAjax('POST', "/sendReport", {
+      report: report,
+      _csrf: csrf
+    }, true);
     return false;
   });
-
-  if (reportSubmit) {
-    reportSubmit.addEventListener("click", function (e) {
-      e.preventDefault();
-      createSearchForm(csrf);
-      return false;
-    });
-  }
-
   dataButton.addEventListener("click", function (e) {
     e.preventDefault();
     createDataForm();

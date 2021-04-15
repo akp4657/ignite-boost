@@ -107,18 +107,6 @@ var handleCharacterData = function handleCharacterData() {
       character: data.character
     }), document.querySelector("#content"));
   });
-};
-
-var handleReport = function handleReport(e) {
-  e.preventDefault();
-
-  if ($("#report").val() == '') {
-    handleError("ERROR | Report cannot be empty");
-    return false;
-  }
-
-  sendAjax('POST', $("#reportForm").attr("action"), $("#reportForm").serialize(), redirect);
-  return false;
 }; // Search form
 //Sets up the search form
 
@@ -289,34 +277,6 @@ var SignupWindow = function SignupWindow(props) {
     className: "formSubmit btn",
     type: "submit",
     value: "Sign Up"
-  }));
-}; // Render the report window
-
-
-var ReportWindow = function ReportWindow(props) {
-  return /*#__PURE__*/React.createElement("form", {
-    id: "reportForm",
-    name: "reportForm",
-    onSubmit: handleReport,
-    action: "/sendReport",
-    method: "POST",
-    className: "searchForm"
-  }, /*#__PURE__*/React.createElement("textarea", {
-    rows: "3",
-    cols: "60",
-    id: "report",
-    type: "text",
-    name: "report",
-    placeholder: "Please be as detailed as possible. If this pertains to a match, please include the link and/or names of the players"
-  }), /*#__PURE__*/React.createElement("input", {
-    type: "hidden",
-    name: "_csrf",
-    value: props.csrf
-  }), /*#__PURE__*/React.createElement("input", {
-    id: "reportSubmit",
-    className: "formSubmit btn",
-    type: "submit",
-    value: "Submit"
   }));
 }; //#region Home Video Code
 
@@ -632,12 +592,6 @@ var createLoad = function createLoad() {
   ReactDOM.render( /*#__PURE__*/React.createElement(Load, null), document.querySelector("#content"));
 };
 
-var createReport = function createReport(csrf) {
-  ReactDOM.render( /*#__PURE__*/React.createElement(ReportWindow, {
-    csrf: csrf
-  }), document.querySelector("#search"));
-};
-
 var createSiteDown = function createSiteDown() {
   ReactDOM.render( /*#__PURE__*/React.createElement(SiteDown, null), document.querySelector('#secondary'));
 };
@@ -676,23 +630,13 @@ var setup = function setup(csrf) {
   });
   reportButton.addEventListener("click", function (e) {
     e.preventDefault();
-    createReport(csrf); //var report = prompt('Please be as detailed as possible with your report')
-    //sendAjax('POST', $("#reportForm").attr("action"), {report: report, _csrf: csrf}, true);
-    //console.log(report)
-
+    var report = prompt('Please be as detailed as possible with your report');
+    sendAjax('POST', "/sendReport", {
+      report: report,
+      _csrf: csrf
+    }, true);
     return false;
   });
-
-  if (reportSubmit) {
-    reportSubmit.addEventListener("click", function (e) {
-      e.preventDefault();
-      createSearchForm(csrf); //var report = prompt('Please be as detailed as possible with your report')
-      //console.log(report)
-
-      return false;
-    });
-  }
-
   dataButton.addEventListener("click", function (e) {
     e.preventDefault();
     createDataForm();

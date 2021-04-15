@@ -230,20 +230,6 @@ const handleSearch = (player) => {
     });
 };
 
-const handleReport = (e) => {
-    e.preventDefault();
-
-    if($("#report").val() == '') {
-        handleError("ERROR | Report cannot be empty");
-        return false;
-    }
-
-    sendAjax('POST', $("#reportForm").attr("action"), $("#reportForm").serialize(), redirect);
-
-    return false;
-
-}
-
 const handleCharacterData = () => {
     // console.log('handling data')
  
@@ -416,7 +402,7 @@ const VideoForm = (props) => {
         <div id ="static">
             <input id="videoLink" className='form-control' type="text" name="videoLink" placeholder="YouTube Link (https://www.youtube.com/watch?v=***********)"/>
             <select className="form-control" id="version" placeholder="Version">
-                <option value="" disabled selected hidden>Version</option>
+                <option value="" disabled selected hidden>Vers.</option>
                 <option value="2">DFC:I</option>
                 <option value="1">DFC</option>
             </select>
@@ -460,32 +446,18 @@ const ChangeWindow = (props) => {
     );
 };
 
-// Render the report window
-const ReportWindow = (props) => {
-    return ( 
-    alert(
-    <form id="reportForm" name="reportForm"
-            onSubmit={handleReport}
-            action="/sendReport"
-            method="POST"
-            className="searchForm"
-        >
-        <textarea rows="3" cols="60" id="report" type="text" name="report" placeholder="Please be as detailed as possible. If this pertains to a match, please include the link and/or names of the players"/>
-        <input type="hidden" name="_csrf" value={props.csrf}/>
-        <input id="reportSubmit" className="formSubmit btn" type="submit" value="Submit"/>
-
-    </form>)
-    );
-};
-
 const CharacterData = function(props) {
 
     const characterNodes = props.character.map(function(character) {
-        
+        let moveText;
+
+        if(character.move) {
+            moveText = <h1 id="moveDiv">{character.move}</h1>
+        }
         return (
                 <tbody>
                     <tr>
-                    <td id="moveRow"><div id="moveDiv">{character.move}</div></td>
+                        <td id="moveRow"><div id="moveDivContainer">{moveText}</div></td>
                         <td><div id="ignition">{character.startup}</div></td>
                         <td><div id="ignition">{character.active}</div></td>
                         <td><div id="ignition">{character.frameAdv}</div></td>
@@ -607,11 +579,6 @@ const GifBack = () => {
     )
 };
 
-const createReport = (csrf) => {
-    ReactDOM.render(
-        <ReportWindow csrf={csrf}/>, document.querySelector("#search")
-    );
-}
 
 /// RENDERING THE LIST
 /// Render the list depending on if it's a page list or the full list
@@ -660,21 +627,21 @@ const VideoList = function(props) {
 
         
         return (
-                <tbody>
-                    <tr>
-                        <td id='tdP1'>{video.player1}</td>
-                        <td>{assistImg1}</td>
-                        <td>{charImg1}</td>
-                        <td>{charImg2}</td>
-                        <td>{assistImg2}</td>
-                        <td id='tdP2'>{video.player2}</td>
-                        <td>
-                            <a href={video.link} className="icons-sm yt-ic" target="_blank"><i className="fab fa-youtube fa-2x"> </i></a>
-                        </td>
-                        <td>{versionImg}</td>
-                        <td>{video.matchDate}</td>
-                    </tr>
-                </tbody>
+            <tbody>
+                <tr>
+                    <td id='tdP1'>{video.player1}</td>
+                    <td>{assistImg1}</td>
+                    <td>{charImg1}</td>
+                    <td>{charImg2}</td>
+                    <td>{assistImg2}</td>
+                    <td id='tdP2'>{video.player2}</td>
+                    <td>
+                        <a href={video.link} className="icons-sm yt-ic" target="_blank"><i className="fab fa-youtube fa-2x"> </i></a>
+                    </td>
+                    <td>{versionImg}</td>
+                    <td>{video.matchDate}</td>
+                </tr>
+            </tbody>
             
         );
     });
@@ -947,17 +914,10 @@ const setup = function(csrf) {
 
     reportButton.addEventListener("click", (e) => {
         e.preventDefault();
-        createReport(csrf);
+        var report = prompt('Please be as detailed as possible with your report')
+        sendAjax('POST', "/sendReport", {report: report, _csrf: csrf}, true);
         return false;
     });
-
-    if(reportSubmit) {
-        reportSubmit.addEventListener("click", (e) => {
-            e.preventDefault();
-            createSearchForm(csrf);
-            return false;
-        });
-    }
 
     dataButton.addEventListener("click", (e) => {
         e.preventDefault();

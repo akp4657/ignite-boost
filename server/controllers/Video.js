@@ -25,7 +25,7 @@ const makeVideo = (req, res) => {
     /* if (!values[i].player1 || !values[i].player2 || !values[i].char1
       || !values[i].char2  || !values[i].link) {
       return res.status(400).json({ error: "All fields must be entered to store the data."});
-    } */
+    }*/
 
     const videoData = {
       player1: values[i].player1,

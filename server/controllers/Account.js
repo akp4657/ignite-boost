@@ -41,10 +41,9 @@ const sendReport = (request, response) => {
 
   //<button id="reportButton" className="formSubmit btn secondBtn"type="button">Report</button>
   //
- // const report = `${req}`;
-  console.log(req.report)
+  const report = `${req.body.report}`;
 
-  /*if (!report) {
+  if (!report) {
     return res.status(400).json({ error: 'ERROR | All fields are required' });
   }
 
@@ -71,7 +70,7 @@ const sendReport = (request, response) => {
       console.log('Email sent: ' + info.response)
       return res.json({ redirect: '/main' });
     }
-  })*/
+  })
 };
 
 // Password change that takes a lot from the signup function
