@@ -9,7 +9,11 @@ html, body {
 
 body {
     /*background-color: #1C1F24;*/
-    background-color: #F0F7FF;
+    background-color: black;
+    background-image: url("/assets/img/mainBG.png");
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 #logo {
@@ -98,10 +102,9 @@ body {
     margin: 0 auto;
     font-size: 1.2em;
     margin-top: 10%;
-    color: rgb(34, 34, 34);
+    color: #F0F7FF;
     text-align: center;
 }
-
 
 .textList {
     height: 100%;
@@ -135,6 +138,7 @@ body {
 
 #videoDiv {
     width: 100%;
+    margin-left: 2.5%;
 }
 
 #aInfo p, #aInfo li {
@@ -147,7 +151,8 @@ body {
     height: 75%;
     margin-top: -10%;
     margin-right: 5%;
-    background-color:rgba(211, 216, 226, 0.8);
+    background-color: rgb(34, 34, 34, .75);
+    color: #F0F7FF;
     padding: 15px;
     padding-bottom: 15px;
 }
@@ -207,8 +212,8 @@ body {
     width: 300px;
     border-radius: 6px;
     margin: 0 auto;
-    background-color: #F0F7FF;
-    color:rgb(34, 34, 34);
+    background-color: black;
+    color:#F0F7FF;
 }
 
 #user:focus, #pass:focus, #pass2:focus, #pass3:focus {
@@ -216,25 +221,29 @@ body {
     box-shadow: 0px 0px 1px 1px #68f2d5;
 }
 
-#char1Search:focus, #charDataSearch:focus, #char2Search:focus, #assist1Search:focus, #assist2Search:focus, #gameSec:focus, #assistInfoSelect:focus {
+#char1Search:focus, #charDataSearch:focus, #char2Search:focus, #assist1Search:focus, #assist2Search:focus, 
+#gameSec:focus, #assistInfoSelect:focus, #videoLink:focus, #version:focus,
+#matchDate:focus, #timestamp:focus, #playerOne:focus, #playerTwo:focus  {
     outline: none;
     box-shadow: 0px 0px 1px 1px #68f2d5;
 }
 
-#player1Search:focus, #player2Search:focus {
+#player1Search:focus, #player2Search:focus, .form-control:focus {
     outline: none;
     box-shadow: 0px 0px 1px 1px #68f2d5;
 }
 
-#char1Search, #charDataSearch, #char2Search, #assist1Search, #assist2Search, #gameSec, #assistInfoSelect {
-    background-color: #f9fcff;
-    color:rgb(34, 34, 34);
+#char1Search, #charDataSearch, #char2Search, #assist1Search, 
+#assist2Search, #gameSec, #assistInfoSelect, #videoLink, #version,
+#matchDate, #timestamp, #playerOne, #playerTwo {
+    background-color: black;
+    color:#F0F7FF;
     text-align: center;
 }
 
-#player1Search, #player2Search {
-    background-color: #f9fcff;
-    color:rgb(34, 34, 34);
+#player1Search, #player2Search, .form-control {
+    background-color: black;
+    color:#F0F7FF;
     text-align: center;
 }
 
@@ -256,12 +265,16 @@ body {
     width: 65%; 
     margin: 0 auto;
     margin-top: 5%;
-    color: rgb(34, 34, 34);
+    color: #F0F7FF;
     border-radius: 5px;
     font-weight: bold;
     font-size: 20px;
     background-color: transparent;
     border-top: 2px solid rgb(34, 34, 34);
+}
+
+#videoListTable {
+    background-color: rgb(34, 34, 34, .75);
 }
 
 .table-responsive {
@@ -329,7 +342,7 @@ body {
 }
 
 #videoPreview { 
-    background-color: black;
+    background-color: rgb(47, 47, 47, .9);
     margin-top: 40%;
     color: white;
     text-align: center;
@@ -375,6 +388,33 @@ body {
     margin-top: 10%;
 }
 
+#searchFormTable > tbody > tr {
+    height: 65px;
+    max-height: 65px;
+    vertical-align: middle;
+}
+
+#divTable {
+    width: 20%;
+    margin-left: 78%;
+    margin-top: -23%;
+    border-bottom: transparent;
+    border-top: transparent;
+}
+
+#gameSec {
+    margin-left: 5%;
+}
+
+#searchFormDiv {
+    /*border: 5px solid red;*/
+}
+
+#divTable > table {
+    border: 5px solid transparent;
+    vertical-align: middle;
+}
+
 #player1Search, #player2Search {
     width: 125px;
 }
@@ -383,6 +423,7 @@ body {
     height: 50px;
     width: 50px;
     text-align: center;
+    margin-left: 25%;
 }
 
 
@@ -442,6 +483,26 @@ select:invalid {
     margin-bottom: 2%;
 }
 
+#static > .table > tbody > tr > td {
+    vertical-align: bottom;
+    text-align: center;
+}
+
+#static > .table > tbody > tr {
+    height: 150px;
+    max-height: 150px;
+}
+
+#static > .table > tbody > tr > td > img{
+    margin-bottom: 5%;
+}
+
+#static > .table > tbody > tr > td > #assist1Img{
+    margin-bottom: 17%;
+}#static > .table > tbody > tr > td > #assist2Img{
+    margin-bottom: 17%;
+}
+
 #dataFormTable {
     width: 65%;
     margin: 0 auto;
@@ -465,17 +526,18 @@ select:invalid {
 }
 
 #characterDataTable{
-    background-color: rgba(211, 216, 226, 0.85);
+    background-color: rgb(34, 34, 34, .75);
+    color: #F0F7FF;
     margin-bottom: 2%;
 }
 
 
-#charDataContainer {
+/*#charDataContainer {
     background-image: url("/assets/img/bg.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-}
+}*/
 
 #characterDataTable td{
     max-width: 100px;

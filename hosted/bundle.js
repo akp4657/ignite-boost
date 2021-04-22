@@ -286,16 +286,12 @@ var SearchForm = function SearchForm() {
     id: "assist1Img",
     src: assist1Src,
     alt: assist1Select
-  })), /*#__PURE__*/React.createElement("td", null)), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, char1Search), /*#__PURE__*/React.createElement("td", null, assist1Search), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+  }))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, char1Search), /*#__PURE__*/React.createElement("td", null, assist1Search), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
     className: "form-control",
     id: "player1Search",
     type: "text",
     name: "player1",
     placeholder: "Player 1"
-  })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
-    id: "versionImgSearch",
-    src: gameSrc,
-    alt: versionSelect
   }))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
     id: "char2Img",
     src: char2Src,
@@ -304,13 +300,22 @@ var SearchForm = function SearchForm() {
     id: "assist2Img",
     src: assist2Src,
     alt: assist2Select
-  })), /*#__PURE__*/React.createElement("td", null), /*#__PURE__*/React.createElement("td", null, gameSelection)), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, char2Search), /*#__PURE__*/React.createElement("td", null, assist2Search), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+  })), /*#__PURE__*/React.createElement("td", null)), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, char2Search), /*#__PURE__*/React.createElement("td", null, assist2Search), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
     className: "form-control",
     id: "player2Search",
     type: "text",
     name: "player2",
     placeholder: "Player 2"
-  })), /*#__PURE__*/React.createElement("td", null)))));
+  }))))), /*#__PURE__*/React.createElement("div", {
+    id: "divTable"
+  }, /*#__PURE__*/React.createElement("table", {
+    id: "gameSelectTable",
+    className: "table table-sm"
+  }, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
+    id: "versionImgSearch",
+    src: gameSrc,
+    alt: versionSelect
+  }))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, gameSelection)))));
 }; /// FORM TO SUBMIT NEW DATA
 // Don't think the images thing is going to work out
 // Just make the page look very nice is probably the only way to go
@@ -375,7 +380,23 @@ var VideoForm = function VideoForm(props) {
       type: "text",
       name: "playerOne",
       placeholder: "Player 1"
-    })), /*#__PURE__*/React.createElement("td", null, assist1Selection), /*#__PURE__*/React.createElement("td", null, charSelection), /*#__PURE__*/React.createElement("td", null, char2Selection), /*#__PURE__*/React.createElement("td", null, assist2Selection), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+    })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
+      id: "assist1Img",
+      src: assist1Src,
+      alt: assist1Sel
+    }), assist1Selection), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
+      id: "char1Img",
+      src: char1Src,
+      alt: char1Sel
+    }), charSelection), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
+      id: "char2Img",
+      src: char2Src,
+      alt: char2Sel
+    }), char2Selection), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
+      id: "assist2Img",
+      src: assist2Src,
+      alt: assist2Sel
+    }), assist2Selection), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
       className: "form-control",
       id: "playerTwo",
       type: "text",
@@ -682,6 +703,7 @@ var VideoList = function VideoList(props) {
   }, /*#__PURE__*/React.createElement("div", {
     className: "table-responsive"
   }, /*#__PURE__*/React.createElement("table", {
+    id: "videoListTable",
     className: "table table-sm table-dark"
   }, pagedVideos)), /*#__PURE__*/React.createElement("button", {
     id: "nextButton",
@@ -741,7 +763,9 @@ var createAddWindow = function createAddWindow(csrf) {
   ReactDOM.unmountComponentAtNode(document.querySelector("#secondary"));
   ReactDOM.render( /*#__PURE__*/React.createElement(VideoForm, {
     csrf: csrf
-  }), document.querySelector("#content")); //If something changes, re-render for picture purposes
+  }), document.querySelector("#content"));
+  var contentDiv = document.querySelector("#content");
+  contentDiv.style.width = "58%"; //If something changes, re-render for picture purposes
 
   $('#videoFormTable').find('select').each(function () {
     this.onchange = function () {
