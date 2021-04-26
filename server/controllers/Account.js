@@ -71,6 +71,8 @@ const sendReport = (request, response) => {
       return res.json({ redirect: '/main' });
     }
   })
+
+  return true;
 };
 
 // Password change that takes a lot from the signup function
