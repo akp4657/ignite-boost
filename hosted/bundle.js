@@ -758,9 +758,9 @@ var createPassChangeWindow = function createPassChangeWindow(csrf) {
 };
 
 var createAddWindow = function createAddWindow(csrf) {
-  ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
+  ReactDOM.unmountComponentAtNode(document.querySelector("#content"));
   ReactDOM.unmountComponentAtNode(document.querySelector("#info"));
-  ReactDOM.unmountComponentAtNode(document.querySelector("#secondary"));
+  ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
   ReactDOM.render( /*#__PURE__*/React.createElement(VideoForm, {
     csrf: csrf
   }), document.querySelector("#content"));
@@ -812,13 +812,13 @@ var createAddWindow = function createAddWindow(csrf) {
   var videoInput = document.querySelector("#videoLink");
   videoInput.addEventListener("focusout", function (e) {
     // console.log('Hello')
-    ReactDOM.render( /*#__PURE__*/React.createElement(SideVideo, null), document.querySelector("#secondary")); //$('vidSrc').hide().show();
+    ReactDOM.render( /*#__PURE__*/React.createElement(SideVideo, null), document.querySelector("#search")); //$('vidSrc').hide().show();
   });
   ReactDOM.render( /*#__PURE__*/React.createElement("div", {
     id: "videoDiv"
   }, /*#__PURE__*/React.createElement("div", {
     id: "videoPreview"
-  }, "Video Preview")), document.querySelector("#secondary"));
+  }, "Video Preview")), document.querySelector("#search"));
 };
 
 var createSearchForm = function createSearchForm() {
@@ -852,7 +852,7 @@ var createSearchForm = function createSearchForm() {
 var createDataForm = function createDataForm() {
   ReactDOM.unmountComponentAtNode(document.querySelector("#content"));
   ReactDOM.unmountComponentAtNode(document.querySelector("#info"));
-  ReactDOM.unmountComponentAtNode(document.querySelector("#secondary"));
+  ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
   ReactDOM.render( /*#__PURE__*/React.createElement(DataSearchForm, null), document.querySelector("#search"));
   $("#dataForm").find('select').on('change', function () {
     ReactDOM.render( /*#__PURE__*/React.createElement(DataSearchForm, null), document.querySelector("#search"));

@@ -570,7 +570,7 @@ const createPlayerSearchForm = () => {
 const createDataForm = () => {
     ReactDOM.unmountComponentAtNode(document.querySelector("#content"));
     ReactDOM.unmountComponentAtNode(document.querySelector("#info"));
-    ReactDOM.unmountComponentAtNode(document.querySelector("#secondary"));
+    ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
     
     ReactDOM.render(
         <DataSearchForm />, document.querySelector("#search")

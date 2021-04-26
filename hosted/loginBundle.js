@@ -588,7 +588,7 @@ var createPlayerSearchForm = function createPlayerSearchForm() {
 var createDataForm = function createDataForm() {
   ReactDOM.unmountComponentAtNode(document.querySelector("#content"));
   ReactDOM.unmountComponentAtNode(document.querySelector("#info"));
-  ReactDOM.unmountComponentAtNode(document.querySelector("#secondary"));
+  ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
   ReactDOM.render( /*#__PURE__*/React.createElement(DataSearchForm, null), document.querySelector("#search"));
   $("#dataForm").find('select').on('change', function () {
     ReactDOM.render( /*#__PURE__*/React.createElement(DataSearchForm, null), document.querySelector("#search"));

@@ -727,9 +727,9 @@ const createPassChangeWindow = (csrf) => {
 
 const createAddWindow = (csrf) => {
 
-    ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
+    ReactDOM.unmountComponentAtNode(document.querySelector("#content"));
     ReactDOM.unmountComponentAtNode(document.querySelector("#info"));
-    ReactDOM.unmountComponentAtNode(document.querySelector("#secondary"));
+    ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
 
     ReactDOM.render(
         <VideoForm csrf={csrf} />,
@@ -796,7 +796,7 @@ const createAddWindow = (csrf) => {
        // console.log('Hello')
         ReactDOM.render(
             <SideVideo />,
-            document.querySelector("#secondary")
+            document.querySelector("#search")
         );
         //$('vidSrc').hide().show();
     })
@@ -805,7 +805,7 @@ const createAddWindow = (csrf) => {
         <div id="videoDiv">
             <div id="videoPreview">Video Preview</div>
         </div>,
-        document.querySelector("#secondary")
+        document.querySelector("#search")
     )
 
 };
@@ -847,7 +847,7 @@ const createSearchForm = () => {
 const createDataForm = () => {
     ReactDOM.unmountComponentAtNode(document.querySelector("#content"));
     ReactDOM.unmountComponentAtNode(document.querySelector("#info"));
-    ReactDOM.unmountComponentAtNode(document.querySelector("#secondary"));
+    ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
     
     ReactDOM.render(
         <DataSearchForm />, document.querySelector("#search")

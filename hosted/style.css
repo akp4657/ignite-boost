@@ -245,6 +245,7 @@ body {
     background-color: black;
     color:#F0F7FF;
     text-align: center;
+    border: .0625rem solid #67e2ef;
 }
 
 #video {
@@ -364,8 +365,8 @@ body {
 }
 
 #tdP1, #tdP2 {
-    width: 110px;
-    max-width: 110px;
+    width: 180px;
+    max-width: 180px;
 }
 
 #videoFormTable > tbody > tr > td > input {
@@ -625,20 +626,24 @@ select:invalid {
 
 #static > .btn {
     display: inline;
+    width: 120px;
 }
 
 #static > .secondBtn {
-    width:120px;
+    width:130px;
     margin-right: 40px;
+    text-align: center;
 }
      
 
 #static > .mainBtn {
     margin-right: 40px;
+    text-align: center;
 }
 
 #static > .thirdBtn {
-    width: 150px;
+    width: 160px;
+    text-align: center;
 }
 
 button.delete {
