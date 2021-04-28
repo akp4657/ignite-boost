@@ -51,7 +51,7 @@ const sendReport = (request, response) => {
     service: 'gmail',
     auth: {
       user: 'igniteboost.net@gmail.com',
-      pass: '7iWtpFQLaGhXDb8' // Meta
+      pass: 'v5HZvuSrqX5BQGb' // Meta
     }
   });
 
