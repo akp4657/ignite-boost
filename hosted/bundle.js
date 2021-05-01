@@ -742,12 +742,15 @@ var loadAllVideosFromServer = function loadAllVideosFromServer() {
 };
 
 var createPassChangeWindow = function createPassChangeWindow(csrf) {
+  // Unmount everything
+  ReactDOM.unmountComponentAtNode(document.querySelector("#content"));
+  ReactDOM.unmountComponentAtNode(document.querySelector("#info"));
+  ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
+  ReactDOM.unmountComponentAtNode(document.querySelector("#gifSection"));
   loopNumber = 1;
   ReactDOM.render( /*#__PURE__*/React.createElement(ChangeWindow, {
     csrf: csrf
-  }), document.querySelector("#content")); // Unmount the search bar
-
-  ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
+  }), document.querySelector("#content"));
 };
 
 var createAddWindow = function createAddWindow(csrf) {
@@ -898,10 +901,16 @@ var setup = function setup(csrf) {
   reportButton.addEventListener("click", function (e) {
     e.preventDefault();
     var report = prompt('Please be as detailed as possible with your report');
-    sendAjax('POST', "/sendReport", {
-      report: report,
-      _csrf: csrf
-    }, handleSuccess('SUCCESS | Email Sent'));
+
+    if (report) {
+      sendAjax('POST', "/sendReport", {
+        report: report,
+        _csrf: csrf
+      }, handleSuccess('SUCCESS | Email Sent'));
+    } else {
+      handleError('ERROR | Cannot be blank');
+    }
+
     return false;
   });
   dataButton.addEventListener("click", function (e) {
@@ -1642,15 +1651,14 @@ var assistInfo = [/*#__PURE__*/React.createElement("div", {
 
 // https://stackoverflow.com/questions/32704027/how-to-call-bootstrap-alert-with-jquery
 var handleError = function handleError(message) {
-  $(".alert").text(message);
-  $(".alert").show();
-  $(".alert").addClass('in');
-  $(".alert").delay(2000).fadeOut('slow');
+  $("#dangerAlert").text(message);
+  $("#dangerAlert").show();
+  $("#dangerAlert").addClass('in');
+  $("#dangerAlert").delay(2000).fadeOut('slow');
   return false;
 };
 
 var handleSuccess = function handleSuccess(message) {
-  console.log('Success');
   $("#successAlert").text(message);
   $("#successAlert").show();
   $("#successAlert").addClass('in');

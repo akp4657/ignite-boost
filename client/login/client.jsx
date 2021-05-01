@@ -478,6 +478,12 @@ const loadAllVideosFromServer = () => {
 //#endregion
 
 const createLoginWindow = (csrf) => {
+    // Unmount everything
+    ReactDOM.unmountComponentAtNode(document.querySelector("#content"));
+    ReactDOM.unmountComponentAtNode(document.querySelector("#info"));
+    ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
+    ReactDOM.unmountComponentAtNode(document.querySelector("#gifSection"));
+
     ReactDOM.render(
         <LoginWindow csrf={csrf} />,
         document.querySelector("#content")
@@ -487,12 +493,16 @@ const createLoginWindow = (csrf) => {
 };
 
 const createSignupWindow = (csrf) => {
+    // Unmount everything
+    ReactDOM.unmountComponentAtNode(document.querySelector("#content"));
+    ReactDOM.unmountComponentAtNode(document.querySelector("#info"));
+    ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
+    ReactDOM.unmountComponentAtNode(document.querySelector("#gifSection"));
+
     ReactDOM.render(
         <SignupWindow csrf={csrf} />,
         document.querySelector("#content")
     );
-
-    ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
 };
 
 const createSearchForm = () => {
@@ -637,7 +647,11 @@ const setup = (csrf) => {
     reportButton.addEventListener("click", (e) => {
         e.preventDefault();
         var report = prompt('Please be as detailed as possible with your report')
-        sendAjax('POST', "/sendReport", {report: report, _csrf: csrf}, handleSuccess('SUCCESS | Email Sent'));
+        if(report) {
+            sendAjax('POST', "/sendReport", {report: report, _csrf: csrf}, handleSuccess('SUCCESS | Email Sent'));
+        } else {
+            handleError('ERROR | Cannot be blank')
+        }
         return false;
     });
 

@@ -702,14 +702,17 @@ const loadAllVideosFromServer = () => {
 };
 
 const createPassChangeWindow = (csrf) => {
+    // Unmount everything
+    ReactDOM.unmountComponentAtNode(document.querySelector("#content"));
+    ReactDOM.unmountComponentAtNode(document.querySelector("#info"));
+    ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
+    ReactDOM.unmountComponentAtNode(document.querySelector("#gifSection"));
+
     loopNumber =1;
     ReactDOM.render(
         <ChangeWindow csrf={csrf} />,
         document.querySelector("#content")
     );
-
-    // Unmount the search bar
-    ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
 
 };
 
@@ -914,7 +917,12 @@ const setup = function(csrf) {
     reportButton.addEventListener("click", (e) => {
         e.preventDefault();
         var report = prompt('Please be as detailed as possible with your report')
-        sendAjax('POST', "/sendReport", {report: report, _csrf: csrf}, handleSuccess('SUCCESS | Email Sent'));
+
+        if(report) {
+            sendAjax('POST', "/sendReport", {report: report, _csrf: csrf}, handleSuccess('SUCCESS | Email Sent'));
+        } else {
+            handleError('ERROR | Cannot be blank')
+        }
         return false;
     });
 

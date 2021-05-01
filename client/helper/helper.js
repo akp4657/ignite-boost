@@ -2,15 +2,14 @@
 
 // https://stackoverflow.com/questions/32704027/how-to-call-bootstrap-alert-with-jquery
 const handleError = (message) => {
-    $(".alert").text(message);
-    $(".alert").show();
-    $(".alert").addClass('in');
-    $(".alert").delay(2000).fadeOut('slow');
+    $("#dangerAlert").text(message);
+    $("#dangerAlert").show();
+    $("#dangerAlert").addClass('in');
+    $("#dangerAlert").delay(2000).fadeOut('slow');
     return false;
 };
 
 const handleSuccess = (message) => {
-    console.log('Success')
     $("#successAlert").text(message);
     $("#successAlert").show();
     $("#successAlert").addClass('in');
