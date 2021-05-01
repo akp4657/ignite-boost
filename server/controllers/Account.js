@@ -41,18 +41,17 @@ const sendReport = (request, response) => {
 
   //<button id="reportButton" className="formSubmit btn secondBtn"type="button">Report</button>
   //
-  // force cast to strings to cover up security flaws
   const report = `${req.body.report}`;
 
-  /*if (!report) {
+  if (!report) {
     return res.status(400).json({ error: 'ERROR | All fields are required' });
-  }*/
+  }
 
   var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: 'igniteboost.net@gmail.com',
-      pass: 'XKf57KSNuYhvYNN'
+      pass: 'v5HZvuSrqX5BQGb' // Meta
     }
   });
 
@@ -72,6 +71,8 @@ const sendReport = (request, response) => {
       return res.json({ redirect: '/main' });
     }
   })
+
+  return true;
 };
 
 // Password change that takes a lot from the signup function

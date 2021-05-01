@@ -7,8 +7,16 @@ const handleError = (message) => {
     $(".alert").addClass('in');
     $(".alert").delay(2000).fadeOut('slow');
     return false;
-
 };
+
+const handleSuccess = (message) => {
+    console.log('Success')
+    $("#successAlert").text(message);
+    $("#successAlert").show();
+    $("#successAlert").addClass('in');
+    $("#successAlert").delay(2000).fadeOut('slow');
+    return false;
+}
 
 
 const redirect = (response) => {

@@ -25,7 +25,7 @@ const makeVideo = (req, res) => {
     /* if (!values[i].player1 || !values[i].player2 || !values[i].char1
       || !values[i].char2  || !values[i].link) {
       return res.status(400).json({ error: "All fields must be entered to store the data."});
-    } */
+    }*/
 
     const videoData = {
       player1: values[i].player1,
@@ -118,7 +118,7 @@ const searchVideos = (request, response) => {
 
   // If param exists, add it to the $and array with the
   // $or syntax to check for name in either slot 1 or 2 for player/char
-  // Using regex to be case insensitive and act like '$like' in SQL 
+  // Using regex to be case insensitive and act likes '$like' in SQL 
   if (player1) {
       params.$and[i] = { $or: [{ player1: {$regex: RegExp('^' + player1 ), $options: 'i'}}, { player2: {$regex: RegExp('^' + player1 ), $options: 'i'}}]}
       i++;
@@ -176,8 +176,6 @@ const searchVideos = (request, response) => {
 
   if (i === 0) params = {}; // set params to empty object if no query params were sent
   
-  //console.log(params.$and[0].$or)
-  
   return Video.VideoModel.findSearch(params, (err, docs) => {
     if (err) {
       console.log(err);
@@ -188,9 +186,11 @@ const searchVideos = (request, response) => {
   });
 };
 
+
 module.exports.mainPage = mainPage;
 module.exports.getVideos = getVideos;
 module.exports.getAllVideos = getAllVideos;
 module.exports.make = makeVideo;
 module.exports.delete = deleteEntry;
 module.exports.searchVideos = searchVideos;
+//module.exports.searchURL = searchURL;

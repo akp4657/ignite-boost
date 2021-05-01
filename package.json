@@ -1,11 +1,11 @@
 {
-  "name": "Logins",
+  "name": "IB",
   "version": "1.0.0",
   "engines": {
     "node": "12.16.0",
     "npm": "6.13.7"
   },
-  "description": "A Simple Login Example using Node.js, Mongo and Redis",
+  "description": "Video database for Dengeki Bunko Fighting Climax: Ignition",
   "main": "./server/app.js",
   "scripts": {
     "buildLoginBundle": "babel ./client/login ./client/helper --presets @babel/preset-react --out-file ./hosted/loginBundle.js",
@@ -22,9 +22,12 @@
     "Node",
     "MVC",
     "Redis",
-    "Login"
+    "DFC:I",
+    "Database",
+    "ignite-boost",
+    "fighting games"
   ],
-  "author": "Yash Bagri",
+  "author": "Anthony Pichardo",
   "license": "Apache 2.0",
   "devDependencies": {
     "@babel/cli": "^7.8.4",
