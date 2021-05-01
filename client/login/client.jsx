@@ -148,42 +148,31 @@ const SearchForm = () => {
             method="GET"
             className="searchForm form-inline"
         >
-            <div id="searchFormDiv">
             <table id="searchFormTable" className="table table-sm">
-                    <tbody>
-                        <tr>
-                            <td><img id="char1Img" src={char1Src} alt={char1Select}/></td>
-                            <td><img id="assist1Img" src={assist1Src} alt={assist1Select}/></td>
-                        </tr>
-                        <tr>
-                            <td>{char1Search}</td>
-                            <td>{assist1Search}</td>
-                            <td><input className="form-control" id="player1Search" type="text" name="player1" placeholder="Player 1"/></td>
-                        </tr>
-                        <tr>
-                            <td><img id="char2Img" src={char2Src} alt={char2Select}/></td>
-                            <td><img id="assist2Img" src={assist2Src} alt={assist2Select}/></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>{char2Search}</td>
-                            <td>{assist2Search}</td>
-                            <td><input className="form-control" id="player2Search" type="text" name="player2" placeholder="Player 2"/></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div id="divTable">
-                    <table id = "gameSelectTable" className = "table table-sm">
-                        <tr>
-                            <td><img id="versionImgSearch" src={gameSrc} alt={versionSelect}/></td>
-                        </tr>
-                        <tr>
-                        <td>
-                            {gameSelection}</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
+                <tbody>
+                    <tr>
+                        <td><img id="char1Img" src={char1Src} alt={char1Select}/></td>
+                        <td><img id="assist1Img" src={assist1Src} alt={assist1Select}/></td>
+                    </tr>
+                    <tr>
+                        <td>{char1Search}</td>
+                        <td>{assist1Search}</td>
+                        <td><input className="form-control" id="player1Search" type="text" name="player1" placeholder="Player 1"/></td>
+                        <td><img id="versionImgSearch" src={gameSrc} alt={versionSelect}/></td>
+                    </tr>
+                    <tr>
+                        <td><img id="char2Img" src={char2Src} alt={char2Select}/></td>
+                        <td><img id="assist2Img" src={assist2Src} alt={assist2Select}/></td>
+                        <td></td>
+                        <td>{gameSelection}</td>
+                    </tr>
+                    <tr>
+                        <td>{char2Search}</td>
+                        <td>{assist2Search}</td>
+                        <td><input className="form-control" id="player2Search" type="text" name="player2" placeholder="Player 2"/></td>
+                    </tr>
+                </tbody>
+            </table>
         </form>
     )
 };
@@ -569,6 +558,7 @@ const createPlayerSearchForm = () => {
 
 const createDataForm = () => {
     ReactDOM.unmountComponentAtNode(document.querySelector("#content"));
+    ReactDOM.unmountComponentAtNode(document.querySelector("#gifSection"));
     ReactDOM.unmountComponentAtNode(document.querySelector("#info"));
     ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
     
@@ -603,7 +593,7 @@ const createSiteDown = () => {
 const createGifs = () => {
     ReactDOM.render(
         <GifBack />,
-        document.querySelector("#secondary")
+        document.querySelector("#gifSection")
     );
 }
 
@@ -647,7 +637,7 @@ const setup = (csrf) => {
     reportButton.addEventListener("click", (e) => {
         e.preventDefault();
         var report = prompt('Please be as detailed as possible with your report')
-        sendAjax('POST', "/sendReport", {report: report, _csrf: csrf}, true);
+        sendAjax('POST', "/sendReport", {report: report, _csrf: csrf}, handleSuccess('SUCCESS | Email Sent'));
         return false;
     });
 

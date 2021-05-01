@@ -26,8 +26,6 @@ body {
 }
 
 #content {
-    border-left: solid rgb(88, 96, 115, .2) 3px;
-
     width: 60%;
     float: right;
     height: 100%;
@@ -284,10 +282,11 @@ body {
 
 #content .table tr {
     border-bottom: 2px solid rgb(34, 34, 34);
+
 }
 
 
-.alert {
+.alert, .alert-success {
     width: 15%;
     position: absolute;
     margin: 0 auto; 
@@ -395,6 +394,15 @@ body {
     vertical-align: middle;
 }
 
+#searchFormTable, th, td {
+    border-collapse: collapse;
+}
+
+#searchFormTable > tbody > tr > td {
+    border-top: none;
+    border-bottom: none;
+}
+
 #divTable {
     width: 20%;
     margin-left: 78%;
@@ -425,6 +433,7 @@ body {
     width: 50px;
     text-align: center;
     margin-left: 25%;
+    margin-bottom: -60%
 }
 
 
@@ -460,6 +469,7 @@ select:invalid {
 .table > tbody > tr > td{
     vertical-align: middle;
     text-align: center;
+    padding-right: 10px;
 }
 
 
@@ -492,10 +502,12 @@ select:invalid {
 #static > .table > tbody > tr {
     height: 150px;
     max-height: 150px;
+    border-bottom: white;
+    border-top: white;
 }
 
 #static > .table > tbody > tr > td > img{
-    margin-bottom: 5%;
+    margin-bottom: 15%;
 }
 
 #static > .table > tbody > tr > td > #assist1Img{
@@ -569,7 +581,7 @@ select:invalid {
 }
 
 #moveDiv{
-    font-size: 34px;
+    font-size: 40px;
     font-family: Arial;
     font-style: italic;
     font-weight: bold;
@@ -584,15 +596,9 @@ select:invalid {
 }
 
 #moveDivContainer:not(:empty)  { 
-    transform: skewX(-15deg);
-    width: 70%;
-    margin-left: 15%;
-    background-color: #f1f2f6;
-    background-image: linear-gradient(315deg, #f1f2f6 0%, #c9c6c6 74%);
+    width: 100%;
+    background-color: transparent;
     padding: 10px;
-    border: 1px solid #b8b8b8;
-    -moz-box-shadow: 0 0 1px 2px #999;
-    -webkit-box-shadow: 0 0 1px 2px #999;
 }
 
 #loginForm .btn {

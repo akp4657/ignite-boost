@@ -151,8 +151,6 @@ var SearchForm = function SearchForm() {
     action: "/search",
     method: "GET",
     className: "searchForm form-inline"
-  }, /*#__PURE__*/React.createElement("div", {
-    id: "searchFormDiv"
   }, /*#__PURE__*/React.createElement("table", {
     id: "searchFormTable",
     className: "table table-sm"
@@ -170,6 +168,10 @@ var SearchForm = function SearchForm() {
     type: "text",
     name: "player1",
     placeholder: "Player 1"
+  })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
+    id: "versionImgSearch",
+    src: gameSrc,
+    alt: versionSelect
   }))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
     id: "char2Img",
     src: char2Src,
@@ -178,22 +180,13 @@ var SearchForm = function SearchForm() {
     id: "assist2Img",
     src: assist2Src,
     alt: assist2Select
-  })), /*#__PURE__*/React.createElement("td", null)), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, char2Search), /*#__PURE__*/React.createElement("td", null, assist2Search), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+  })), /*#__PURE__*/React.createElement("td", null), /*#__PURE__*/React.createElement("td", null, gameSelection)), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, char2Search), /*#__PURE__*/React.createElement("td", null, assist2Search), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
     className: "form-control",
     id: "player2Search",
     type: "text",
     name: "player2",
     placeholder: "Player 2"
-  }))))), /*#__PURE__*/React.createElement("div", {
-    id: "divTable"
-  }, /*#__PURE__*/React.createElement("table", {
-    id: "gameSelectTable",
-    className: "table table-sm"
-  }, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
-    id: "versionImgSearch",
-    src: gameSrc,
-    alt: versionSelect
-  }))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, gameSelection))))));
+  }))))));
 };
 
 var PlayerSearchForm = function PlayerSearchForm() {
@@ -587,6 +580,7 @@ var createPlayerSearchForm = function createPlayerSearchForm() {
 
 var createDataForm = function createDataForm() {
   ReactDOM.unmountComponentAtNode(document.querySelector("#content"));
+  ReactDOM.unmountComponentAtNode(document.querySelector("#gifSection"));
   ReactDOM.unmountComponentAtNode(document.querySelector("#info"));
   ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
   ReactDOM.render( /*#__PURE__*/React.createElement(DataSearchForm, null), document.querySelector("#search"));
@@ -605,7 +599,7 @@ var createSiteDown = function createSiteDown() {
 };
 
 var createGifs = function createGifs() {
-  ReactDOM.render( /*#__PURE__*/React.createElement(GifBack, null), document.querySelector("#secondary"));
+  ReactDOM.render( /*#__PURE__*/React.createElement(GifBack, null), document.querySelector("#gifSection"));
 };
 
 var createAssistSelect = function createAssistSelect() {
@@ -642,7 +636,7 @@ var setup = function setup(csrf) {
     sendAjax('POST', "/sendReport", {
       report: report,
       _csrf: csrf
-    }, true);
+    }, handleSuccess('SUCCESS | Email Sent'));
     return false;
   });
   dataButton.addEventListener("click", function (e) {
@@ -1157,6 +1151,15 @@ var handleError = function handleError(message) {
   $(".alert").show();
   $(".alert").addClass('in');
   $(".alert").delay(2000).fadeOut('slow');
+  return false;
+};
+
+var handleSuccess = function handleSuccess(message) {
+  console.log('Success');
+  $("#successAlert").text(message);
+  $("#successAlert").show();
+  $("#successAlert").addClass('in');
+  $("#successAlert").delay(2000).fadeOut('slow');
   return false;
 };
 
