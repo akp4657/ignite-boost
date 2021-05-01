@@ -117,9 +117,7 @@ var handleVideo = function handleVideo(e) {
   }); // Uncomment this to send data
   // Send the object! :diaYay:
 
-  sendAjax('POST', $("#videoForm").attr("action"), videoObj, function () {
-    loadAllVideosFromServer();
-  });
+  sendAjax('POST', $("#videoForm").attr("action"), videoObj, redirect);
   return false;
 }; // Handle deletion of a video
 
@@ -926,17 +924,6 @@ var setup = function setup(csrf) {
   });*/
 
   createSearchForm();
-<<<<<<< HEAD
-  createLoad(); // Player links
-
-  if (window.location.pathname != '/main') {
-    //console.log('true')
-    var player = /[^/]*$/.exec(window.location.pathname)[0]; //console.log(player)
-
-    handleSearch(player);
-  } else {
-    //console.log('false')
-=======
   createLoad();
   createAssistSelect(); // Player links
 
@@ -947,7 +934,6 @@ var setup = function setup(csrf) {
     handleSearch(player);
   } else {
     // console.log('false')
->>>>>>> new-ib
     loadAllVideosFromServer(); //Default window Uncomment all on sit up
   } //createSiteDown();
 

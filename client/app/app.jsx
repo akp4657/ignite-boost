@@ -126,9 +126,7 @@ const handleVideo = (e) => {
     });
     // Uncomment this to send data
     // Send the object! :diaYay:
-    sendAjax('POST', $("#videoForm").attr("action"), videoObj, function() {
-        loadAllVideosFromServer();
-    });
+    sendAjax('POST', $("#videoForm").attr("action"), videoObj, redirect);
 
     return false;
 };
