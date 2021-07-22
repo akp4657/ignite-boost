@@ -739,5 +739,8 @@ button.delete {
     #info {
         display: none !important;
     }
+    #secondary > #video {
+        display: none !important;
+    }
   }
 
