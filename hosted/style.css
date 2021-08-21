@@ -726,21 +726,40 @@ button.delete {
         text-align: center;
         margin-top: 130%;
     }
-    #secondary, #content {
+    #secondary {
         width:100%;
         z-index: 1;
     }
+
     #secondary {
         height: 0;
     }
     #content {
         margin-top: 100%;
+        width: 100%;
     }
-    #info {
+    #secondary > #video, #info, #gifSection, #addVideoLi, #loginLi {
         display: none !important;
     }
-    #secondary > #video {
+
+    #htmlLang {
+        width: 100%;
+    }
+
+    #videoDiv {
         display: none !important;
+    }
+
+    #content > #loginForm, #content > #signupForm {
+        margin-left: 0;
+    }
+
+    #content > #loginForm > input, #content > #signupForm > input {
+        margin-left: 7%
+    }
+
+    #content > #loginForm > .formSubmit, #content > #signupForm > .formSubmit {
+        margin-left: 35%
     }
   }
 

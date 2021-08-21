@@ -30,7 +30,7 @@
       <div id="navbar6" class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
           <li><a id="signupButton" href="/signup">Create an Account</a></li>
-          <li><a id="loginButton" href="/login">Login to Add a Video</a></li>
+          <li id="loginLi"><a id="loginButton" href="/login">Login to Add a Video</a></li>
           <li><a id="resourceButton" target="_blank" href="https://sites.google.com/view/dfci-guide/">DFC Resource Site</a></li>
           <li><a id="dataButton" href="/getData">Frame Data</a></li>
           <li><a id="reportButton" href="/sendReport">Submit a Report</a></li>
@@ -41,11 +41,11 @@
     <!--/.container-fluid -->
   </nav>
 
-  <div class="alert alert-danger alert-dismissible fade" display="none">
+  <div style="z-index: -1;" class="alert alert-danger alert-dismissible fade" display="none">
       <strong>A video database for DFC and DFC:I matches!</strong>
   </div>
 
-  <div id="successAlert" class="alert alert-success alert-dismissible fade" display="none">
+  <div style="z-index: -1;" id="successAlert" class="alert alert-success alert-dismissible fade" display="none">
       <strong>A video database for DFC and DFC:I matches!</strong>
   </div>
 
