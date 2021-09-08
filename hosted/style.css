@@ -33,7 +33,7 @@ body {
 }
 
 #secondary {
-    border: solid blue 5px;
+    /*border: solid blue 5px;*/
     float: left;
     width: 40%;
     float: left;
@@ -42,7 +42,7 @@ body {
 }
 
 #searchcontent {
-    border: 5 px solid red
+   /* border: 5 px solid red */
 }
 
 #info { 
@@ -50,13 +50,13 @@ body {
     width: 100%;
     height: 50%;
     bottom: 0;
-    border: solid yellow 5px;
+   /* border: solid yellow 5px; */
     float: left;
     z-index: -1;
 }
 
 #container {
-    border: solid green 5px;
+   /* border: solid green 5px; */
     height: 100%;
 }
 
@@ -583,7 +583,7 @@ select:invalid {
 }
 
 #moveDiv{
-    font-size: 40px;
+    font-size: 35px;
     font-family: Arial;
     font-style: italic;
     font-weight: bold;
@@ -694,6 +694,10 @@ button.delete {
   @media only screen and (max-width: 800px) {
     #searchFormTable {
         margin-top: 13%;
+    }
+
+    #moveDiv { 
+        font-size: 20px;
     }
 
     #searchFormTable > tbody > tr > td > #char1Img{

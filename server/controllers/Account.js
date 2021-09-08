@@ -47,7 +47,7 @@ const sendReport = (request, response) => {
     return res.status(400).json({ error: 'ERROR | All fields are required' });
   }
 
-  var transporter = nodemailer.createTransport({
+  /*var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: 'igniteboost.net@gmail.com',
@@ -60,9 +60,29 @@ const sendReport = (request, response) => {
     to: 'igniteboost.net@gmail.com',
     subject: 'ignite-boost.net report',
     text: report
-  }
+  }*/
 
-  transporter.sendMail(mailOptions, function(error, info){
+  var smtpTransport = nodemailer.createTransport({
+    service: "Gmail",
+    auth: {
+      XOAuth2: {
+        user: "igniteboost.net@gmail.com", // Your gmail address.
+        clientId: "29286903086-hfru5lltkf72rdr296kl8ol26gks1qm6.apps.googleusercontent.com",
+        clientSecret: "_YZ-T_mdmndSXHyK3e-LSuu8",
+        refreshToken: "1//04i88bnGFKUc4CgYIARAAGAQSNwF-L9Ir5Lz7bBk3_H83Y42SNzu63ZUYna6_oRzw5GgqNTBVkZd21Yh6YkTikeCX9XMFLEq7Aa8"
+      }
+    }
+  });
+
+  var mailOptions = {
+    from: "igniteboost.net@gmail.com",
+    to: "igniteboost.net@gmail.com",
+    subject: "Hello",
+    generateTextFromHTML: true,
+    html: "<b>Hello world</b>"
+  };
+
+  smtpTransport.sendMail(mailOptions, function(error, response) {
     if(error) {
       console.log(error);
       return res.status(400).json({ error: 'ERROR | Email error occured' });
@@ -70,7 +90,8 @@ const sendReport = (request, response) => {
       console.log('Email sent: ' + info.response)
       return res.json({ redirect: '/main' });
     }
-  })
+    smtpTransport.close();
+  });
 
   return true;
 };
