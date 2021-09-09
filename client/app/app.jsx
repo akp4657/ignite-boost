@@ -916,7 +916,7 @@ const setup = function(csrf) {
 
     reportButton.addEventListener("click", (e) => {
         e.preventDefault();
-        alert('Please contact on Discord or Email at igniteboost.net@gmail.com')
+        alert('Please contact on Discord or Email at igniteboost.net@gmail.com');
         //var report = prompt('Please be as detailed as possible with your report')
         //sendAjax('POST', "/sendReport", {report: report, _csrf: csrf}, handleSuccess('SUCCESS | Email Sent'));
         return false;
