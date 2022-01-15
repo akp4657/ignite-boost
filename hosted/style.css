@@ -34,27 +34,26 @@ body {
 
 #secondary {
     /*border: solid blue 5px;*/
+    float: left;
     width: 40%;
     float: left;
     height: 100%;
     position: fixed;
 }
 
-#searchcontent {
-    border: 5 px solid red
-}
 
 #info { 
     position: absolute;
     width: 100%;
     height: 50%;
     bottom: 0;
-    /*border: solid yellow 5px;*/
+   /* border: solid yellow 5px; */
+    float: left;
     z-index: -1;
 }
 
 #container {
-    /*border: solid green 5px;*/
+   /* border: solid green 5px; */
     height: 100%;
 }
 
@@ -415,9 +414,6 @@ body {
     margin-left: 5%;
 }
 
-#searchFormDiv {
-    /*border: 5px solid red;*/
-}
 
 #divTable > table {
     border: 5px solid transparent;
@@ -581,7 +577,7 @@ select:invalid {
 }
 
 #moveDiv{
-    font-size: 40px;
+    font-size: 35px;
     font-family: Arial;
     font-style: italic;
     font-weight: bold;
@@ -689,12 +685,36 @@ button.delete {
   }
 
 
-  @media only screen and (max-width: 600px) {
-      #searchFormTable {
-          margin-top: 20%;
-      }
+  @media only screen and (max-width: 800px) {
+    #searchFormTable {
+        margin-top: 13%;
+    }
 
-      .alert {
+    #moveDiv { 
+        font-size: 20px;
+    }
+
+    #searchFormTable > tbody > tr > td > #char1Img{
+        height: 50%;
+    } #searchFormTable > tbody > tr > td > #char2Img{
+        height: 50%;
+    }
+
+    #searchFormTable > tbody > tr > td > #assist1Img{
+        height: 35%;
+    } #searchFormTable > tbody > tr > td > #assist2Img{
+        height: 35%;
+    }
+
+    #player1Search, #player2Search {
+        width: 50px;
+    }
+
+    #searchFormTable > tbody > tr {
+        height: 0;
+    }
+
+    .alert {
         width: 50%;
         height: 125px;
         position: absolute;
@@ -703,6 +723,41 @@ button.delete {
         z-index: 1;
         text-align: center;
         margin-top: 130%;
+    }
+    #secondary {
+        width:100%;
+        z-index: 1;
+    }
+
+    #secondary {
+        height: 0;
+    }
+    #content {
+        margin-top: 100%;
+        width: 100%;
+    }
+    #secondary > #video, #info, #gifSection, #addVideoLi, #loginLi {
+        display: none !important;
+    }
+
+    #htmlLang {
+        width: 100%;
+    }
+
+    #videoDiv {
+        display: none !important;
+    }
+
+    #content > #loginForm, #content > #signupForm {
+        margin-left: 0;
+    }
+
+    #content > #loginForm > input, #content > #signupForm > input {
+        margin-left: 7%
+    }
+
+    #content > #loginForm > .formSubmit, #content > #signupForm > .formSubmit {
+        margin-left: 35%
     }
   }
 
