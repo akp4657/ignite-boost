@@ -82,7 +82,7 @@ const sendReport = (request, response) => {
     html: "<b>Hello world</b>"
   };
 
-  smtpTransport.sendMail(mailOptions, function(error, response) {
+  smtpTransport.sendMail(mailOptions, function(error, info) {
     if(error) {
       console.log(error);
       return res.status(400).json({ error: 'ERROR | Email error occured' });
@@ -90,7 +90,7 @@ const sendReport = (request, response) => {
       console.log('Email sent: ' + info.response)
       return res.json({ redirect: '/main' });
     }
-    smtpTransport.close();
+    //smtpTransport.close();
   });
 
   return true;

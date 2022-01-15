@@ -50,7 +50,7 @@ const redisClient = redis.createClient({
 });
 
 // Pull in our routes
-const router = require('./router.js');
+const router = require('./router');
 
 const app = express();
 
