@@ -32,7 +32,7 @@ mongoose.connect(prodURL, mongooseOptions, (err) => {
   }
 });
 
-// Redis section
+/* Redis section
 let redisURL = {
   hostname: 'redis-14035.c16.us-east-1-2.ec2.cloud.redislabs.com',
   port: '14035',
@@ -47,7 +47,7 @@ const redisClient = redis.createClient({
   host: redisURL.hostname,
   port: redisURL.port,
   password: redisPASS,
-});
+});*/
 
 // Pull in our routes
 const router = require('./router');
@@ -63,9 +63,9 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(session({
   key: 'sessionid',
-  store: new RedisStore({
+ /* store: new RedisStore({
     client: redisClient,
-  }),
+  }),*/
   secret: 'Stop It Skieup',
   resave: true,
   saveUninitialized: true,

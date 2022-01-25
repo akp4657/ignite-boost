@@ -688,6 +688,7 @@ button.delete {
   @media only screen and (max-width: 800px) {
     #searchFormTable {
         margin-top: 13%;
+        width: 85%
     }
 
     #moveDiv { 
@@ -695,19 +696,19 @@ button.delete {
     }
 
     #searchFormTable > tbody > tr > td > #char1Img{
-        height: 50%;
+        display: none !important;
     } #searchFormTable > tbody > tr > td > #char2Img{
-        height: 50%;
+        display: none !important;
     }
 
     #searchFormTable > tbody > tr > td > #assist1Img{
-        height: 35%;
+        display: none !important;
     } #searchFormTable > tbody > tr > td > #assist2Img{
-        height: 35%;
+        display: none !important;
     }
 
     #player1Search, #player2Search {
-        width: 50px;
+        width: 85%;
     }
 
     #searchFormTable > tbody > tr {
@@ -733,8 +734,12 @@ button.delete {
         height: 0;
     }
     #content {
-        margin-top: 100%;
+        margin-top: 65%;
         width: 100%;
+    }
+
+    #videoListTable {
+        margin-top: 0%;
     }
     #secondary > #video, #info, #gifSection, #addVideoLi, #loginLi {
         display: none !important;

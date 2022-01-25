@@ -256,7 +256,7 @@ const SearchForm = () => {
     let assist1Selection = assist1Search;
     let assist2Selection = assist2Search;*/
     const gameSelection = <select id = "gameSec" className = 'form-control'>
-    <option value="undefined" disabled selected hidden>Version</option><option value="Any">Any</option>
+    <option value="undefined" disabled selected hidden>Vers.</option><option value="Any">Any</option>
     <option value="2">DFC:I</option><option value="1">DFC</option>
     </select>;
 
@@ -291,19 +291,22 @@ const SearchForm = () => {
                     <tr>
                         <td>{char1Search}</td>
                         <td>{assist1Search}</td>
-                        <td><input className="form-control" id="player1Search" type="text" name="player1" placeholder="Player 1"/></td>
-                        <td><img id="versionImgSearch" src={gameSrc} alt={versionSelect}/></td>
+                        <td><input className="form-control" id="player1Search" type="text" name="player1" placeholder="Name"/></td>
                     </tr>
                     <tr>
                         <td><img id="char2Img" src={char2Src} alt={char2Select}/></td>
                         <td><img id="assist2Img" src={assist2Src} alt={assist2Select}/></td>
                         <td></td>
-                        <td>{gameSelection}</td>
                     </tr>
                     <tr>
                         <td>{char2Search}</td>
                         <td>{assist2Search}</td>
-                        <td><input className="form-control" id="player2Search" type="text" name="player2" placeholder="Player 2"/></td>
+                        <td><input className="form-control" id="player2Search" type="text" name="player2" placeholder="Name"/></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>{gameSelection}</td>
+                        <td></td>
                     </tr>
                 </tbody>
             </table>
@@ -1030,7 +1033,7 @@ const assist2Select = <select id = "assist2" className='form-control'>
     </select>;
 
 const char1Search = <select id = "char1Search" className='form-control'>
-    <option value="undefined" disabled selected hidden>Character 1</option><option value="Anyone">Anyone</option>
+    <option value="undefined" disabled selected hidden>Char 1</option><option value="Anyone">Anyone</option>
     <option value="Akira">Akira</option><option value="Ako">Ako</option>
     <option value="Asuna">Asuna</option><option value="Emi">Emi</option><option value="Kirino">Kirino</option>
     <option value="Kirito">Kirito</option><option value="Kuroko">Kuroko</option><option value="Kuroyukihime">Kuroyukihime</option>
@@ -1042,7 +1045,7 @@ const char1Search = <select id = "char1Search" className='form-control'>
     </select>;
 
 const assist1Search = <select id = "assist1Search" className='form-control'>
-    <option value="undefined" disabled selected hidden>Assist 1</option><option value="Anyone">Anyone</option>
+    <option value="undefined" disabled selected hidden>Ast 1</option><option value="Anyone">Anyone</option>
     <option value="Accelerator">Accelerator</option><option value="Alicia">Alicia</option>
     <option value="Boogiepop">Boogiepop</option><option value="Celty">Celty</option><option value="Dokuro">Dokuro</option>
     <option value="Enju">Enju</option><option value="Erio">Erio</option><option value="Froleytia">Froleytia</option>
@@ -1057,7 +1060,7 @@ const assist1Search = <select id = "assist1Search" className='form-control'>
     </select>;
 
 const char2Search= <select id = "char2Search" className='form-control'>
-    <option value="undefined" disabled selected hidden>Character 2</option><option value="Anyone">Anyone</option>
+    <option value="undefined" disabled selected hidden>Char 2</option><option value="Anyone">Anyone</option>
     <option value="Akira">Akira</option><option value="Ako">Ako</option>
     <option value="Asuna">Asuna</option><option value="Emi">Emi</option><option value="Kirino">Kirino</option>
     <option value="Kirito">Kirito</option><option value="Kuroko">Kuroko</option><option value="Kuroyukihime">Kuroyukihime</option>
@@ -1069,7 +1072,7 @@ const char2Search= <select id = "char2Search" className='form-control'>
     </select>;
 
 const assist2Search = <select id = "assist2Search" className='form-control'>
-    <option value="undefined" disabled selected hidden>Assist 2</option><option value="Anyone">Anyone</option>
+    <option value="undefined" disabled selected hidden>Ast 2</option><option value="Anyone">Anyone</option>
     <option value="Accelerator">Accelerator</option><option value="Alicia">Alicia</option>
     <option value="Boogiepop">Boogiepop</option><option value="Celty">Celty</option><option value="Dokuro">Dokuro</option>
     <option value="Enju">Enju</option><option value="Erio">Erio</option><option value="Froleytia">Froleytia</option>
@@ -1084,7 +1087,7 @@ const assist2Search = <select id = "assist2Search" className='form-control'>
     </select>;
 
 const assistInfoSelect = <select id = "assistInfoSelect" className='form-control'>
-    <option value="" disabled selected hidden>Assist Information</option>
+    <option value="" disabled selected hidden>Ast Info</option>
     <option value="Accelerator">Accelerator</option><option value="Alicia">Alicia</option>
     <option value="Boogiepop">Boogiepop</option><option value="Celty">Celty</option><option value="Dokuro">Dokuro</option>
     <option value="Enju">Enju</option><option value="Erio">Erio</option><option value="Froleytia">Froleytia</option>
@@ -1099,7 +1102,7 @@ const assistInfoSelect = <select id = "assistInfoSelect" className='form-control
     </select>;
 
 const charDataSearch = <select id = "charDataSearch" className='form-control'>
-    <option value="undefined" disabled selected hidden>Character</option>
+    <option value="undefined" disabled selected hidden>Char</option>
     <option value="Akira">Akira</option><option value="Ako">Ako</option>
     <option value="Asuna">Asuna</option><option value="Emi">Emi</option><option value="Kirino">Kirino</option>
     <option value="Kirito">Kirito</option><option value="Kuroko">Kuroko</option><option value="Kuroyukihime">Kuroyukihime</option>

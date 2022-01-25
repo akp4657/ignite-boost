@@ -248,7 +248,7 @@ var SearchForm = function SearchForm() {
     disabled: true,
     selected: true,
     hidden: true
-  }, "Version"), /*#__PURE__*/React.createElement("option", {
+  }, "Vers."), /*#__PURE__*/React.createElement("option", {
     value: "Any"
   }, "Any"), /*#__PURE__*/React.createElement("option", {
     value: "2"
@@ -289,11 +289,7 @@ var SearchForm = function SearchForm() {
     id: "player1Search",
     type: "text",
     name: "player1",
-    placeholder: "Player 1"
-  })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
-    id: "versionImgSearch",
-    src: gameSrc,
-    alt: versionSelect
+    placeholder: "Name"
   }))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
     id: "char2Img",
     src: char2Src,
@@ -302,13 +298,13 @@ var SearchForm = function SearchForm() {
     id: "assist2Img",
     src: assist2Src,
     alt: assist2Select
-  })), /*#__PURE__*/React.createElement("td", null), /*#__PURE__*/React.createElement("td", null, gameSelection)), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, char2Search), /*#__PURE__*/React.createElement("td", null, assist2Search), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+  })), /*#__PURE__*/React.createElement("td", null)), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, char2Search), /*#__PURE__*/React.createElement("td", null, assist2Search), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
     className: "form-control",
     id: "player2Search",
     type: "text",
     name: "player2",
-    placeholder: "Player 2"
-  }))))));
+    placeholder: "Name"
+  }))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null), /*#__PURE__*/React.createElement("td", null, gameSelection), /*#__PURE__*/React.createElement("td", null)))));
 }; /// FORM TO SUBMIT NEW DATA
 // Don't think the images thing is going to work out
 // Just make the page look very nice is probably the only way to go
@@ -1188,7 +1184,7 @@ var char1Search = /*#__PURE__*/React.createElement("select", {
   disabled: true,
   selected: true,
   hidden: true
-}, "Character 1"), /*#__PURE__*/React.createElement("option", {
+}, "Char 1"), /*#__PURE__*/React.createElement("option", {
   value: "Anyone"
 }, "Anyone"), /*#__PURE__*/React.createElement("option", {
   value: "Akira"
@@ -1239,7 +1235,7 @@ var assist1Search = /*#__PURE__*/React.createElement("select", {
   disabled: true,
   selected: true,
   hidden: true
-}, "Assist 1"), /*#__PURE__*/React.createElement("option", {
+}, "Ast 1"), /*#__PURE__*/React.createElement("option", {
   value: "Anyone"
 }, "Anyone"), /*#__PURE__*/React.createElement("option", {
   value: "Accelerator"
@@ -1312,7 +1308,7 @@ var char2Search = /*#__PURE__*/React.createElement("select", {
   disabled: true,
   selected: true,
   hidden: true
-}, "Character 2"), /*#__PURE__*/React.createElement("option", {
+}, "Char 2"), /*#__PURE__*/React.createElement("option", {
   value: "Anyone"
 }, "Anyone"), /*#__PURE__*/React.createElement("option", {
   value: "Akira"
@@ -1363,7 +1359,7 @@ var assist2Search = /*#__PURE__*/React.createElement("select", {
   disabled: true,
   selected: true,
   hidden: true
-}, "Assist 2"), /*#__PURE__*/React.createElement("option", {
+}, "Ast 2"), /*#__PURE__*/React.createElement("option", {
   value: "Anyone"
 }, "Anyone"), /*#__PURE__*/React.createElement("option", {
   value: "Accelerator"
@@ -1436,7 +1432,7 @@ var assistInfoSelect = /*#__PURE__*/React.createElement("select", {
   disabled: true,
   selected: true,
   hidden: true
-}, "Assist Information"), /*#__PURE__*/React.createElement("option", {
+}, "Ast Info"), /*#__PURE__*/React.createElement("option", {
   value: "Accelerator"
 }, "Accelerator"), /*#__PURE__*/React.createElement("option", {
   value: "Alicia"
@@ -1507,7 +1503,7 @@ var charDataSearch = /*#__PURE__*/React.createElement("select", {
   disabled: true,
   selected: true,
   hidden: true
-}, "Character"), /*#__PURE__*/React.createElement("option", {
+}, "Char"), /*#__PURE__*/React.createElement("option", {
   value: "Akira"
 }, "Akira"), /*#__PURE__*/React.createElement("option", {
   value: "Ako"
