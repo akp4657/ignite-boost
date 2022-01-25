@@ -8,6 +8,9 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const expressHandlebars = require('express-handlebars');
 const session = require('express-session');
+const RedisStore = require('connect-redis')(session);
+const url = require('url');
+const redis = require('redis');
 const csrf = require('csurf');
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
@@ -29,7 +32,7 @@ mongoose.connect(prodURL, mongooseOptions, (err) => {
   }
 });
 
-/* Redis section
+// Redis section
 let redisURL = {
   hostname: 'redis-14035.c16.us-east-1-2.ec2.cloud.redislabs.com',
   port: '14035',
@@ -44,7 +47,7 @@ const redisClient = redis.createClient({
   host: redisURL.hostname,
   port: redisURL.port,
   password: redisPASS,
-});*/
+});
 
 // Pull in our routes
 const router = require('./router');
