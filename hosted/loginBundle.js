@@ -64,19 +64,19 @@ var handleSearch = function handleSearch(player) {
       queryString += "&player2=".concat($("#player2Search").val());
     }
 
-    if ($("#char1Search").find(":selected").text() !== 'Character 1' && $("#char1Search").find(":selected").text() !== 'Anyone') {
+    if ($("#char1Search").find(":selected").text() !== 'Char 1' && $("#char1Search").find(":selected").text() !== 'Anyone') {
       queryString += "&char1=".concat($("#char1Search").find(":selected").text());
     }
 
-    if ($("#char2Search").find(":selected").text() !== 'Character 2' && $("#char2Search").find(":selected").text() !== 'Anyone') {
+    if ($("#char2Search").find(":selected").text() !== 'Char 2' && $("#char2Search").find(":selected").text() !== 'Anyone') {
       queryString += "&char2=".concat($("#char2Search").find(":selected").text());
     }
 
-    if ($("#assist1Search").find(":selected").text() !== 'Assist 1' && $("#assist1Search").find(":selected").text() !== 'Anyone') {
+    if ($("#assist1Search").find(":selected").text() !== 'Ast 1' && $("#assist1Search").find(":selected").text() !== 'Anyone') {
       queryString += "&assist1=".concat($("#assist1Search").find(":selected").text());
     }
 
-    if ($("#assist2Search").find(":selected").text() !== 'Assist 2' && $("#assist2Search").find(":selected").text() !== 'Anyone') {
+    if ($("#assist2Search").find(":selected").text() !== 'Ast 2' && $("#assist2Search").find(":selected").text() !== 'Anyone') {
       queryString += "&assist2=".concat($("#assist2Search").find(":selected").text());
     }
 
