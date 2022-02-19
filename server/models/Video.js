@@ -107,11 +107,11 @@ VideoSchema.statics.findByOwner = (ownerId, callback) => {
 };
 
 // Returns all entries in the database
-VideoSchema.statics.findAll = (callback) => VideoModel.find().sort({ createdData: -1 }).select('player1 player2 char1 char2 assist1 assist2 version link matchDate').lean()
+VideoSchema.statics.findAll = (callback) => VideoModel.find().sort({ matchDate: -1 }).select('player1 player2 char1 char2 assist1 assist2 version link matchDate').lean()
   .exec(callback);
 
 // Will search for specified entries in the database based off the object in the search
-VideoSchema.statics.findSearch = (search, callback) => VideoModel.find(search).sort({ createdData: -1 }).select('player1 player2 char1 char2 assist1 assist2 version link matchDate').lean()
+VideoSchema.statics.findSearch = (search, callback) => VideoModel.find(search).sort({ matchDate: -1 }).select('player1 player2 char1 char2 assist1 assist2 version link matchDate').lean()
   .exec(callback);
 
 
