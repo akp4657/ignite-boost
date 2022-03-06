@@ -919,13 +919,7 @@ const setup = function(csrf) {
 
     reportButton.addEventListener("click", (e) => {
         e.preventDefault();
-        var report = prompt('Please be as detailed as possible with your report')
-
-        if(report) {
-            sendAjax('POST', "/sendReport", {report: report, _csrf: csrf}, handleSuccess('SUCCESS | Email Sent'));
-        } else {
-            handleError('ERROR | Cannot be blank')
-        }
+        alert('Email at ignite-boost.net@gmail.com\n\nDiscord @TheS Spine#0453\n\n@ me in a DFC Discord\n\nPlease be as detailed as possible with your report')
         return false;
     });
 
