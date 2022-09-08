@@ -175,7 +175,7 @@ const searchVideos = (request, response) => {
   }
 
   if(sort) {
-    if(sort == 'Oldest') {
+    if(sort === 'Oldest') {
       sorting = 1
     } else {
       sorting = -1
