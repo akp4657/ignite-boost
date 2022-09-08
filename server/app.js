@@ -5,6 +5,8 @@ const compression = require('compression');
 const favicon = require('serve-favicon');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const fileUpload = require('express-fileupload')
+const busboy = require('connect-busboy')
 const mongoose = require('mongoose');
 const expressHandlebars = require('express-handlebars');
 const session = require('express-session');
@@ -47,9 +49,9 @@ const redisClient = redis.createClient({
 });*/
 
 // Pull in our routes
-const router = require('./router');
 
 const app = express();
+const router = require('./router');
 
 app.use('/assets', express.static(path.resolve(`${__dirname}/../hosted/`)));
 app.use(favicon(`${__dirname}/../hosted/img/logo.png`));
@@ -74,6 +76,10 @@ app.engine('handlebars', expressHandlebars({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 app.set('views', `${__dirname}/../views`);
 app.use(cookieParser());
+
+app.use(fileUpload({
+  createParentPath: true
+}))
 
 // csrf must come AFTER app.use(cookieParser());
 // should come before router

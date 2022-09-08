@@ -34,18 +34,18 @@ const handleVideo = (e) => {
         }
     });
 
-    // If any values are empty
-    if($("#timeStamp").val() == '' || $("#playerOne").val() == '' || $("#playerTwo").val() == '' ||
-    $("#videoLink").val() == '' || $("#matchDate").val() == '') {
-        handleError("ERROR | All fields are required");
-        return false;
-    }
+    // // If any values are empty
+    // if($("#timeStamp").val() == '' || $("#playerOne").val() == '' || $("#playerTwo").val() == '' ||
+    // $("#videoLink").val() == '' || $("#matchDate").val() == '') {
+    //     handleError("ERROR | All fields are required");
+    //     return false;
+    // }
 
-    // Check if the error uses the correct link *just copying the url
-    if(!$("#videoLink").val().includes('www.youtube.com')) {
-        handleError("ERROR | Please use a valid YouTube link");
-        return false;
-    }
+    // // // Check if the error uses the correct link *just copying the url
+    // if(!$("#videoLink").val().includes('www.youtube.com')) {
+    //     handleError("ERROR | Please use a valid YouTube link");
+    //     return false;
+    // }
 
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Quantifiers
     // https://www.w3schools.com/jsref/jsref_replace.asp
@@ -124,10 +124,36 @@ const handleVideo = (e) => {
             videoObj._csrf = this.value;
         }
     });
-    // Uncomment this to send data
+
+    console.log(videoObj)
+
     // Send the object! :diaYay:
     sendAjax('POST', $("#videoForm").attr("action"), videoObj, redirect);
 
+    return false;
+};
+
+// ADDING A VIDEO
+const handleVideoCSV = (e) => {
+    e.preventDefault();
+
+    let fileObj = {};
+    $('#csvForm').find('input').each(function(){
+        if(this.type === 'hidden') {
+            fileObj._csrf = this.value;
+        }
+    });
+
+    $('#csvForm').find('input').each(function(){
+        if(this.type === 'file') {
+            fileObj.file = this.value;
+        }
+    });
+
+    console.log('Hello')
+    console.log(fileObj)
+    console.log($("#csvForm").attr("action"))
+    sendAjax('POST', $("#csvForm").attr("action"), fileObj, redirect);
     return false;
 };
 
@@ -411,13 +437,29 @@ const VideoForm = (props) => {
             <input className="makeVideoSubmit" className="formSubmit btn mainBtn" type="submit" value="Add Video"/>
             <input type="hidden" name="_csrf" value={props.csrf}/>
             <input id="addMatchButton" className="formSubmit btn secondBtn"type="button" value="Add Match"/>
-            <input id="removeMatchButton" className="formSubmit btn thirdBtn"type="button" value="Remove Match"/>
+            <input id="removeMatchButton" className="formSubmit btn thirdBtn"type="button" value="Remove Match"/>   
 
         </div>
 
     </form>
     );
 };
+
+const CSVVideoForm = (props) => {
+    return (
+        <form   id="csvForm" 
+                onSubmit={handleVideoCSV} 
+                action="/csv" 
+                method="POST" 
+                encType="multipart/form-data"
+                className="mainForm"
+            >
+            <input type="hidden" name="_csrf" value={props.csrf}/>
+            <input className="formSubmit btn browseBtn" type="file" name="file" accept="*.csv" /><br/><br/>
+            <input type="submit" className="formSubmit btn uploadBtn" value="Upload Authors" />
+        </form>
+    )
+}
 
 
 /// CHANGE PASSWORD WINDOW
@@ -711,12 +753,25 @@ const createPassChangeWindow = (csrf) => {
     ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
     ReactDOM.unmountComponentAtNode(document.querySelector("#gifSection"));
 
-    loopNumber =1;
+    loopNumber = 1;
     ReactDOM.render(
         <ChangeWindow csrf={csrf} />,
         document.querySelector("#content")
     );
+};
 
+const createCSVWindow = (csrf) => {
+    // Unmount everything
+    ReactDOM.unmountComponentAtNode(document.querySelector("#content"));
+    ReactDOM.unmountComponentAtNode(document.querySelector("#info"));
+    ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
+    ReactDOM.unmountComponentAtNode(document.querySelector("#gifSection"));
+
+    loopNumber = 1;
+    ReactDOM.render(
+        <CSVVideoForm csrf={csrf} />,
+        document.querySelector("#content")
+    );
 };
 
 const createAddWindow = (csrf) => {
@@ -900,14 +955,22 @@ const setup = function(csrf) {
     const addButton = document.querySelector("#addVideo");
     const passChangeButton = document.querySelector("#passChangeButton");
     const reportButton = document.querySelector('#reportButton');
+    const csvButton = document.querySelector('#uploadCSV');
     const reportSubmit = document.querySelector('#reportSubmit');
     const dataButton = document.querySelector('#dataButton');
 
 
     passChangeButton.addEventListener("click", (e) => {
         e.preventDefault();
-        createGifs();
         createPassChangeWindow(csrf); //Uncomment on site up
+        createGifs();
+        return false;
+    });
+
+    csvButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        createCSVWindow(csrf);
+        //createGifs();
         return false;
     });
 

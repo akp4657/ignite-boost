@@ -1,4 +1,5 @@
 const models = require('../models');
+const csv = require('fast-csv')
 
 const { Video } = models;
 
@@ -57,6 +58,34 @@ const makeVideo = (req, res) => {
 
   Promise.all(promiseArray).then(() => res.json({ redirect: '/main' }));
 };
+
+const uploadCSVFile = (req, res) => {
+  const values = Object.values(req.body);
+  console.log(values)
+  if(!req.files) return res.status(400).json({error: 'No file uploaded'})
+  console.log(req.files)
+  //res.json({ redirect: '/main*' })
+
+  // dfcFile = req.files.file;
+  // let matches = [];
+  // csv
+  //    .fromString(dfcFile.data.toString(), {
+  //        headers: true,
+  //        ignoreEmpty: true
+  //    })
+  //    .on("data", function(data){
+  //        data['_id'] = new mongoose.Types.ObjectId();
+          
+  //        matches.push(data);
+  //    })
+  //    .on("end", function(){
+  //        Video.VideoModel.create(matches, function(err, documents) {
+  //           if (err) throw err;
+  //        });
+          
+  //        res.json({ redirect: '/main' });
+  //    });
+}
 
 // Gets the videos that match the specific user
 const getVideos = (request, response) => {
@@ -193,4 +222,5 @@ module.exports.getAllVideos = getAllVideos;
 module.exports.make = makeVideo;
 module.exports.delete = deleteEntry;
 module.exports.searchVideos = searchVideos;
+module.exports.uploadCSVFile = uploadCSVFile;
 //module.exports.searchURL = searchURL;

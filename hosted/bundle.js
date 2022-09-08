@@ -32,20 +32,19 @@ var handleVideo = function handleVideo(e) {
     if (this.name === 'videoLink') {
       videoObj.videoLink = this.value;
     }
-  }); // If any values are empty
-
-  if ($("#timeStamp").val() == '' || $("#playerOne").val() == '' || $("#playerTwo").val() == '' || $("#videoLink").val() == '' || $("#matchDate").val() == '') {
-    handleError("ERROR | All fields are required");
-    return false;
-  } // Check if the error uses the correct link *just copying the url
-
-
-  if (!$("#videoLink").val().includes('www.youtube.com')) {
-    handleError("ERROR | Please use a valid YouTube link");
-    return false;
-  } // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Quantifiers
+  }); // // If any values are empty
+  // if($("#timeStamp").val() == '' || $("#playerOne").val() == '' || $("#playerTwo").val() == '' ||
+  // $("#videoLink").val() == '' || $("#matchDate").val() == '') {
+  //     handleError("ERROR | All fields are required");
+  //     return false;
+  // }
+  // // // Check if the error uses the correct link *just copying the url
+  // if(!$("#videoLink").val().includes('www.youtube.com')) {
+  //     handleError("ERROR | Please use a valid YouTube link");
+  //     return false;
+  // }
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Quantifiers
   // https://www.w3schools.com/jsref/jsref_replace.asp
-
 
   var regex = /[0-9][0-9]:[0-9][0-9]:[0-9][0-9]/g; /// Putting each input into its own object to send to the server 
   ///
@@ -114,10 +113,31 @@ var handleVideo = function handleVideo(e) {
     if (this.type === 'hidden') {
       videoObj._csrf = this.value;
     }
-  }); // Uncomment this to send data
-  // Send the object! :diaYay:
+  });
+  console.log(videoObj); // Send the object! :diaYay:
 
   sendAjax('POST', $("#videoForm").attr("action"), videoObj, redirect);
+  return false;
+}; // ADDING A VIDEO
+
+
+var handleVideoCSV = function handleVideoCSV(e) {
+  e.preventDefault();
+  var fileObj = {};
+  $('#csvForm').find('input').each(function () {
+    if (this.type === 'hidden') {
+      fileObj._csrf = this.value;
+    }
+  });
+  $('#csvForm').find('input').each(function () {
+    if (this.type === 'file') {
+      fileObj.file = this.value;
+    }
+  });
+  console.log('Hello');
+  console.log(fileObj);
+  console.log($("#csvForm").attr("action"));
+  sendAjax('POST', $("#csvForm").attr("action"), fileObj, redirect);
   return false;
 }; // Handle deletion of a video
 
@@ -448,6 +468,30 @@ var VideoForm = function VideoForm(props) {
     type: "button",
     value: "Remove Match"
   })));
+};
+
+var CSVVideoForm = function CSVVideoForm(props) {
+  return /*#__PURE__*/React.createElement("form", {
+    id: "csvForm",
+    onSubmit: handleVideoCSV,
+    action: "/csv",
+    method: "POST",
+    encType: "multipart/form-data",
+    className: "mainForm"
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "hidden",
+    name: "_csrf",
+    value: props.csrf
+  }), /*#__PURE__*/React.createElement("input", {
+    className: "formSubmit btn browseBtn",
+    type: "file",
+    name: "file",
+    accept: "*.csv"
+  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
+    type: "submit",
+    className: "formSubmit btn uploadBtn",
+    value: "Upload Authors"
+  }));
 }; /// CHANGE PASSWORD WINDOW
 
 
@@ -749,6 +793,18 @@ var createPassChangeWindow = function createPassChangeWindow(csrf) {
   }), document.querySelector("#content"));
 };
 
+var createCSVWindow = function createCSVWindow(csrf) {
+  // Unmount everything
+  ReactDOM.unmountComponentAtNode(document.querySelector("#content"));
+  ReactDOM.unmountComponentAtNode(document.querySelector("#info"));
+  ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
+  ReactDOM.unmountComponentAtNode(document.querySelector("#gifSection"));
+  loopNumber = 1;
+  ReactDOM.render( /*#__PURE__*/React.createElement(CSVVideoForm, {
+    csrf: csrf
+  }), document.querySelector("#content"));
+};
+
 var createAddWindow = function createAddWindow(csrf) {
   ReactDOM.unmountComponentAtNode(document.querySelector("#content"));
   ReactDOM.unmountComponentAtNode(document.querySelector("#info"));
@@ -879,12 +935,19 @@ var setup = function setup(csrf) {
   var addButton = document.querySelector("#addVideo");
   var passChangeButton = document.querySelector("#passChangeButton");
   var reportButton = document.querySelector('#reportButton');
+  var csvButton = document.querySelector('#uploadCSV');
   var reportSubmit = document.querySelector('#reportSubmit');
   var dataButton = document.querySelector('#dataButton');
   passChangeButton.addEventListener("click", function (e) {
     e.preventDefault();
-    createGifs();
     createPassChangeWindow(csrf); //Uncomment on site up
+
+    createGifs();
+    return false;
+  });
+  csvButton.addEventListener("click", function (e) {
+    e.preventDefault();
+    createCSVWindow(csrf); //createGifs();
 
     return false;
   });

@@ -13,6 +13,7 @@ const router = (app) => {
   app.post('/login', mid.requiresSecure, mid.requiresLogout, controllers.Account.login);
   app.post('/signup', mid.requiresSecure, mid.requiresLogout, controllers.Account.signup);
   app.get('/logout', mid.requiresLogin, controllers.Account.logout);
+  app.post('/csv', mid.requiresLogin, controllers.Video.uploadCSVFile)
   app.get('/main', mid.requiresLogin, controllers.Video.mainPage);
   app.post('/main', mid.requiresLogin, controllers.Video.make);
   app.get('/main*', mid.requiresLogin, controllers.Video.mainPage);
