@@ -107,12 +107,13 @@ const deleteEntry = (request, response) => {
 const searchVideos = (request, response) => {
   const req = request;
   const res = response;
+  let sorting;
 
   let params = { $and: [] };
 
   // check if the params exist
   const {
-    player1, player2, char1, char2, assist1, assist2, version
+    player1, player2, char1, char2, assist1, assist2, version, sort
   } = req.query;
   let i = 0; // keeps track of position in params.$and array
 
@@ -173,17 +174,25 @@ const searchVideos = (request, response) => {
     i++;
   }
 
+  if(sort) {
+    if(sort == 'Oldest') {
+      sorting = 1
+    } else {
+      sorting = -1
+    }
+  }
+
 
   if (i === 0) params = {}; // set params to empty object if no query params were sent
   
-  return Video.VideoModel.findSearch(params, (err, docs) => {
+  return Video.VideoModel.find(params, (err, docs) => {
     if (err) {
       console.log(err);
       return res.status(400).json({ error: 'An error occured' });
     }
 
     return res.json({ videos: docs });
-  });
+  }).sort({matchDate: sorting});
 };
 
 

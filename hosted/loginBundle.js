@@ -9,7 +9,7 @@ var handleLogin = function handleLogin(e) {
   e.preventDefault();
 
   if ($("#user").val() == '' || $("#pass").val() == '') {
-    handleError("ERROR | Username or Password is empty");
+    alert("ERROR | Username or Password is empty");
     return false;
   }
 
@@ -22,12 +22,12 @@ var handleSignup = function handleSignup(e) {
   e.preventDefault();
 
   if ($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
-    handleError("ERROR | All fields are required");
+    alert("ERROR | All fields are required");
     return false;
   }
 
   if ($("#pass").val() !== $("#pass2").val()) {
-    handleError("ERROR | Passwords do not match");
+    alert("ERROR | Passwords do not match");
     return false;
   }
 
@@ -83,6 +83,10 @@ var handleSearch = function handleSearch(player) {
     if ($("#gameSec").val() && $("#gameSec").val() != 'Any') {
       queryString += "&version=".concat($("#gameSec").val());
     }
+
+    if ($("#sortSec").val() && $("#sortSec").val() != 'Sort') {
+      queryString += "&sort=".concat($("#sortSec").val());
+    }
   }
 
   sendAjax('GET', queryString, null, function (data) {
@@ -133,6 +137,19 @@ var SearchForm = function SearchForm() {
   }, "DFC:I"), /*#__PURE__*/React.createElement("option", {
     value: "1"
   }, "DFC"));
+  var sortSelection = /*#__PURE__*/React.createElement("select", {
+    id: "sortSec",
+    className: "form-control"
+  }, /*#__PURE__*/React.createElement("option", {
+    value: "undefined",
+    disabled: true,
+    selected: true,
+    hidden: true
+  }, "Sort"), /*#__PURE__*/React.createElement("option", {
+    value: "Oldest"
+  }, "Oldest"), /*#__PURE__*/React.createElement("option", {
+    value: "Newest"
+  }, "Newest"));
   var char1Select = $("#char1Search").find(":selected").val();
   var char2Select = $("#char2Search").find(":selected").val();
   var assist1Select = $("#assist1Search").find(":selected").val();
@@ -182,7 +199,7 @@ var SearchForm = function SearchForm() {
     type: "text",
     name: "player2",
     placeholder: "Name"
-  }))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null), /*#__PURE__*/React.createElement("td", null, gameSelection), /*#__PURE__*/React.createElement("td", null)))));
+  }))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, gameSelection), /*#__PURE__*/React.createElement("td", null), /*#__PURE__*/React.createElement("td", null, sortSelection), /*#__PURE__*/React.createElement("td", null)))));
 };
 
 var PlayerSearchForm = function PlayerSearchForm() {
@@ -495,7 +512,7 @@ var loadAllVideosFromServer = function loadAllVideosFromServer() {
     next.addEventListener("click", function (e) {
       //console.log(pagedVideos[videoMax-2]);
       if (pagedVideos[videoMax - 1] === undefined) {
-        handleError("ERROR | No more videos!");
+        alert("ERROR | No more videos!");
         return;
       }
 
@@ -545,7 +562,7 @@ var createSearchForm = function createSearchForm() {
     next.addEventListener("click", function (e) {
       //console.log(pagedVideos[0])
       if (pagedVideos[videoMax - 1] === undefined) {
-        handleError("ERROR | No more videos!");
+        alert("ERROR | No more videos!");
         return;
       }
 
@@ -569,7 +586,7 @@ var createPlayerSearchForm = function createPlayerSearchForm() {
     next.addEventListener("click", function (e) {
       //console.log(pagedVideos[0])
       if (pagedVideos[videoMax - 1] === undefined) {
-        handleError("ERROR | No more videos!");
+        alert("ERROR | No more videos!");
         return;
       }
 
@@ -1177,7 +1194,7 @@ var sendAjax = function sendAjax(type, action, data, success) {
     success: success,
     error: function error(xhr, status, _error) {
       var messageObj = JSON.parse(xhr.responseText);
-      handleError(messageObj.error);
+      alert(messageObj.error);
     }
   });
 };

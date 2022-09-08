@@ -35,13 +35,13 @@ var handleVideo = function handleVideo(e) {
   }); // If any values are empty
 
   if ($("#timeStamp").val() == '' || $("#playerOne").val() == '' || $("#playerTwo").val() == '' || $("#videoLink").val() == '' || $("#matchDate").val() == '') {
-    handleError("ERROR | All fields are required");
+    alert("ERROR | All fields are required");
     return false;
   } // Check if the error uses the correct link *just copying the url
 
 
   if (!$("#videoLink").val().includes('www.youtube.com')) {
-    handleError("ERROR | Please use a valid YouTube link");
+    alert("ERROR | Please use a valid YouTube link");
     return false;
   } // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Quantifiers
   // https://www.w3schools.com/jsref/jsref_replace.asp
@@ -139,17 +139,17 @@ var handleChange = function handleChange(e) {
   e.preventDefault();
 
   if ($("#pass").val() == '' || $("#pass2").val() == '') {
-    handleError("ERROR | All fields are required");
+    alert("ERROR | All fields are required");
     return false;
   }
 
   if ($("#pass").val() === $("#pass2").val()) {
-    handleError("ERROR | Passwords cannot match");
+    alert("ERROR | Passwords cannot match");
     return false;
   }
 
   if ($("#pass2").val() !== $("#pass3").val()) {
-    handleError("ERROR | The new passwords do not match");
+    alert("ERROR | The new passwords do not match");
     return false;
   }
 
@@ -205,6 +205,10 @@ var handleSearch = function handleSearch(player) {
     if ($("#gameSec").val() && $("#gameSec").val() != 'Any') {
       queryString += "&version=".concat($("#gameSec").val());
     }
+
+    if ($("#sortSec").val() && $("#sortSec").val() != 'Sort') {
+      queryString += "&sort=".concat($("#sortSec").val());
+    }
   }
 
   sendAjax('GET', queryString, null, function (data) {
@@ -255,6 +259,19 @@ var SearchForm = function SearchForm() {
   }, "DFC:I"), /*#__PURE__*/React.createElement("option", {
     value: "1"
   }, "DFC"));
+  var sortSelection = /*#__PURE__*/React.createElement("select", {
+    id: "sortSec",
+    className: "form-control"
+  }, /*#__PURE__*/React.createElement("option", {
+    value: "undefined",
+    disabled: true,
+    selected: true,
+    hidden: true
+  }, "Sort"), /*#__PURE__*/React.createElement("option", {
+    value: "Oldest"
+  }, "Oldest"), /*#__PURE__*/React.createElement("option", {
+    value: "Newest"
+  }, "Newest"));
   var char1Select = $("#char1Search").find(":selected").val();
   var char2Select = $("#char2Search").find(":selected").val();
   var assist1Select = $("#assist1Search").find(":selected").val();
@@ -304,7 +321,7 @@ var SearchForm = function SearchForm() {
     type: "text",
     name: "player2",
     placeholder: "Name"
-  }))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null), /*#__PURE__*/React.createElement("td", null, gameSelection), /*#__PURE__*/React.createElement("td", null)))));
+  }))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, gameSelection), /*#__PURE__*/React.createElement("td", null), /*#__PURE__*/React.createElement("td", null, sortSelection), /*#__PURE__*/React.createElement("td", null)))));
 }; /// FORM TO SUBMIT NEW DATA
 // Don't think the images thing is going to work out
 // Just make the page look very nice is probably the only way to go
@@ -725,7 +742,7 @@ var loadAllVideosFromServer = function loadAllVideosFromServer() {
     next.addEventListener("click", function (e) {
       // console.log(pagedVideos);
       if (pagedVideos[videoMax - 2] === undefined) {
-        handleError("ERROR | No more videos!");
+        alert("ERROR | No more videos!");
         return;
       }
 
@@ -783,7 +800,7 @@ var createAddWindow = function createAddWindow(csrf) {
         };
       });
     } else {
-      handleError("ERROR | Cannot remove last match");
+      alert("ERROR | Cannot remove last match");
     }
   }); // Get the button that was made in the videoForm
 
@@ -828,7 +845,7 @@ var createSearchForm = function createSearchForm() {
     next.addEventListener("click", function (e) {
       // console.log(pagedVideos[0])
       if (pagedVideos[videoMax - 1] === undefined) {
-        handleError("ERROR | No more videos!");
+        alert("ERROR | No more videos!");
         return;
       }
 
@@ -1666,7 +1683,7 @@ var sendAjax = function sendAjax(type, action, data, success) {
     success: success,
     error: function error(xhr, status, _error) {
       var messageObj = JSON.parse(xhr.responseText);
-      handleError(messageObj.error);
+      alert(messageObj.error);
     }
   });
 };
