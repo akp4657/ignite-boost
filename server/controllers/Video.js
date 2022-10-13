@@ -107,7 +107,7 @@ const deleteEntry = (request, response) => {
 const searchVideos = (request, response) => {
   const req = request;
   const res = response;
-  let sorting;
+  let sorting = -1;
 
   let params = { $and: [] };
 
@@ -182,6 +182,7 @@ const searchVideos = (request, response) => {
     }
   }
 
+  console.log(sorting)
 
   if (i === 0) params = {}; // set params to empty object if no query params were sent
   
