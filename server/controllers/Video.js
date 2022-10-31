@@ -140,10 +140,9 @@ const searchVideos = (request, response) => {
   }
   
   // Check if it's a mirror first
-  if(char1 === char2) {
-    params.$and[i] = { $and: [{ char2: `${char2}` }, { char1: `${char1}` }] };
-  } else if (char1 && char2) {
-    params.$and[i] = { $or: [{ char2: `${char2}` }, { char1: `${char1}` }, { char2: `${char1}` }, { char1: `${char2}` }] };
+ if(char1 && char2) {
+    if(char1 === char2) params.$and[i] = { $and: [{ char2: `${char2}` }, { char1: `${char1}` }] };
+    else params.$and[i] = { $or: [{ char2: `${char2}` }, { char1: `${char1}` }, { char2: `${char1}` }, { char1: `${char2}` }] };
     i++;
   }
 
@@ -169,10 +168,9 @@ const searchVideos = (request, response) => {
 
   // If both assists are called
   // check if it's a mirror first
-  if(assist1 === assist2 && assist1 && assist2) {
-    params.$and[i] = { $and: [{ assist2: `${assist2}` }, { assist1: `${assist1}` }] };
-  } else if (assist1 && assist2) {
-    params.$and[i] = { $or: [{ assist2: `${assist2}`}, { assist1: `${assist1}` }, { assist2: `${assist1}`}, { assist1: `${assist2}` }] };
+  if(assist1 && assist2) {
+    if(assist1 === assist2) params.$and[i] = { $and: [{ assist2: `${assist2}` }, { assist1: `${assist1}` }] };
+    else params.$and[i] = { $or: [{ assist2: `${assist2}`}, { assist1: `${assist1}` }, { assist2: `${assist1}`}, { assist1: `${assist2}` }] };
     i++;
   }
 
@@ -189,9 +187,7 @@ const searchVideos = (request, response) => {
     }
   }
 
-  console.log(sorting)
 
-  console.log(params)
   if (i === 0) params = {}; // set params to empty object if no query params were sent
   
   return Video.VideoModel.find(params, (err, docs) => {
