@@ -928,7 +928,7 @@ const setup = function(csrf) {
 
     reportButton.addEventListener("click", (e) => {
         e.preventDefault();
-        alert('Email at ignite-boost.net@gmail.com\n\nDiscord @TheS Spine#0453\n\n@ me in a DFC Discord\n\nPlease be as detailed as possible with your report')
+        alert('Email at ignite-boost.net@gmail.com\n\nPlease be as detailed as possible with your report')
         return false;
     });
 
