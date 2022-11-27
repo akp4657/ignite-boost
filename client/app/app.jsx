@@ -718,7 +718,6 @@ const createPassChangeWindow = (csrf) => {
     ReactDOM.unmountComponentAtNode(document.querySelector("#content"));
     ReactDOM.unmountComponentAtNode(document.querySelector("#info"));
     ReactDOM.unmountComponentAtNode(document.querySelector("#search"));
-    ReactDOM.unmountComponentAtNode(document.querySelector("#gifSection"));
 
     loopNumber =1;
     ReactDOM.render(

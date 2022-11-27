@@ -472,8 +472,6 @@ var AssistInfo = function AssistInfo() {
       info = a;
       return;
     }
-
-    console.dir(info);
   });
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     className: "infoList"

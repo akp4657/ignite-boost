@@ -436,8 +436,6 @@ const AssistInfo = () => {
             info = a;
             return;
         }
-
-        console.dir(info)
     })
 
     return (
