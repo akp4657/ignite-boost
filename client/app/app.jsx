@@ -42,8 +42,8 @@ const handleVideo = (e) => {
     }
 
     // Check if the error uses the correct link *just copying the url
-    if(!$("#videoLink").val().includes('www.youtube.com')) {
-        alert("ERROR | Please use a valid YouTube link");
+    if(!$("#videoLink").val().includes('www.youtube.com') && !$("#videoLink").val().includes('www.twitch.tv')) {
+        alert("ERROR | Please use a valid YouTube/Twitch link");
         return false;
     }
 
@@ -65,7 +65,11 @@ const handleVideo = (e) => {
                 let newArray2 = newArray.replace(/:.*?/, "m");
                 let finalArray = newArray2 + "s"
 
-                videoObj[videoKey].link = `${videoObj.videoLink}&t=${finalArray}`;
+                if($("#videoLink").val().includes('www.twitch.tv')) {
+                    videoObj[videoKey].link = `${videoObj.videoLink}?t=${finalArray}`;
+                } else {
+                    videoObj[videoKey].link = `${videoObj.videoLink}&t=${finalArray}`;
+                }
             } else {
                 videoObj[videoKey].link = `${videoObj.videoLink}&t=${this.value}`;
             }
@@ -536,8 +540,11 @@ const SiteDown = () => {
 const SideVideo = () => {
     let link = $("#videoLink").val()
     let videoSource = sourceObj
+    let embedLink;
 
-    let embedLink = link.replace('watch?v=', 'embed/')
+    if($("#videoLink").val().includes('www.twitch.tv')) {
+        embedLink = link;
+    }
    // console.log(embedLink)
 
     videoSource.props.src = `${embedLink}`
