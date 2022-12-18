@@ -156,6 +156,16 @@ const searchVideos = (request, response) => {
     i++;
   }
 
+  // If the character and player are searched
+  if (char1 && player1) {
+    params.$and[i] = { $or: [{ char1: `${char1}`, player1: {$regex: RegExp('^' + player1 ), $options: 'i'} }, { char2: `${char1}`, player2: {$regex: RegExp('^' + player1 ), $options: 'i'} }] };
+    i++;
+  }
+  if (char2 && player2) {
+    params.$and[i] = { $or: [{ char1: `${char2}`, player1: {$regex: RegExp('^' + player2 ), $options: 'i'} }, { char2: `${char2}`, player2: {$regex: RegExp('^' + player2 ), $options: 'i'} }] };
+    i++;
+  }
+
   // If one assist is selected
   if (assist1) {
     params.$and[i] = { $or: [{ assist1: `${assist1}` }, { assist2: `${assist1}` }] };
