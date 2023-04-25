@@ -47,14 +47,14 @@ var handleVideo = function handleVideo(e) {
   // https://www.w3schools.com/jsref/jsref_replace.asp
 
 
-  var regex = /[0-9][0-9]:[0-9][0-9]:[0-9][0-9]/g; /// Putting each input into its own object to send to the server 
+  var regex = /[0-9]:[0-9][0-9]:[0-9][0-9]/g; /// Putting each input into its own object to send to the server 
   ///
 
   $('#videoForm').find('td > input').each(function () {
     if (modValue === 0) {
-      // Using regex to ensure the timestamp is correct
-      if (regex.test(this.value)) {
-        var array = this.value.match(regex);
+      var array = this.value.match(regex); // Using regex to ensure the timestamp is correct
+
+      if (regex.test(array)) {
         JSON.stringify(array);
         var newArray = array[0].replace(/:.*?/, "h");
         var newArray2 = newArray.replace(/:.*?/, "m");
@@ -66,7 +66,8 @@ var handleVideo = function handleVideo(e) {
           videoObj[videoKey].link = "".concat(videoObj.videoLink, "&t=").concat(finalArray);
         }
       } else {
-        videoObj[videoKey].link = "".concat(videoObj.videoLink, "&t=").concat(this.value);
+        alert("ERROR | Please use a valid timestamp");
+        return false;
       }
     }
 

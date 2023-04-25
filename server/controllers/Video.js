@@ -198,8 +198,7 @@ const searchVideos = (request, response) => {
   }
 
 
-  if (i === 0) params = {}; // set params to empty object if no query params were sent
-  
+  if (i === 0) params = {}; // set params to empty object if no query params were sent  
   return Video.VideoModel.find(params, (err, docs) => {
     if (err) {
       console.log(err);

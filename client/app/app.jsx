@@ -49,17 +49,17 @@ const handleVideo = (e) => {
 
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Quantifiers
     // https://www.w3schools.com/jsref/jsref_replace.asp
-    let regex = /[0-9][0-9]:[0-9][0-9]:[0-9][0-9]/g;
+    let regex = /[0-9]:[0-9][0-9]:[0-9][0-9]/g;
 
 
      /// Putting each input into its own object to send to the server 
      ///
      $('#videoForm').find('td > input').each(function(){
         if(modValue===0) {
+            let array = this.value.match(regex);
 
             // Using regex to ensure the timestamp is correct
-            if(regex.test(this.value)) {
-                let array = this.value.match(regex);
+            if(regex.test(array)) {
                 JSON.stringify(array);
                 let newArray = array[0].replace(/:.*?/, "h");
                 let newArray2 = newArray.replace(/:.*?/, "m");
@@ -71,7 +71,8 @@ const handleVideo = (e) => {
                     videoObj[videoKey].link = `${videoObj.videoLink}&t=${finalArray}`;
                 }
             } else {
-                videoObj[videoKey].link = `${videoObj.videoLink}&t=${this.value}`;
+                alert("ERROR | Please use a valid timestamp");
+                return false;
             }
         } 
         if(modValue===1) {
