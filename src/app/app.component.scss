@@ -1,0 +1,73 @@
+@import "utils/variables.scss";
+
+.row {
+  display: flex;
+  flex-direction: row;
+  //height: calc(100% - $topbar-height); // height = 100% - height of topbar
+  height: 100%;
+  width: 100%;
+
+  .sidebar {
+    //width: 18%;
+    //min-width: 150px;
+    z-index: 1;
+  }
+
+  .router-outlet {
+    width: 100%;
+    overflow-y: auto;
+  }
+}
+
+h1 {
+  padding: 0 1rem;
+}
+
+h2 {padding: 1rem;}
+
+mat-toolbar{
+  position:fixed;
+  top:0;
+  height: $topbar-height;
+  z-index: 2;
+}
+
+mat-sidenav-container {
+  height:100%;
+}
+
+// Move the content down so that it won't be hidden by the toolbar
+mat-sidenav {
+  padding-top: 130px;
+  background-color: $theme-gray-2;
+  @media screen and (min-width: 600px) {
+    padding-top: 130px;
+  }
+}
+
+.user-button {
+  font-size: larger;
+  font-weight: 600;
+  margin-right: 35px
+}
+
+// Move the content down so that it won't be hidden by the toolbar
+mat-sidenav-content{
+  padding-top: 3.5rem;
+  @media screen and (min-width: 600px) {
+      padding-top: 4rem;
+  }
+}
+
+.logo-img {
+  box-sizing: border-box;
+  max-height: 100%;
+  max-width: $sidebar-width;
+  object-fit: contain;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+  cursor: pointer;
+}
+

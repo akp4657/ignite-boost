@@ -1,0 +1,25 @@
+// We use this to grab the height of the topbar
+@import "../../utils/variables.scss";
+// The body of the topbar
+:host {
+    display: flex;
+    position: relative;
+    height: $topbar-height;
+    width: 100%;
+    background-color: $theme-gray-1;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 19;
+}
+  
+.logo-img {
+    box-sizing: border-box;
+    max-height: 100%;
+    max-width: $sidebar-width;
+    object-fit: contain;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    cursor: pointer;
+}
+

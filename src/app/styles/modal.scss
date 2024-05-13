@@ -1,0 +1,120 @@
+.modal-holder {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(8, 17, 53, 0.38);
+    animation-name: fade-in;
+    animation-duration: 0.2s;
+    z-index: 20;
+}
+
+.modal {
+    //position: absolute;
+    //top: calc(50% - (141px / 2));
+    //left: calc(50% - (216px / 2));
+    //transform: translate(-50%, -50%);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    //top: 0;
+    //bottom: 0;
+    //left: 0;
+    //right: 0;
+    height: fit-content;
+    width: 450px;
+    //margin: 2vh auto 0% auto;
+    border-radius: 5px;
+    box-shadow: 2px 4px 20px rgba(0, 0, 0, 0.12);
+    background: #FEFEFE;
+    animation-name: popup;
+    animation-duration: 0.3s;
+    z-index: 21;
+    color: #292929;
+    transition: all 0.2s ease;
+}
+
+@media(max-width: 1600px) {
+  .modal {
+    //margin: 2vh auto 5vh auto;
+    //overflow-y: hidden;
+    max-height: 95vh;
+  }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    width: 100%;
+    padding: 4%;
+    border-bottom: solid 1px #DCDCDC;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+@media (max-width: 1600px) {
+  .modal-header {
+    font-size: 20px;
+    padding: 3%;
+  }
+}
+
+.modal-body {
+    height: fit-content;
+    max-height: 85vh;
+    padding: 25px;
+    //padding: 3vh 5% 40px 6%;
+    background-color: #FBFBFB;
+}
+
+@media (max-width: 1600px) {
+  .modal-body {
+    //overflow-y: hidden;
+  }
+}
+
+.modal-feature {
+    display: flex;
+    align-items: center;
+    font-size: 17px;
+    color: #727272;
+
+    svg-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: .5rem;
+
+        svg {
+            scale: 1;
+
+            * {
+                fill: #727272;
+                // stroke: #727272;
+            }
+        }
+    }
+
+    scale: 1.00;
+    transition: all 0.2s ease;
+}
+
+
+.modal-feature:hover {
+    scale: 1.05;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.x-button:hover {
+    cursor: pointer;
+}
+
+.invalid-input {
+    border-color: #fd2b2b80;
+}

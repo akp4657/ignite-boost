@@ -1,0 +1,72 @@
+@import "../../utils/variables.scss";
+
+.sidebar-container {
+    overflow: auto;
+    white-space: nowrap;
+    height: 100%;
+    background: $theme-gray-2;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+// used for each item in the sidebar (includes teams and the teams list title)
+.sidebar-item {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+   // padding-right: 24.175px; // 10px + width & margins of the active-item arrow
+    //margin-left: 30px;
+   // margin-right: 30px;
+    border-bottom: 1px solid $theme-gray-3;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 26px;
+    width: 100%;
+
+    color: $theme-gray-5;
+
+    // the teams list title
+    &.header {
+        padding-top: 25px;
+        padding-bottom: 25px;
+        
+        font-size: 19px;
+        line-height: 16px;
+
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+
+        color: #1C1C1C;
+    }
+
+    // each team item in the sidebar
+    &.link {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        span {
+            margin-right: 5px;
+        }
+    }
+}
+
+.link:hover {
+    padding-bottom: 6px;
+    border-bottom: 5px solid $theme-color-1;
+}
+
+.link:active {
+    color: $theme-color-1;
+}
+
+.active-item {
+    padding-bottom: 6px;
+    padding-right: 10px;
+    border-bottom: 5px solid $theme-color-1;
+    color: $theme-color-1;
+}
+
+span, div {
+    user-select: none;
+}

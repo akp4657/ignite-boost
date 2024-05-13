@@ -1,0 +1,33 @@
+<ng-template #modalHolder></ng-template>
+
+<div class="group-title">
+  <div class="header">
+    <span class="title">Admin Portal&nbsp;&nbsp;&nbsp;<span class="data-length-text">{{today_date}}</span></span>
+
+  </div>
+</div>
+
+<table mat-table [dataSource]="dataSource">
+  <ng-container matColumnDef="user">
+    <th mat-header-cell *matHeaderCellDef>
+      user
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.user}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="platforms">
+    <th mat-header-cell *matHeaderCellDef>
+      platforms
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.platforms}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="active">
+    <th mat-header-cell *matHeaderCellDef>
+      active
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.active}} </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openEditUserModal(row)"></tr>
+</table>

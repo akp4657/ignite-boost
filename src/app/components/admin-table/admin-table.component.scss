@@ -1,0 +1,232 @@
+@import "../../utils/variables.scss";
+
+.group-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 30px;
+  padding-bottom: 45px;
+  padding-left: 45px;
+  padding-right: 45px;
+  font-size: 20px;
+  font-weight: 600;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    .right-btns {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 30px;
+    }
+
+    .title {
+      font-weight: 500;
+      font-size: 30px;
+      line-height: 45px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .data-length-text {
+      color: #727272;
+    }
+
+    .checkin-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 30px;
+      margin-left: 75px;
+      border-radius: 5px;
+      background-color: $theme-color-1;
+      color: white;
+      transition: 0.2s ease-in-out;
+      cursor: pointer;
+
+      text-align: center;
+      font-weight: 500;
+      font-size: 19px;
+      line-height: 28px;
+
+      img {
+        margin: 5px;
+      }
+    }
+    
+    .checkin-button:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+.veteran-dot {
+  color:#FEFEFE;
+  height: 28px;
+  width: 28px;
+  margin-bottom: 2px;
+  margin-right: 5px;
+  border: 2px solid white;
+  border-radius: 15px;
+  background-color: #ffa500;
+  text-align: center;
+}
+
+@keyframes reveal-text {
+  from {
+    width: 0;
+  }
+  to {
+    width: calc(100% - 18px - 5px);
+  }
+}
+
+// used for the availability lists icon
+.list-icon {
+  width: 200px;
+  background: #FEFEFE;
+  color: #585757;
+  cursor: pointer;
+
+  font-weight: 500;
+  font-size: 19px;
+  line-height: 28px;
+}
+
+.list-icon div {
+  width: fit-content;
+  padding: 10px 20px;
+  border: 1px solid #DCDCDC;
+  border-radius: 5px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.list-icon span {
+  box-sizing: border-box;
+  display: inline-flex;
+  width: 0;
+  margin-right: 10px;
+  overflow-x: hidden;
+  animation-name: reveal-text;
+  animation-duration: 0.25s;
+  animation-fill-mode: forwards;
+}
+
+table {
+  width: 100%;
+  padding-left: 45px;
+  padding-right: 45px;
+  margin-bottom: 45px;
+}
+
+th {
+  font-family: 'Poppins';
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 28px;
+  text-transform: uppercase;
+}
+  
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+tr.mat-row {
+  height: 65px;
+}
+
+td {
+  font-family: 'Poppins';
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 28px;
+}
+
+.center-column{
+  text-align: center;
+}
+
+.take-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 45px;
+  width: 120px;
+  //padding: 10px 20px;
+  //margin: 10px 0;
+  border: none;
+  border-radius: 7px;
+  background-color: #37cf7f;
+  color: white;
+  transition: 0.2s ease-in-out;
+
+  font-weight: 500;
+  font-size: 19px;
+  line-height: 28px;
+}
+
+.enabled {
+  cursor: pointer
+}
+
+.enabled:hover {
+  opacity: 0.8;
+}
+
+.disabled {
+  cursor: not-allowed;
+  background-color: #52595e
+}
+
+mat-table {
+  z-index: -800;
+}
+
+.mat-row:hover {
+  background-color: rgb(238, 238, 238);
+  cursor: pointer;
+}
+
+.none-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100% - 93px - 56px); // 100% height - height of list title area - height of top table row
+  font-size: 10vw;
+  color: lightgray;
+}
+
+.client-statuses {
+  font-size: 1vw;
+  display: inline-flex;
+  margin-left: 1rem;
+  gap: 20px;
+}
+
+.client-here {
+  display: inline-block;
+  background-color: red;
+  border-radius: 100%;
+  width: 10px;
+  height: 10px;
+}
+
+.client-filling-out-forms {
+  display: inline-block;
+  background-color: #fcdf29;
+  border-radius: 100%;
+  width: 10px;
+  height: 10px;
+}
+
+.client-ready {
+  display: inline-block;
+  background-color: #37cf7f;
+  border-radius: 100%;
+  width: 10px;
+  height: 10px;
+}
