@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
     //api_url: 'https://westherr-slack.azurewebsites.net',
-    api_url: 'http://localhost:4000',
+    api_url: 'http://localhost:3000',
 };
 
 /*

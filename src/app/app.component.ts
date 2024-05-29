@@ -19,7 +19,7 @@ export class AppComponent {
   constructor(private observer: BreakpointObserver) {}
 
   ngOnInit() {
-    this.observer.observe(['(max-width: 800px)']).subscribe((screenSize) => {
+    this.observer.observe(['(max-width: 800px)']).subscribe((screenSize: any) => {
       if(screenSize.matches){
         this.isMobile = true;
         this.isCollapsed = true;

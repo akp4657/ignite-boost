@@ -7,7 +7,7 @@ import { NetworkService } from './network.service';
     providedIn: 'root'
   })
 
-  export class SlackService {
+  export class VideoService {
     api_url = '';
   
     constructor(private networkService: NetworkService) {

@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ComponentFactoryResolver, ViewChild, ViewContainerRef } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
-import { VideoService } from 'src/app/services/video.service.ts';
+import { VideoService } from '../../services/video.service';
 
 @Component({
   selector: 'app-report-table',
@@ -25,17 +25,16 @@ export class ReportTableComponent implements AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.selectedUserID = params['id'];
-      if(this.selectedUserID) this.setUserTable()
-    })
+    console.log('Home')
+    this.setUserTable()
+    console.log(this.dataSource)
   }
 
   setUserTable() {
-    this.videoService.getUsers().subscribe((data: any) => {
-      let user = data.users.filter((u: any) => u.Slack_ID == this.selectedUserID)[0]
-      let task_strings = user.Wrike_Task_String.concat(user.Zendesk_Task_String)
-      this.dataSource = new MatTableDataSource(task_strings);
+    this.videoService.getVideos().subscribe((data: any) => {
+      let videos = data.data.slice(0,10)
+      console.log(videos)
+      this.dataSource = new MatTableDataSource(videos);
     });
   }
 
