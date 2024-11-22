@@ -4,7 +4,6 @@ const express = require('express');
 const compression = require('compression');
 const favicon = require('serve-favicon');
 const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const expressHandlebars = require('express-handlebars');
 const session = require('express-session');
@@ -58,10 +57,8 @@ app.use('/assets', express.static(path.resolve(`${__dirname}/../hosted/`)));
 app.use(favicon(`${__dirname}/../hosted/img/logo.png`));
 app.disable('x-powered-by');
 app.use(compression());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true,
-}));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(session({
   key: 'sessionid',
  /* store: new RedisStore({
