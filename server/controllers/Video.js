@@ -2,6 +2,32 @@ const models = require('../models');
 
 const { Video } = models;
 
+// Validation arrays
+const allowedCharacters = [
+  "Akira", "Ako", "Asuna", "Emi", "Kirino", "Kirito", "Kuroko", 
+  "Kuroyukihime", "Mikoto", "Miyuki", "Quenser", "Rentaro", "Selvaria", 
+  "Shana", "Shizuo", "Taiga", "Tatsuya", "Tomoka", "Yukina", "Yuuki"
+];
+
+const allowedAssists = [
+  "Accelerator", "Alicia", "Boogiepop", "Celty", "Dokuro", "Enju", 
+  "Erio", "Froleytia", "Haruyuki", "Holo", "Innocent Charm", "Iriya", 
+  "Izaya", "Kino", "Kojou", "Kouko", "Kuroneko", "Leafa", "LLENN", 
+  "Mashiro", "Miyuki", "Pai", "Rusian", "Ryuuji", "Sadao", "Tatsuya", 
+  "Touma", "Tomo", "Uiharu", "Wilhelmina", "Zero"
+];
+
+// Data validator
+function validateVideoData(videoData) {
+  const { char1, char2, assist1, assist2 } = videoData;
+  if (!allowedCharacters.includes(char1)) return false;
+  if (!allowedCharacters.includes(char2)) return false;
+  if (!allowedAssists.includes(assist1)) return false;
+  if (!allowedAssists.includes(assist2)) return false;
+
+  return true;
+}
+
 const mainPage = (req, res) => {
   Video.VideoModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
@@ -14,7 +40,7 @@ const mainPage = (req, res) => {
 };
 
 // Sets up the object from the req.body then sends them to the database to be stored
-const makeVideo = (req, res) => {
+const makeVideo = async (req, res) => {
   const promiseArray = [];
   const values = Object.values(req.body);
 
@@ -39,6 +65,10 @@ const makeVideo = (req, res) => {
       matchDate: values[i].matchDate,
       owner: req.session.account._id,
     };
+
+    const result = await validateVideoData(videoData); // Suuuuper important
+    if(!result) return res.status(500).json({error: 'Invalid data'})
+
     const newVideo = new Video.VideoModel(videoData);
     const videoPromise = newVideo.save();
 

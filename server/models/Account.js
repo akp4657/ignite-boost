@@ -39,20 +39,21 @@ AccountSchema.statics.toAPI = (doc) => ({
 const validatePassword = (doc, password, callback) => {
   const pass = doc.password;
 
+  console.log(pass)
+
   return crypto.pbkdf2(password, doc.salt, iterations, keyLength, 'RSA-SHA512', (err, hash) => {
     if (hash.toString('hex') !== pass) {
+      console.log('False')
       return callback(false);
     }
+    console.log('Password match');
     return callback(true);
   });
 };
 
-AccountSchema.statics.findByUsername = (name, callback) => {
-  const search = {
-    username: name,
-  };
-
-  return AccountModel.findOne(search, callback);
+AccountSchema.statics.findByUsername = async (name) => {
+  const search = { username: name };
+  return await AccountModel.findOne(search);
 };
 
 AccountSchema.statics.generateHash = (password, callback) => {
@@ -61,24 +62,26 @@ AccountSchema.statics.generateHash = (password, callback) => {
   crypto.pbkdf2(password, salt, iterations, keyLength, 'RSA-SHA512', (err, hash) => callback(salt, hash.toString('hex')));
 };
 
-AccountSchema.statics.authenticate = (username, password, callback) => {
-  AccountModel.findByUsername(username, (err, doc) => {
-    if (err) {
-      return callback(err);
-    }
-
+AccountSchema.statics.authenticate = async (username, password, callback) => {
+  try {
+    // Fetch the user document
+    const doc = await AccountModel.findByUsername(username);
     if (!doc) {
-      return callback();
+      console.log('No document found for username:', username);
+      return callback(null, null);
     }
 
-    return validatePassword(doc, password, (result) => {
-      if (result === true) {
-        return callback(null, doc);
+    // Validate the password
+    validatePassword(doc, password, (result) => {
+      if (!result) {
+        return callback(null, null);
       }
-
-      return callback();
+      return callback(null, doc);
     });
-  });
+  } catch (err) {
+    console.log('An error occurred during authentication:', err);
+    return callback(err);
+  }
 };
 
 AccountModel = mongoose.model('Account', AccountSchema);

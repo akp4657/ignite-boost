@@ -9,11 +9,13 @@ const mongoose = require('mongoose');
 const expressHandlebars = require('express-handlebars');
 const session = require('express-session');
 const csrf = require('csurf');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
 let mongoURL;
-if(process.env.NODE_ENV == 'production') mongoURL =process.env.PROD_MONGO
+if(process.env.NODE_ENV == 'production') mongoURL = process.env.PROD_MONGO
 else mongoURL = process.env.QA_MONGO || 'mongodb://localhost/DFCDatabase';
 
 // Setup mongoose options to use newer functionality

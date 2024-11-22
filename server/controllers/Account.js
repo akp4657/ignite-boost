@@ -15,6 +15,7 @@ const logout = (req, res) => {
 const login = (request, response) => {
   const req = request;
   const res = response;
+  console.log(req.body)
 
   // force cast to strings to cover up security flaws
   const username = `${req.body.username}`;
@@ -28,6 +29,7 @@ const login = (request, response) => {
     if (err || !account) {
       return res.status(401).json({ error: 'Wrong username or password' });
     }
+    console.log(account)
     req.session.account = Account.AccountModel.toAPI(account);
 
     return res.json({ redirect: '/main' });
@@ -51,7 +53,6 @@ const sendReport = (request, response) => {
     service: 'gmail',
     auth: {
       user: 'igniteboost.net@gmail.com',
-      pass: '7P2ADRA2sMCdeS9' // Meta
     }
   });
 
@@ -120,7 +121,7 @@ const passChange = (request, response) => {
     });
 };
 
-const signup = (request, response) => {
+const signup =  async (request, response) => {
   const req = request;
   const res = response;
 
@@ -135,6 +136,11 @@ const signup = (request, response) => {
 
   if (req.body.pass !== req.body.pass2) {
     return res.status(400).json({ error: 'ERROR | Passwords do not match' });
+  }
+
+  const existingUser = await Account.AccountModel.findByUsername(req.body.username)
+  if(existingUser) {
+    return res.status(400).json({ error: 'ERROR | Username is taken' });
   }
 
   return Account.AccountModel.generateHash(req.body.pass, (salt, hash) => {
@@ -154,8 +160,9 @@ const signup = (request, response) => {
     });
 
     savePromise.catch((err) => {
-      console.log(err);
 
+      // This is screwing with AJAX since it's a Mongo error, I guess. 
+      //If I were to do this backend today, it would be nothing like this.
       if (err.code === 11000) {
         return res.status(400).json({ error: 'Username already in use.' });
       }

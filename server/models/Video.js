@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 const _ = require('underscore');
+const validator = require('validator');
 
 let VideoModel = {};
 
@@ -57,6 +58,10 @@ const VideoSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
+    validate: {
+      validator: (value) => validator.isURL(value, { protocols: ['http', 'https'], require_protocol: true }),
+      message: 'ERROR | Invalid URL provided',
+    },
   },
 
   version: {

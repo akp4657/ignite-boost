@@ -10,7 +10,9 @@
   "scripts": {
     "buildLoginBundle": "babel ./client/login ./client/helper --presets @babel/preset-react --out-file ./hosted/loginBundle.js",
     "buildAppBundle": "babel ./client/app ./client/helper --presets @babel/preset-react --out-file ./hosted/bundle.js",
-    "build": "npm run buildLoginBundle && npm run buildAppBundle",
+    "obfuscateLoginBundle": "javascript-obfuscator ./hosted/loginBundle.js --output ./hosted/loginBundle.obfuscated.js",
+    "obfuscateAppBundle": "javascript-obfuscator ./hosted/bundle.js --output ./hosted/bundle.obfuscated.js",
+    "build": "npm run buildLoginBundle && npm run buildAppBundle && npm run obfuscateLoginBundle && npm run obfuscateAppBundle",
     "watchLoginBundle": "babel --watch ./client/login ./client/helper --presets @babel/preset-react --out-file ./hosted/loginBundle.js",
     "watchAppBundle": "babel --watch ./client/app ./client/helper --presets @babel/preset-react --out-file ./hosted/bundle.js",
     "nodemon": "nodemon --watch ./server ./server/app.js",
@@ -37,6 +39,7 @@
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-plugin-import": "^2.20.2",
+    "javascript-obfuscator": "^4.1.1",
     "nodemon": "^2.0.15"
   },
   "dependencies": {
@@ -45,6 +48,7 @@
     "connect-redis": "^4.0.4",
     "cookie-parser": "^1.4.5",
     "csurf": "^1.11.0",
+    "dotenv": "^16.4.5",
     "express": "^4.17.1",
     "express-fileupload": "^1.1.7-alpha.3",
     "express-handlebars": "^3.1.0",
@@ -55,6 +59,7 @@
     "redis": "^3.1.2",
     "serve-favicon": "^2.5.0",
     "underscore": "^1.13.2",
+    "validator": "^13.12.0",
     "youtube-api": "^2.0.10"
   }
 }
