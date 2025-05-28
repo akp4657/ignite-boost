@@ -190,8 +190,10 @@ const handleReset = (e) => {
 const handleSearch = (player) => {
     //e.preventDefault();
 
+    //console.log('Hello?')
     queryString = `${$('#searchForm').attr('action')}?`;
     
+  //  console.log(queryString)
     // Check if the player is a string. It'll default to an object if it doesn't exist
     // If it is, search for this specific player in DFC:I matches
     if(typeof player === 'string' || player instanceof String) {
@@ -965,9 +967,9 @@ const setup = function(csrf) {
     
     // Player links
     if(window.location.pathname != '/main') {
-       // console.log('true')
+        //console.log('true')
         let player = /[^/]*$/.exec(window.location.pathname)[0]
-       // console.log(player)
+        //console.log(player)
         handleSearch(player);
     }
     else {

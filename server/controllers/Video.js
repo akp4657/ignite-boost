@@ -142,10 +142,13 @@ const searchVideos = (request, response) => {
   let params = { $and: [] };
 
   // check if the params exist
+  //console.log(params)
   const {
     player1, player2, char1, char2, assist1, assist2, version, sort
   } = req.query;
   let i = 0; // keeps track of position in params.$and array
+
+  //console.log(version)
 
   // If param exists, add it to the $and array with the
   // $or syntax to check for name in either slot 1 or 2 for player/char
@@ -215,7 +218,7 @@ const searchVideos = (request, response) => {
   }
 
   if (version) {
-    params.$and[i] = { $or: [{version: `${version}`}]};
+    params.$and[i] = { $or: [{version: +version}]};
     i++;
   }
 
@@ -228,7 +231,8 @@ const searchVideos = (request, response) => {
   }
 
 
-  if (i === 0) params = {}; // set params to empty object if no query params were sent  
+  if (i === 0) params = {}; // set params to empty object if no query params were sent
+  //console.dir(params.$and[0].$or)  
   return Video.VideoModel.find(params, (err, docs) => {
     if (err) {
       console.log(err);

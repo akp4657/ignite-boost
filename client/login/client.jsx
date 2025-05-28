@@ -55,7 +55,6 @@ const handleSearch = (player) => {
     // If it is, search for this specific player in DFC:I matches
     if(typeof player === 'string' || player instanceof String) {
         queryString += `player1=${player}`
-        queryString += `&version=${2}`
     } else {
         // Check each search field to see if anything is in them. If there is data in them, add it to the querystring
         if($("#player1Search").val()){
@@ -89,6 +88,7 @@ const handleSearch = (player) => {
     } 
 
     sendAjax('GET', queryString , null, (data) =>{
+        //console.log(queryString)
         ReactDOM.render(
             <VideoList videos={data.videos} />, document.querySelector("#content")
         );
@@ -682,7 +682,7 @@ const setup = (csrf) => {
     if(window.location.pathname != '/') {
         //console.log('true')
         let player = /[^/]*$/.exec(window.location.pathname)[0]
-        console.log(player)
+        //console.log(player)
         handleSearch(player);
     }
     else {
