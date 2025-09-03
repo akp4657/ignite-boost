@@ -1,9 +1,8 @@
-import { inject, Injectable, Signal } from '@angular/core';
-import { httpResource, HttpClient, HttpResourceRef, HttpParams } from '@angular/common/http';
+import { Injectable, Signal } from '@angular/core';
+import { httpResource } from '@angular/common/http';
 import { Video, VideoSearch, ReplayInfo } from './Videos';
 import { VideoData } from '../../add-videos/VideoData';
 import { Response } from '../Response';
-//import * as jsonData from './TestData.json';
 
 @Injectable({
   providedIn: 'root'

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, inject, signal } from '@angular/core';
 import { VsScreen } from "./vs-screen/vs-screen";
 import { ReplayList } from "./replay-list/replay-list";
-import { VideoSearch, Video } from '../api/video-service/Videos';
+import { VideoSearch } from '../api/video-service/Videos';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { VideoRequests } from '../api/video-service/video-requests';
 import { MatSnackBar } from '@angular/material/snack-bar';
