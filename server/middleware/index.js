@@ -1,14 +1,14 @@
 
 const requiresLogin = (req, res, next) => {
   if (!req.session.account) {
-    return res.redirect('/');
+    return res.redirect('/login');
   }
   return next();
 };
 
 const requiresLogout = (req, res, next) => {
   if (req.session.account) {
-    return res.redirect('/main');
+    return res.redirect('/logout');
   }
 
   return next();
@@ -27,9 +27,4 @@ const bypassSecure = (req, res, next) => {
 
 module.exports.requiresLogin = requiresLogin;
 module.exports.requiresLogout = requiresLogout;
-
-if (process.env.NODE_ENV === 'production') {
-  module.exports.requiresSecure = requiresSecure;
-} else {
-  module.exports.requiresSecure = bypassSecure;
-}
+module.exports.requiresSecure = (process.env.NODE_ENV === 'production') ? requiresSecure : bypassSecure; 

@@ -1,0 +1,8 @@
+/* Styling for child elements of material I can't control directly via Tailwind */
+.mat-mdc-list-item {
+    width: fit-content;
+}
+
+.mdc-list-item__primary-text {
+    display: flex;
+}

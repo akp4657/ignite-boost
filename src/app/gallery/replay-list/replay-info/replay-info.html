@@ -1,0 +1,138 @@
+<div 
+    class="bg-black/75"
+    [ngClass]="!this.isFull() ? 'mx-2' : ''"
+    animate.enter="select-overlay-enter"
+>
+    @if (!this.isFull()) {
+        <div class="mx-2 p-2 flex flex-col gap-2">
+            <div class="flex flex-row justify-between items-center">
+                <span class="text-sm">{{this.replay()?.matchDate}}</span>
+                <div class="flex gap-4 items-center">
+                    <app-image-loader 
+                        [src]="`/assets/bolt_${((this.replay()?.version ?? 2) === 2) ? 'dfci' : 'dfc'}.webp`"
+                        [width]="90"
+                        [height]="90"
+                        addClass="h-8 w-fit"
+                        spinnerClass="h-8 w-fit"
+                    />
+                    <a 
+                        matIconButton 
+                        aria-label="Replay link" 
+                        [href]="this.replay()?.link" 
+                        target="_blank" 
+                        class="flex items-center w-fit h-fit *:text-4xl *:w-fit *:h-fit *:transition-colors"
+                        [ngClass]="isIgnition() ? '*:text-(--dfci-color-secondary) *:hover:text-(--dfci-color-tertiary)' : '*:text-(--dfc-color-secondary) *:hover:text-(--dfc-color-tertiary)'"
+                    >
+                        <mat-icon>link</mat-icon>
+                    </a>
+                </div>
+            </div>
+            <hr />
+            <!--Player 1-->
+            <div class="flex gap-2 items-center">
+                <app-image-loader 
+                    [src]="`/assets/char-menu/sm/${this.char1().abbr}.webp`"
+                    [width]="90"
+                    [height]="90"
+                    addClass="h-fit w-16"
+                    spinnerClass="h-fit w-16"
+                />
+                <app-image-loader 
+                    [src]="`/assets/asst-menu/sm/${this.assist1().abbr}.webp`"
+                    [width]="90"
+                    [height]="48"
+                    addClass="h-fit w-16"
+                    spinnerClass="h-fit w-16"
+                />
+                <span>{{this.replay()?.player1}}</span>
+            </div>
+            <!--Player 2-->
+            <div class="flex gap-2 items-center">
+                <app-image-loader 
+                    [src]="`/assets/char-menu/sm/${this.char2().abbr}.webp`"
+                    [width]="90"
+                    [height]="90"
+                    addClass="h-fit w-16"
+                    spinnerClass="h-fit w-16"
+                />
+                <app-image-loader 
+                    [src]="`/assets/asst-menu/sm/${this.assist2().abbr}.webp`"
+                    [width]="90"
+                    [height]="48"
+                    addClass="h-fit w-16"
+                    spinnerClass="h-fit w-16"
+                />
+                <span>{{this.replay()?.player2}}</span>
+            </div>
+            <!-- <hr /> -->
+        </div>
+    } @else {
+        <div class="mx-2 p-2 flex flex-row gap-10 items-center text-white">
+            <span class="text-sm">{{this.replay()?.matchDate}}</span>
+
+            <div class="flex items-center gap-4 justify-center grow">
+                <div class="flex justify-end grow basis-1">
+                    <span>{{this.replay()?.player1}}</span>
+                </div>
+                
+                <!--Player 1 images-->
+                <div class="flex flex-row gap-2 items-center">
+                    <app-image-loader 
+                        [src]="`/assets/asst-menu/sm/${this.assist1().abbr}.webp`"
+                        [width]="90"
+                        [height]="48"
+                    />
+                    <app-image-loader 
+                        [src]="`/assets/char-menu/sm/${this.char1().abbr}.webp`"
+                        [width]="90"
+                        [height]="90"
+                    />
+                </div>
+
+                <app-image-loader 
+                    src="/assets/vs_text.webp"
+                    [width]="192"
+                    [height]="64"
+                    addClass="h-10 w-fit"
+                    spinnerClass="h-10 w-fit"
+                />
+
+                <!--Player 2 images-->
+                <div class="flex flex-row gap-2 items-center">
+                    <app-image-loader 
+                        [src]="`/assets/char-menu/sm/${this.char2().abbr}.webp`"
+                        [width]="90"
+                        [height]="90"
+                    />
+                    <app-image-loader 
+                        [src]="`/assets/asst-menu/sm/${this.assist2().abbr}.webp`"
+                        [width]="90"
+                        [height]="48"
+                    />
+                </div>
+
+                <div class="flex justify-start grow basis-1">
+                    <span>{{this.replay()?.player2}}</span>
+                </div>
+            </div>
+
+            <app-image-loader 
+                [src]="`/assets/bolt_${((this.replay()?.version ?? 2) === 2) ? 'dfci' : 'dfc'}.webp`"
+                [width]="90"
+                [height]="90"
+                addClass="h-14 w-fit"
+                spinnerClass="h-14 w-fit"
+            />
+            <a 
+                matIconButton 
+                aria-label="Replay link" 
+                [href]="this.replay()?.link" 
+                target="_blank" 
+                class="flex items-center w-fit h-fit *:text-4xl *:w-fit *:h-fit *:transition-colors"
+                [ngClass]="isIgnition() ? '*:text-(--dfci-color-secondary) *:hover:text-(--dfci-color-tertiary)' : '*:text-(--dfc-color-secondary) *:hover:text-(--dfc-color-tertiary)'"
+            >
+                <mat-icon>link</mat-icon>
+            </a>
+        </div>
+    }
+</div>

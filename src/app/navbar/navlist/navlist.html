@@ -1,0 +1,60 @@
+<mat-nav-list [ngClass]="isMobile() ? 'p-0' : 'inline-flex'">
+    @for (option of options(); track option.id) {
+        <mat-list-item class="*:overflow-visible min-h-12 h-auto px-4">
+            @switch (option.elementType) {
+                @case ('dropdown') {
+                    <!--Use mat-expansion-panel on mobile, mat-menu for desktop-->
+                    @if (isMobile()) {
+                        <mat-expansion-panel hideToggle class="shadow-none overflow-visible">
+                            <mat-expansion-panel-header class="text-white hover:text-shadow-glow hover:text-shadow-(color:--hover-glow) *:overflow-visible h-fit p-0">
+                                <span>{{ option.text }}</span>
+                                <mat-icon>arrow_drop_down</mat-icon>
+                            </mat-expansion-panel-header>
+                            <mat-nav-list class="px-4">
+                                @for (child of option.children; track child.id) {
+                                    <mat-list-item class="text-white hover:text-shadow-glow hover:text-shadow-(color:--hover-glow) *:overflow-visible">
+                                        @if (child.url?.external) {
+                                            <a [href]="child.url?.path" target="_blank">{{ child.text }}</a>
+                                        } @else {
+                                            <a [routerLink]="child.url?.path">{{ child.text }}</a>
+                                        }
+                                    </mat-list-item>
+                                }
+                            </mat-nav-list>
+                        </mat-expansion-panel>
+                    } @else {
+                        <div [matMenuTriggerFor]="navbarDropdown"
+                            class="flex justify-center items-center text-white hover:text-shadow-glow hover:text-shadow-(color:--hover-glow) *:overflow-visible">
+                            <a matButton class="pr-0">
+                                {{ option.text }}
+                            </a>
+                            <mat-icon>arrow_drop_down</mat-icon>
+                        </div>
+                        <mat-menu #navbarDropdown="matMenu" class="bg-[var(--color-secondary)] bg-[url(/assets/horizontal_bars.webp)]">
+                            @for (child of option.children; track child.id) {
+                                @if (child.url?.external) {
+                                    <a mat-menu-item [href]="child.url?.path" target="_blank" class="text-white hover:text-shadow-glow hover:text-shadow-(color:--hover-glow) *:overflow-visible">{{ child.text }}</a>
+                                } @else {
+                                    <a mat-menu-item [routerLink]="child.url?.path" class="text-white hover:text-shadow-glow hover:text-shadow-(color:--hover-glow) *:overflow-visible">{{ child.text }}</a>
+                                }
+                            }
+                        </mat-menu>
+                    }
+                }
+
+                @case ('dfc-button') {
+                    <app-dfc-button [ngClass]="isMobile() ? '*:my-4' : ''" [routerURL]="option.url?.path">
+                        {{ option.text }}
+                    </app-dfc-button>
+                }
+
+                @default {
+                    <a [routerLink]="option.url?.path"
+                        class="text-white hover:text-shadow-glow hover:text-shadow-(color:--hover-glow) *:overflow-visible">
+                        {{ option.text }}
+                    </a>
+                }
+            }
+        </mat-list-item>
+    }
+</mat-nav-list>

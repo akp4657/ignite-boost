@@ -36,52 +36,52 @@ AccountSchema.statics.toAPI = (doc) => ({
   _id: doc._id,
 });
 
-const validatePassword = (doc, password, callback) => {
+const validatePassword = (doc, password) => {
   const pass = doc.password;
-
-  console.log(pass)
-
-  return crypto.pbkdf2(password, doc.salt, iterations, keyLength, 'RSA-SHA512', (err, hash) => {
-    if (hash.toString('hex') !== pass) {
-      console.log('False')
-      return callback(false);
-    }
-    console.log('Password match');
-    return callback(true);
-  });
+  const hash = crypto.pbkdf2Sync(password, doc.salt, iterations, keyLength, 'RSA-SHA512');
+  return (hash.toString('hex') === pass);
 };
 
 AccountSchema.statics.findByUsername = async (name) => {
   const search = { username: name };
-  return await AccountModel.findOne(search);
+
+  try {
+    return await AccountModel.findOne(search);
+  } catch(err) {
+    throw err;
+  }
 };
 
-AccountSchema.statics.generateHash = (password, callback) => {
+AccountSchema.statics.generateHash = (password) => {
   const salt = crypto.randomBytes(saltLength);
-
-  crypto.pbkdf2(password, salt, iterations, keyLength, 'RSA-SHA512', (err, hash) => callback(salt, hash.toString('hex')));
+  const hash = crypto.pbkdf2Sync(password, salt, iterations, keyLength, 'RSA-SHA512');
+  return {
+    salt: salt,
+    hash: hash.toString('hex')
+  };
 };
 
-AccountSchema.statics.authenticate = async (username, password, callback) => {
+AccountSchema.statics.authenticate = async (username, password) => {
+  const res = {
+    err: null,
+    account: null
+  };
+
   try {
     // Fetch the user document
     const doc = await AccountModel.findByUsername(username);
     if (!doc) {
       console.log('No document found for username:', username);
-      return callback(null, null);
+      return res;
     }
 
-    // Validate the password
-    validatePassword(doc, password, (result) => {
-      if (!result) {
-        return callback(null, null);
-      }
-      return callback(null, doc);
-    });
+    const valid = await validatePassword(doc, password);
+    if (valid) res.account = doc;
   } catch (err) {
-    console.log('An error occurred during authentication:', err);
-    return callback(err);
+    res.err = err;
   }
+
+  return res;
 };
 
 AccountModel = mongoose.model('Account', AccountSchema);

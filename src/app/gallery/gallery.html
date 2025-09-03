@@ -1,0 +1,23 @@
+@defer {
+    <div animate.leave="select-overlay-leave">
+        <app-vs-screen 
+            [isIgnition]="(query().version === 2)"
+            (updateQuery)="updateQueryParam($event)"
+        />
+        
+        <!--Wait until replays have loaded before spawning component-->
+        @if (videosResource.hasValue()) {
+            <app-replay-list 
+                [replays]="videosResource.value().videos"
+            />
+        } @else {
+            <div class="relative w-full flex justify-center items-center pt-4">
+                <mat-spinner />
+            </div>
+        }
+    </div>
+} @placeholder {
+    <div class="relative w-full flex justify-center items-center py-4">
+        <mat-spinner />
+    </div>
+}

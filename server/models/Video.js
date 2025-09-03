@@ -65,7 +65,7 @@ const VideoSchema = new mongoose.Schema({
   },
 
   version: {
-    type: String,
+    type: Number,
     required: true,
     trim: true,
     set: setName,
@@ -103,30 +103,47 @@ VideoSchema.statics.toAPI = (doc) => ({
 });
 
 // Converts the ownerId to be readable by the database then returns all of the users entries.
-VideoSchema.statics.findByOwner = (ownerId, callback) => {
+VideoSchema.statics.findByOwner = async (ownerId) => {
   const search = {
     owner: convertId(ownerId),
   };
 
-  return VideoModel.find(search).select('player1 player2 char1 char2 assist1 assist2 link version matchDate').lean().exec(callback);
+  try {
+    return await VideoModel.find(search).select('player1 player2 char1 char2 assist1 assist2 link version matchDate').lean().exec();
+  } catch (err) {
+    throw err; 
+  }
 };
 
 // Returns all entries in the database
-VideoSchema.statics.findAll = (callback) => VideoModel.find().sort({ matchDate: -1 }).select('player1 player2 char1 char2 assist1 assist2 version link matchDate').lean()
-  .exec(callback);
+VideoSchema.statics.findAll = async () => {
+  try {
+    return await VideoModel.find().sort({ matchDate: -1 }).select('player1 player2 char1 char2 assist1 assist2 version link matchDate').lean().exec();
+  } catch(err) {
+    throw err;
+  }
+};
 
 // Will search for specified entries in the database based off the object in the search
-VideoSchema.statics.findSearch = (search, callback) => VideoModel.find(search).sort({ matchDate: -1 }).select('player1 player2 char1 char2 assist1 assist2 version link matchDate').lean()
-  .exec(callback);
+VideoSchema.statics.findSearch = async (params, sorting) => {
+  try {
+    return await VideoModel.find(params).sort({ matchDate: sorting }).select('player1 player2 char1 char2 assist1 assist2 version link matchDate').lean().exec();
+  } catch(err) {
+    throw err;
+  }
+};
 
-
-VideoSchema.statics.deleteItem = (uid, callback) => {
+VideoSchema.statics.deleteItem = async (uid) => {
   const search = {
     _id: uid,
   };
 
-  VideoModel.deleteOne(search, callback);
-};
+  try {
+    return await VideoModel.deleteOne(search);
+  } catch(err) {
+    throw err;
+  }
+}
 
 VideoModel = mongoose.model('Video', VideoSchema);
 

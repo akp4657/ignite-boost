@@ -1,0 +1,24 @@
+<div class="py-2 px-2 bg-black/75">
+    <div>
+        <span class="block w-full text-center text-white italic text-2xl font-semibold text-shadow-glow text-shadow-(color:--char-sel-glow)">Character Select</span>
+        <div class="flex flex-row flex-wrap gap-1 py-2 justify-center items-center">
+            @for (char of this.playableCharacters; track char.abbr) {
+                <!--Don't display DFCI exclusive characters if only DFC-->
+                @if (!char.ignition || isIgnition()) {
+                    <app-image-loader 
+                        [src]="`/assets/char-menu/lg/${char.abbr}.webp`"
+                        [width]="56"
+                        [height]="144"
+                        [addClass]="`${isP1() ? 'hover:animate-p1-select' : 'hover:animate-p2-select'} cursor-pointer`"
+                        (mouseenter)="hoveredChar.set(char)"
+                        (click)="updateSelectedChar.emit(char)"
+                        animate.enter="select-overlay-enter"
+                    />
+                }
+            }
+        </div>
+        <span [ngClass]="`block w-full text-white text-shadow-glow text-shadow-(color:--char-sel-glow) ${isP1() ? 'text-left' : 'text-right'}`">
+            {{hoveredChar().name ? hoveredChar().name : 'Any/All'}}
+        </span>
+    </div>
+</div>

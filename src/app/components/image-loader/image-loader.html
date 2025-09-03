@@ -1,0 +1,18 @@
+<div class="w-fit relative">
+    @if (!loaded()) {
+        <mat-spinner 
+            [diameter]="taller() ? width() : height()"
+            [ngClass]="`absolute ${spinnerClass()}`"
+            [style]="taller() ? `top: ${-(width() - height()) / 2}px !important` : `left: ${-(height() - width()) / 2}px !important`"
+        />
+    }
+
+    <img 
+        [ngSrc]="src()"
+        [width]="width()"
+        [height]="height()"
+        [priority]="priority()"
+        [ngClass]="addClass()"
+        (load)="loaded.set(true)"
+    />
+</div>

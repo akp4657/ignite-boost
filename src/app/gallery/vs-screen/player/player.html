@@ -1,0 +1,25 @@
+<div [ngClass]="`flex gap-2 justify-center relative ${isFull() ? 'w-[596px] h-[459px]' : 'items-center mx-2'} ${(isHandset() || isP1()) ? 'flex-row-reverse' : 'flex-row'}`">
+    <!--Highest z-index to maintain order while not getting <app-char-select> when you click-->
+    <app-player-search 
+        [isP1]="isP1()"
+        [isFull]="isFull()"
+        (updatePlayerQuery)="updateQueryParam('player', $event)"
+        [ngClass]="`z-1 ${!isFull() ? 'mb-[9px]' : ''}`"
+    />
+    <app-char-select 
+        [isIgnition]="isIgnition()"
+        [isP1]="isP1()"
+        [isFull]="isFull()"
+        [selectedAsst]="assist()"
+        [ngClass]="`${isFull() ? 'absolute' : 'min-w-16'}`"
+        (updateCharQuery)="updateQueryParam('char', $event)"
+    />
+    <app-assist-select 
+        [isIgnition]="isIgnition()"
+        [isP1]="isP1()"
+        [isFull]="isFull()"
+        [ngClass]="`${isFull() ? `absolute bottom-0 ${isP1() ? 'left-0' : 'right-0'}` : 'min-w-16'}`"
+        (updateAsstDisplay)="updateAssistDisplay($event)"
+        (updateAsstQuery)="updateQueryParam('assist', $event)"
+    />
+</div>

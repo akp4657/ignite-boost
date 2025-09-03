@@ -1,0 +1,29 @@
+<!--Check if function is empty-->
+@if (callback()) {
+    <button 
+        matButton 
+        (click)="callback()"
+        [disabled]="disabled()" 
+        class="dfc-button h-fit w-fit bg-black p-1 text-white hover:text-shadow-glow hover:text-shadow-(color:--hover-glow) *:overflow-visible cursor-pointer"
+    >
+        <div class="dfc-button bg-linear-to-r from-(--button-gradient-start) via-(--button-gradient-end) to-(--button-gradient-start) p-1">
+            <div class="dfc-button bg-black px-4 py-1">
+                <ng-content />
+            </div>
+        </div>
+    </button>
+} @else {
+    <a 
+        matButton 
+        [routerLink]="routerURL()"
+        [disabled]="disabled()" 
+        class="dfc-button h-fit w-fit bg-black p-1 text-white hover:text-shadow-glow hover:text-shadow-(color:--hover-glow) *:overflow-visible cursor-pointer"
+    >
+        <div class="dfc-button bg-linear-to-r from-(--button-gradient-start) via-(--button-gradient-end) to-(--button-gradient-start) p-1">
+            <div class="dfc-button bg-black px-4 py-1">
+                <ng-content />
+            </div>
+        </div>
+    </a>
+}
+

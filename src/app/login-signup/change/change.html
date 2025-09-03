@@ -1,0 +1,82 @@
+<div class="w-full flex justify-center items-center">
+    <form [formGroup]="form" class="w-full" (ngSubmit)="handleSubmit()">
+        <div class="w-full flex flex-col items-center justify-center gap-4 mb-4">
+            <div class="p-[2px] shadow-xl bg-black w-full">
+                <div class="p-[2px] bg-gradient-to-r from-(--player-gradient-ends) via-(--player-gradient-center) to-(--player-gradient-ends)">
+                    <mat-form-field class="bg-black p-1 w-full">
+                        <mat-label>Username</mat-label>
+                        <input matInput type="text" formControlName="username" />
+                        @if (form.controls.username.hasError('required')) {
+                            <mat-error>Username is <strong>required</strong></mat-error>
+                        } @else if (form.controls.username.hasError('minlength')
+                            || form.controls.username.hasError('maxlength')) {
+                            <mat-error>Username must be between <strong>5</strong> and <strong>32</strong> characters</mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!--Checks current password and has user provide new password-->
+            <div class="p-[2px] shadow-xl bg-black w-full">
+                <div class="p-[2px] bg-gradient-to-r from-(--player-gradient-ends) via-(--player-gradient-center) to-(--player-gradient-ends)">
+                    <mat-form-field class="bg-black p-1 w-full">
+                        <mat-label>Current Password</mat-label>
+                        <input matInput type="password" formControlName="password" />
+                        @if (form.controls.password.hasError('required')) {
+                            <mat-error>Current password is <strong>required</strong></mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+            </div>
+            
+            <div class="p-[2px] shadow-xl bg-black w-full">
+                <div class="p-[2px] bg-gradient-to-r from-(--player-gradient-ends) via-(--player-gradient-center) to-(--player-gradient-ends)">
+                    <mat-form-field class="bg-black p-1 w-full">
+                        <mat-label>New Password</mat-label>
+                        <input matInput type="password" formControlName="new" />
+                        @if (form.controls.new.hasError('required')) {
+                            <mat-error>New password is <strong>required</strong></mat-error>
+                        } @else if (form.controls.new.hasError('minlength')
+                            || form.controls.new.hasError('maxlength')) {
+                            <mat-error>New password must be between <strong>10</strong> and <strong>24</strong> characters</mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="p-[2px] shadow-xl bg-black w-full">
+                <div class="p-[2px] bg-gradient-to-r from-(--player-gradient-ends) via-(--player-gradient-center) to-(--player-gradient-ends)">
+                    <mat-form-field class="bg-black p-1 w-full">
+                        <mat-label>Retype New Password</mat-label>
+                        <input matInput type="password" formControlName="retype" />
+                        @if (form.controls.retype.hasError('required')) {
+                            <mat-error>Retype password is <strong>required</strong></mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="flex justify-center items-center mt-4">
+            @if (this.reqPending()) {
+                <mat-spinner />
+            } @else {
+                <button
+                    matButton
+                    type="submit"
+                    [disabled]="!form.valid"
+                    class="dfc-button h-fit w-fit bg-black p-1 text-white"
+                    [ngClass]="`${form.valid ? 'hover:text-shadow-glow hover:text-shadow-(color:--hover-glow) *:overflow-visible cursor-pointer' : 'opacity-75'}`"
+                >
+                    <div class="dfc-button bg-linear-to-r from-(--button-gradient-start) via-(--button-gradient-end) to-(--button-gradient-start) p-1">
+                        <div class="dfc-button bg-black px-4 py-1">
+                            Change Password
+                        </div>
+                    </div>
+                </button>
+            }
+        </div>
+    </form>
+</div>

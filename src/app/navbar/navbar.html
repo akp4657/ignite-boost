@@ -1,0 +1,32 @@
+<mat-toolbar class="transition-colors bg-[var(--color-primary)] shadow-xl/50 bg-[url(/assets/horizontal_bars.webp)] h-auto relative z-1" [ngClass]="checkBreakpoints.getIsHandset() ? 'block' : 'flex'">
+    <div class="flex h-14 flex-1 items-center transition-all duration-300" [ngClass]="mobileMenuOpen() ? 'border-b-gray-800 border-b-0' : 'border-transparent border-b-0'">
+        <!--Mobile menu button-->
+        <div class="flex items-center" [ngClass]="checkBreakpoints.getIsHandset() ? '' : 'hidden'">
+            <button 
+                matIconButton 
+                aria-label="Mobile menu button"
+                (click)="mobileMenuOpen.set(!mobileMenuOpen())" 
+                class="text-white *:text-3xl p-0 flex items-center justify-center *:w-auto *:h-auto *:overflow-visible *:hover:text-shadow-glow *:hover:text-shadow-(color:--hover-glow) *:focus:inset-ring-2 *:focus:inset-ring-(color: --hover-glow)"
+            >
+                <mat-icon>{{ mobileMenuOpen() ? 'close' : 'menu' }}</mat-icon>
+            </button>
+        </div>
+
+        <!--Logo and site name-->
+        <div class="flex flex-1" [ngClass]="checkBreakpoints.getIsHandset() ? 'items-center justify-center' : 'items-stretch justify-start'">
+            <div class="flex shrink-0 items-center">
+                <img class="h-8 w-auto" ngSrc="/assets/logo.webp" width="240" height="240" priority />
+            </div>
+            <h1 class="text-white text-xl font-medium px-3 py-2 hover:text-shadow-glow hover:text-shadow-(color:--hover-glow) hover:cursor-pointer"
+                routerLink="/">DFC Replay Database</h1>
+        </div>
+    </div>
+
+    @if (checkBreakpoints.getIsHandset()) {
+        <mat-expansion-panel hideToggle [expanded]="mobileMenuOpen()" class="shadow-none">
+            <app-navlist [isMobile]="checkBreakpoints.getIsHandset()" />
+        </mat-expansion-panel>
+    } @else {
+        <app-navlist [isMobile]="checkBreakpoints.getIsHandset()" />
+    }
+</mat-toolbar>

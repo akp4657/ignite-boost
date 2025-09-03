@@ -1,0 +1,95 @@
+<button 
+    class="cursor-pointer animate-open-h relative"
+    (click)="isOpen.set(!isOpen())"
+    type="button"
+    cdkOverlayOrigin
+    #trigger
+>
+    <app-image-loader 
+        [src]="`/assets/${imageDir()}/${selectedChar().abbr}.webp`"
+        [width]="imgWidth()"
+        [height]="imgHeight()"
+        [priority]="true"
+    />
+</button>
+
+<ng-template
+    cdkConnectedOverlay
+    [cdkConnectedOverlayOrigin]="trigger"
+    [cdkConnectedOverlayOpen]="isOpen()"
+    (detach)="isOpen.set(false)"
+    (overlayOutsideClick)="isOpen.set(false)"
+>
+    <div 
+        class="select-overlay"
+        animate.enter="select-overlay-enter"
+        animate.leave="select-overlay-leave"
+    >
+        @if (enableDefault()) {
+            <!--Any/All option-->
+            <div
+                [ngClass]="`select-option ${selectedChar().name ? '' : 'bg-(--color-primary)/50'} hover:bg-white/25 *:text-white`"
+                (click)="updateSelectedChar(defaultChar)"
+            >
+                <div
+                    class="w-full flex flex-row gap-2 items-center cursor-pointer"
+                    animate.enter="select-overlay-enter"
+                >
+                    <app-image-loader 
+                        [src]="`/assets/${imageDir()}/${defaultChar.abbr}.webp`"
+                        [width]="imgWidth()"
+                        [height]="imgHeight()"
+                        addClass="w-12 h-auto"
+                        spinnerClass="w-12 h-auto"
+                    />
+                    <span class="text-md">Any/All</span>
+                </div>
+            </div>
+        }
+
+        @for (char of sortedChars(); track char.abbr) {
+            <!--Don't display DFCI exclusive characters if only DFC-->
+            @if (char.abbr !== 'all' && (isIgnition() || !char.ignition)) {
+                <div
+                    [ngClass]="`select-option *:text-white ${(selectedChar() === char) ? 'bg-(--color-primary)/50' : ''} hover:bg-white/25`"
+                    (click)="updateSelectedChar(char)"
+                >
+                    <div
+                        class="w-full flex flex-row gap-2 items-center justify-between cursor-pointer"
+                        animate.enter="select-overlay-enter"
+                    >
+                        <div class="flex flex-row gap-2 items-center">
+                            <app-image-loader 
+                                [src]="`/assets/${imageDir()}/${char.abbr}.webp`"
+                                [width]="imgWidth()"
+                                [height]="imgHeight()"
+                                addClass="w-12 h-auto"
+                                spinnerClass="w-12 h-auto"
+                            />
+                            <span class="text-md">{{char.name}}</span>
+                        </div>
+
+                        <!--Mizuumi link-->
+                        @if (enableInfo()) {
+                            <a 
+                                matIconButton 
+                                [ariaLabel]="`${char.short ?? char.name}'s wiki page`" 
+                                class="flex justify-center items-center text-4xl *:overflow-visible"
+                                [href]="char.wiki"
+                                target="_blank"
+                            >
+                                <mat-icon
+                                    class="text-shadow-glow" 
+                                    [ngClass]="`${isIgnition() ? 'text-shadow-(color:--char-sel-glow) hover:text-shadow-(color:--portrait-glow)' : 'text-shadow-(color:--portrait-glow) hover:text-shadow-(color:--char-sel-glow)'}`" 
+                                    inline="true"
+                                >
+                                    info
+                                </mat-icon>
+                            </a>
+                        }
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</ng-template>
