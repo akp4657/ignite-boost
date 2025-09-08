@@ -41,7 +41,7 @@ const makeVideos = async (req, res) => {
             assist1: values[i].assist1,
             assist2: values[i].assist2,
             link: values[i].link,
-            version: parseInt(values[i].version),
+            version: parseInt(values[i].version, 10),
             matchDate: values[i].matchDate,
             owner: req.session.account._id,
         };

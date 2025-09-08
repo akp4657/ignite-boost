@@ -8,7 +8,8 @@
     "start": "ng build && node ./server/app.js",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "heroku-postbuild": "ng build -prod"
   },
   "keywords": [
     "Angular",
@@ -20,11 +21,13 @@
     "ignite-boost",
     "fighting games"
   ],
-  "author": "Anthony Pichardo and Nick Lang",
+  "author": "Anthony Pichardo, Nick Lang, and Yash Bagri",
   "license": "Apache 2.0",
   "dependencies": {
     "@angular/cdk": "^20.0.3",
+    "@angular/cli": "^20.0.0",
     "@angular/common": "^20.0.0",
+    "@angular/compiler-cli": "^20.0.0",
     "@angular/compiler": "^20.0.0",
     "@angular/core": "^20.0.0",
     "@angular/forms": "^20.0.0",
@@ -44,6 +47,7 @@
     "rxjs": "~7.8.0",
     "tailwindcss": "^4.1.10",
     "tslib": "^2.3.0",
+    "typescript": "~5.8.2",
     "underscore": "^1.13.7",
     "validator": "^13.15.15",
     "zone.js": "~0.15.0"

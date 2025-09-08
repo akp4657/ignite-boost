@@ -19,7 +19,7 @@ export class VideoRequests {
         'char2': query().char2 ?? '',
         'assist1': query().assist1 ?? '',
         'assist2': query().assist2 ?? '',
-        'version': query().version ?? '' 
+        'version': query().version ?? ''
       }
     }));
   }
@@ -33,7 +33,7 @@ export class VideoRequests {
       case 0:
         incompleteURL += `https://youtu.be/${videoData.id}?t=`;
         break;
-      
+
       // Niconico
       case 1:
         incompleteURL += `https://www.nicovideo.jp/watch/${videoData.id}?from=`;
@@ -48,13 +48,13 @@ export class VideoRequests {
       case 3:
         incompleteURL += `https://www.twitch.tv/videos/${videoData.id}/?t=`;
     }
-    
+
     // Format URL based on video source
     const newVideos = replays.map(replay => {
       // Start by generating date object to calculate elapsed seconds
-      const hours = parseInt(replay.timestamp.substring(0, 2));   // Hours
-      const minutes = parseInt(replay.timestamp.substring(3, 5)); // Minutes
-      const seconds = parseInt(replay.timestamp.substring(6));    // Seconds
+      const hours = parseInt(replay.timestamp.substring(0, 2), 10);   // Hours
+      const minutes = parseInt(replay.timestamp.substring(3, 5), 10); // Minutes
+      const seconds = parseInt(replay.timestamp.substring(6), 10);    // Seconds
 
       let completeURL;
 
