@@ -1,4 +1,4 @@
-<div 
+<div
     class="bg-black/75"
     [ngClass]="!this.isFull() ? 'mx-2' : ''"
     animate.enter="select-overlay-enter"
@@ -8,18 +8,19 @@
             <div class="flex flex-row justify-between items-center">
                 <span class="text-sm">{{this.replay()?.matchDate}}</span>
                 <div class="flex gap-4 items-center">
-                    <app-image-loader 
+                    <app-image-loader
                         [src]="`/assets/bolt_${((this.replay()?.version ?? 2) === 2) ? 'dfci' : 'dfc'}.webp`"
+                        [alt]="`${(this.replay()?.version ?? 2) === 2 ? 'dfci' : 'dfc'} icon`"
                         [width]="90"
                         [height]="90"
                         addClass="h-8 w-fit"
                         spinnerClass="h-8 w-fit"
                     />
-                    <a 
-                        matIconButton 
-                        aria-label="Replay link" 
-                        [href]="this.replay()?.link" 
-                        target="_blank" 
+                    <a
+                        matIconButton
+                        aria-label="Replay link"
+                        [href]="this.replay()?.link"
+                        target="_blank"
                         class="flex items-center w-fit h-fit *:text-4xl *:w-fit *:h-fit *:transition-colors"
                         [ngClass]="isIgnition() ? '*:text-(--dfci-color-secondary) *:hover:text-(--dfci-color-tertiary)' : '*:text-(--dfc-color-secondary) *:hover:text-(--dfc-color-tertiary)'"
                     >
@@ -30,15 +31,17 @@
             <hr />
             <!--Player 1-->
             <div class="flex gap-2 items-center">
-                <app-image-loader 
+                <app-image-loader
                     [src]="`/assets/char-menu/sm/${this.char1().abbr}.webp`"
+                    [alt]="`${this.char1().short ?? this.char1().name} icon`"
                     [width]="90"
                     [height]="90"
                     addClass="h-fit w-16"
                     spinnerClass="h-fit w-16"
                 />
-                <app-image-loader 
+                <app-image-loader
                     [src]="`/assets/asst-menu/sm/${this.assist1().abbr}.webp`"
+                    [alt]="`${this.assist1().short ?? this.assist1().name} icon`"
                     [width]="90"
                     [height]="48"
                     addClass="h-fit w-16"
@@ -48,15 +51,17 @@
             </div>
             <!--Player 2-->
             <div class="flex gap-2 items-center">
-                <app-image-loader 
+                <app-image-loader
                     [src]="`/assets/char-menu/sm/${this.char2().abbr}.webp`"
+                    [alt]="`${this.char2().short ?? this.char2().name} icon`"
                     [width]="90"
                     [height]="90"
                     addClass="h-fit w-16"
                     spinnerClass="h-fit w-16"
                 />
-                <app-image-loader 
+                <app-image-loader
                     [src]="`/assets/asst-menu/sm/${this.assist2().abbr}.webp`"
+                    [alt]="`${this.assist2().short ?? this.assist2().name} icon`"
                     [width]="90"
                     [height]="48"
                     addClass="h-fit w-16"
@@ -74,23 +79,26 @@
                 <div class="flex justify-end grow basis-1">
                     <span>{{this.replay()?.player1}}</span>
                 </div>
-                
+
                 <!--Player 1 images-->
                 <div class="flex flex-row gap-2 items-center">
-                    <app-image-loader 
+                    <app-image-loader
                         [src]="`/assets/asst-menu/sm/${this.assist1().abbr}.webp`"
+                        [alt]="`${this.assist1().short ?? this.assist1().name} icon`"
                         [width]="90"
                         [height]="48"
                     />
-                    <app-image-loader 
+                    <app-image-loader
                         [src]="`/assets/char-menu/sm/${this.char1().abbr}.webp`"
+                        [alt]="`${this.char1().short ?? this.char1().name} icon`"
                         [width]="90"
                         [height]="90"
                     />
                 </div>
 
-                <app-image-loader 
+                <app-image-loader
                     src="/assets/vs_text.webp"
+                    [alt]="`vs icon`"
                     [width]="192"
                     [height]="64"
                     addClass="h-10 w-fit"
@@ -99,13 +107,15 @@
 
                 <!--Player 2 images-->
                 <div class="flex flex-row gap-2 items-center">
-                    <app-image-loader 
+                    <app-image-loader
                         [src]="`/assets/char-menu/sm/${this.char2().abbr}.webp`"
+                        [alt]="`${this.char2().short ?? this.char2().name} icon`"
                         [width]="90"
                         [height]="90"
                     />
-                    <app-image-loader 
+                    <app-image-loader
                         [src]="`/assets/asst-menu/sm/${this.assist2().abbr}.webp`"
+                        [alt]="`${this.assist2().short ?? this.assist2().name} icon`"
                         [width]="90"
                         [height]="48"
                     />
@@ -116,18 +126,19 @@
                 </div>
             </div>
 
-            <app-image-loader 
+            <app-image-loader
                 [src]="`/assets/bolt_${((this.replay()?.version ?? 2) === 2) ? 'dfci' : 'dfc'}.webp`"
+                [alt]="`${(this.replay()?.version ?? 2) === 2 ? 'dfci' : 'dfc'} icon`"
                 [width]="90"
                 [height]="90"
                 addClass="h-14 w-fit"
                 spinnerClass="h-14 w-fit"
             />
-            <a 
-                matIconButton 
-                aria-label="Replay link" 
-                [href]="this.replay()?.link" 
-                target="_blank" 
+            <a
+                matIconButton
+                aria-label="Replay link"
+                [href]="this.replay()?.link"
+                target="_blank"
                 class="flex items-center w-fit h-fit *:text-4xl *:w-fit *:h-fit *:transition-colors"
                 [ngClass]="isIgnition() ? '*:text-(--dfci-color-secondary) *:hover:text-(--dfci-color-tertiary)' : '*:text-(--dfc-color-secondary) *:hover:text-(--dfc-color-tertiary)'"
             >

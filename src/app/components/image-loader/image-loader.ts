@@ -12,6 +12,7 @@ export class ImageLoader {
   src = input.required<string>();
   width = input.required<number>();
   height = input.required<number>();
+  alt = input.required<string>();
   priority = input<boolean>(false);
   addClass = input<string>('');
   spinnerClass = input<string>('');

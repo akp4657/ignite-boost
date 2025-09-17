@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { Router, CanActivateFn, RedirectCommand } from '@angular/router';
 
-export const secureGuard: CanActivateFn = (route, state) => {
+export const secureGuard: CanActivateFn = (route) => {
   const router = inject(Router);
   //const secure = location.protocol;
   const secure = 'https';

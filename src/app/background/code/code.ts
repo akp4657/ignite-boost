@@ -19,7 +19,7 @@ export class Code {
   fragments = signal<FragmentComponent[]>([]);
 
   createFragments = setInterval(() => {
-    let fragment : FragmentComponent = {
+    const fragment : FragmentComponent = {
       xPos: 0,
       yPos: 0,
       scale: 0,
@@ -29,7 +29,7 @@ export class Code {
       moveDir: false,
     };
 
-    this.initializeFragment(fragment); 
+    this.initializeFragment(fragment);
     fragment.fragmentIndex = this.currentIndex;
     this.fragments.update((fragments) => {
       return [...fragments, fragment];
@@ -58,24 +58,24 @@ export class Code {
     if (elWidth < elHeight) {
       if ((Fragments[fragment.fragmentId].width * fragment.scale) > elWidth) {
         this.minScale = ((Fragments[fragment.fragmentId].width * this.minScale) > elWidth) ? 0 : this.minScale;
-        fragment.scale = Math.random() 
-          * ((1 - (this.moveDistance / Fragments[fragment.fragmentId].width)) - this.minScale) 
+        fragment.scale = Math.random()
+          * ((1 - (this.moveDistance / Fragments[fragment.fragmentId].width)) - this.minScale)
           + this.minScale;
       }
     } else {
       if((Fragments[fragment.fragmentId].height * fragment.scale) > elHeight) {
         this.minScale = ((Fragments[fragment.fragmentId].height * this.minScale) > elHeight) ? 0 : this.minScale;
-        fragment.scale = Math.random() 
-          * ((1 - (this.moveDistance / Fragments[fragment.fragmentId].height)) - this.minScale) 
+        fragment.scale = Math.random()
+          * ((1 - (this.moveDistance / Fragments[fragment.fragmentId].height)) - this.minScale)
           + this.minScale;
       }
     }
-    
-    
+
+
     fragment.xPos = Math.random() * (elWidth - (Fragments[fragment.fragmentId].width * fragment.scale));
     fragment.yPos = Math.random() * (elHeight - (Fragments[fragment.fragmentId].height * fragment.scale));
     fragment.travelX = (Math.random() < 0.5) ? false : true;
-    
+
     if (fragment.travelX) {
       const fragmentWidth = Fragments[fragment.fragmentId].width * fragment.scale;
       fragment.moveDir = (elWidth / 2) > (fragment.xPos + (fragmentWidth / 2));

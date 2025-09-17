@@ -1,9 +1,10 @@
 @if (fragment()) {
-    <img 
-        [src]="fragment().src" 
-        [width]="fragment().width" 
+    <img
+        [src]="fragment().src"
+        [width]="fragment().width"
         [height]="fragment().height"
         [class]="`absolute origin-top-left transition-opacity`"
+        alt="code fragment"
         [ngStyle]="{
             'scale': `${this.scale()}`,
             'opacity': `${this.visible() ? this.opacity : 0}%`,

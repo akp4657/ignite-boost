@@ -4,8 +4,9 @@
         <div class="grid grid-cols-8 gap-2 py-2">
             @for (char of this.assistCharacters; track char.abbr) {
                 @if (!char.ignition || isIgnition()) {
-                    <app-image-loader 
+                    <app-image-loader
                         [src]="`/assets/asst-menu/lg/${char.abbr}.webp`"
+                        [alt]="`${char.short ?? char.name} icon`"
                         [addClass]="`${isP1() ? 'hover:animate-p1-select' : 'hover:animate-p2-select'} cursor-pointer`"
                         [width]="60"
                         [height]="60"

@@ -12,7 +12,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 export class ReplayList {
   replays = input<Video[]>();
   sortType = signal<boolean>(true); // True is newest, false is oldest
-  updateSortQuery = output<{key: keyof VideoSearch, value: any}>();
+  updateSortQuery = output<{key: keyof VideoSearch, value: string | number}>();
 
   pageSize = 25; // Default page size
   pageEvent = signal<PageEvent>({

@@ -1,5 +1,5 @@
 @if (!isFull()) {
-    <app-char-dropdown 
+    <app-char-dropdown
         [isIgnition]="isIgnition()"
         imageDir="asst-menu/sm"
         [characters]="assistCharacters"
@@ -16,8 +16,9 @@
         #trigger
     >
         <!--VS Screen Replica-->
-        <img 
+        <img
             [ngSrc]="`/assets/asst-portraits/${this.selectedAsst().abbr}_${this.isP1() ? 'p1' : 'p2'}.webp`"
+            alt="assist selection button"
             width="365"
             height="152"
             priority
@@ -27,9 +28,9 @@
 
         <!--Wiki page icon-->
         @if (this.selectedAsst().name) {
-            <a 
-                matIconButton 
-                [ariaLabel]="`${this.selectedAsst().short ?? this.selectedAsst().name}'s wiki page`" 
+            <a
+                matIconButton
+                [ariaLabel]="`${this.selectedAsst().short ?? this.selectedAsst().name}'s wiki page`"
                 [ngClass]="`absolute animate-hide-info-icon m-1 top-1/18 text-2xl *:overflow-visible ${isP1() ? 'left-0' : 'right-0'}`"
                 [href]="this.selectedAsst().wiki"
                 target="_blank"
@@ -54,13 +55,13 @@
         (detach)="isOpen.set(false)"
         (overlayOutsideClick)="isOpen.set(false)"
     >
-        <app-assist-menu 
+        <app-assist-menu
             [isIgnition]="isIgnition()"
             [isP1]="isP1()"
             [isOpen]="isOpen()"
             (updateSelectedAsst)="updateSelectedAssist($event)"
             animate.enter="animate-overlay-open-h"
-            animate.leave="select-overlay-leave" 
+            animate.leave="select-overlay-leave"
         />
     </ng-template>
 }

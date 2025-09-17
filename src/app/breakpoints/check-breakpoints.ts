@@ -11,7 +11,7 @@ export class CheckBreakpoints {
 
   constructor() {
     // For mobile viewports
-    const handsetObserver = this.breakpointObserver.observe([
+    this.breakpointObserver.observe([
       Breakpoints.Handset,
       '(max-width: 1067.98px)',
     ]).subscribe(result => {
@@ -19,7 +19,7 @@ export class CheckBreakpoints {
     });
 
     // For full viewports (>=1280px)
-    const fullObserver = this.breakpointObserver.observe([
+    this.breakpointObserver.observe([
       Breakpoints.Large,
       Breakpoints.XLarge,
     ]).subscribe(result => {

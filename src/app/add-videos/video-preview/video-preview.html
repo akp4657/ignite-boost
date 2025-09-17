@@ -1,8 +1,9 @@
+<!-- eslint-disable @angular-eslint/template/label-has-associated-control -->
 <div class="w-full flex flex-col justify-center p-4 bg-black/75">
-    <app-video-embed 
-        [videoID]="this.urlData()['id']" 
-        [videoSrc]="this.urlData()['src']" 
-        class="flex justify-center w-full" 
+    <app-video-embed
+        [videoID]="this.urlData()['id']"
+        [videoSrc]="this.urlData()['src']"
+        class="flex justify-center w-full"
     />
     <div class="video-preview">
         <form class="mt-2 mx-2 flex flex-wrap gap-4 text-white">
@@ -33,9 +34,9 @@
                             <mat-label class="mdc-floating-label--float-above">Version</mat-label>
                         </label>
                         <input matInput class="opacity-0"/>
-                        <button 
+                        <button
                             class="absolute w-full inline-flex left-0 justify-between cursor-pointer"
-                            (click)="versionSelOpen.set(!versionSelOpen())" 
+                            (click)="versionSelOpen.set(!versionSelOpen())"
                             type="button"
                         >
                             <span class="w-full text-left">{{(this.urlData()['version'] === 2) ? 'DFCI' : 'DFC'}}</span>
@@ -44,8 +45,8 @@
                             </div>
                         </button>
                     </mat-form-field>
-                    <ng-template 
-                        cdkConnectedOverlay 
+                    <ng-template
+                        cdkConnectedOverlay
                         [cdkConnectedOverlayOrigin]="versionSelect"
                         [cdkConnectedOverlayOpen]="versionSelOpen()"
                         [cdkConnectedOverlayPositions]="[
@@ -61,38 +62,40 @@
                                 overlayX: 'end',
                                 overlayY: 'top',
                             }
-                        ]" 
+                        ]"
                         (detach)="versionSelOpen.set(false)"
                         (overlayOutsideClick)="versionSelOpen.set(false)"
                     >
-                        <div 
-                            class="select-overlay text-white" 
+                        <div
+                            class="select-overlay text-white"
                             animate.enter="select-overlay-enter"
                             animate.leave="select-overlay-leave"
                         >
-                            <button 
+                            <button
                                 (click)="updateVersionSelect(1)"
                                 [ngClass]="`px-4 py-2 flex gap-4 justify-between items-center w-full cursor-pointer ${this.urlData()['version'] === 1 ? 'bg-(--color-primary)/50': ''} hover:bg-white/25`"
                             >
                                 <span class="text-md">DFC</span>
-                                <app-image-loader 
-                                    [src]="'/assets/bolt_dfc.webp'" 
-                                    [width]="90" 
+                                <app-image-loader
+                                    [src]="'/assets/bolt_dfc.webp'"
+                                    [alt]="`dfc icon`"
+                                    [width]="90"
                                     [height]="90"
-                                    addClass="h-8 w-fit" 
+                                    addClass="h-8 w-fit"
                                     spinnerClass="h-8 w-fit"
                                 />
                             </button>
-                            <button 
+                            <button
                                 (click)="updateVersionSelect(2)"
                                 [ngClass]="`px-4 py-2 flex gap-4 justify-between items-center w-full cursor-pointer ${this.urlData()['version'] === 2 ? 'bg-(--color-primary)/50': ''} hover:bg-white/25`"
                             >
                                 <span class="text-md">DFCI</span>
-                                <app-image-loader 
-                                    [src]="'/assets/bolt_dfci.webp'" 
-                                    [width]="90" 
+                                <app-image-loader
+                                    [src]="'/assets/bolt_dfci.webp'"
+                                    [alt]="`dfci icon`"
+                                    [width]="90"
                                     [height]="90"
-                                    addClass="h-8 w-fit" 
+                                    addClass="h-8 w-fit"
                                     spinnerClass="h-8 w-fit"
                                 />
                             </button>
@@ -102,6 +105,6 @@
             </div>
         </form>
     </div>
-    
+
     <hr class="mt-4" />
 </div>

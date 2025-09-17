@@ -48,7 +48,7 @@ export class AddVideos implements OnDestroy {
 
   updateMatchList(item: MatchItem) {
     const {data, index, valid} = item;
-    
+
     this.matchList.update(matches => {
       matches[index].data = data;
       matches[index].index = index;
@@ -127,10 +127,8 @@ export class AddVideos implements OnDestroy {
 
   // Check if all match data is currently valid for submission
   areMatchesValid(): boolean {
-    for (let i = 0; i < this.matchList().length; i++) {
-      if (!this.matchList()[i].valid) {
-        return false;
-      }
+    for (const match of this.matchList()) {
+      if (!match.valid) return false;
     }
 
     return true;

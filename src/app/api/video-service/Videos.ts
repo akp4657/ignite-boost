@@ -33,3 +33,7 @@ export interface VideoSearch {
     version?: number;
     sort?: string;
 };
+
+export interface VideoResponse {
+  videos: Video[];
+};

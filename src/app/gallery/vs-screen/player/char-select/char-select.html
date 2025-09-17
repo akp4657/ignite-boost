@@ -1,5 +1,5 @@
 @if (!isFull()) {
-    <app-char-dropdown 
+    <app-char-dropdown
         [isIgnition]="isIgnition()"
         imageDir="char-menu/sm"
         [characters]="playableCharacters"
@@ -20,6 +20,7 @@
 
         <img
             [ngSrc]="`/assets/char-portraits/${this.selectedChar().abbr}_${this.isP1() ? 'p1' : 'p2'}.webp`"
+            alt="character selection button"
             width="596"
             height="395"
             class="relative"
@@ -38,9 +39,9 @@
 
         <!--Wiki page icon-->
         @if (this.selectedChar().name) {
-            <a 
-                matIconButton 
-                [ariaLabel]="`${this.charName()}'s wiki page`" 
+            <a
+                matIconButton
+                [ariaLabel]="`${this.charName()}'s wiki page`"
                 [ngClass]="`absolute animate-hide-info-icon m-2 top-0 text-3xl *:overflow-visible ${isP1() ? 'left-0' : 'right-0'}`"
                 [href]="this.selectedChar().wiki"
                 target="_blank"
@@ -65,12 +66,12 @@
         (detach)="isOpen.set(false)"
         (overlayOutsideClick)="isOpen.set(false)"
     >
-        <app-char-menu 
+        <app-char-menu
             [isIgnition]="isIgnition()"
             [isP1]="isP1()"
             (updateSelectedChar)="updateSelectedChar($event)"
             animate.enter="animate-overlay-open-h"
-            animate.leave="select-overlay-leave"    
+            animate.leave="select-overlay-leave"
         />
     </ng-template>
 }

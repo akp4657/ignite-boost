@@ -1,5 +1,3 @@
-import { Component } from "@angular/core";
-
 // Potential options. Children is used for dropdowns
 export interface NavbarOption {
   text: string;

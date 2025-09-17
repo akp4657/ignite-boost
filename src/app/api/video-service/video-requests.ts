@@ -1,6 +1,6 @@
 import { Injectable, Signal } from '@angular/core';
 import { httpResource } from '@angular/common/http';
-import { Video, VideoSearch, ReplayInfo } from './Videos';
+import { Video, VideoSearch, ReplayInfo, VideoResponse } from './Videos';
 import { VideoData } from '../../add-videos/VideoData';
 import { Response } from '../Response';
 
@@ -9,7 +9,7 @@ import { Response } from '../Response';
 })
 export class VideoRequests {
   getVideos(isEmpty: Signal<boolean>, query: Signal<VideoSearch>) {
-    return httpResource<any>(() => ({
+    return httpResource<VideoResponse>(() => ({
       url: (isEmpty()) ? '/api/getAllVideos' : '/api/search',
       method: 'GET',
       params: (isEmpty()) ? undefined : {

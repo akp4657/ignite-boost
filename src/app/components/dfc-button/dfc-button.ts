@@ -11,6 +11,7 @@ import { RouterLink } from '@angular/router';
 export class DfcButton {
   // Optional function run when pressed. Creates <button> element
   // Or routerLink run when pressed. Creates <a> element
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   callback = input<Function>();
   routerURL = input<string>();
   disabled = input<boolean>(false);

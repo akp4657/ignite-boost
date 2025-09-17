@@ -3,7 +3,7 @@ import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CheckBreakpoints } from '../../breakpoints/check-breakpoints';
 import { CharDropdown } from '../../components/char-dropdown/char-dropdown';
-import { Character, PlayableCharacters, AssistCharacters } from '../../api/video-service/Characters';
+import { PlayableCharacters, AssistCharacters } from '../../api/video-service/Characters';
 import { ReplayInfo } from '../../api/video-service/Videos';
 import { DefaultVideoData, VideoData, MatchItem } from '../VideoData';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -15,9 +15,9 @@ import { MatIconModule } from '@angular/material/icon';
   selector: 'app-match-info',
   imports: [
     NgClass,
-    FormsModule, 
-    CharDropdown, 
-    MatFormFieldModule, 
+    FormsModule,
+    CharDropdown,
+    MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatIconModule
@@ -55,8 +55,8 @@ export class MatchInfo {
   validMatch = computed<boolean>(() => {
     const keys = Object.keys(this.matchInfo());
 
-    for (let i = 0; i < keys.length; i++) {
-      const newKey = keys[i] as keyof ReplayInfo;
+    for (const key of keys) {
+      const newKey = key as keyof ReplayInfo;
       if (!this.matchInfo()[newKey]) return false;
     }
 
@@ -108,11 +108,11 @@ export class MatchInfo {
   parseTimeInput(newTime: string) {
     // Remove any invalid characters from time
     let parsedTime = '00:00:00';
-    let replacedTime = newTime.replace(/[^\d:]/, '');
+    const replacedTime = newTime.replace(/[^\d:]/, '');
 
     if (replacedTime) {
       let splitTime = replacedTime.split(':');
-      
+
       if (splitTime.length > 3) splitTime = splitTime.slice(0, 2);
       while (splitTime.length < 3) splitTime.unshift('00');
 

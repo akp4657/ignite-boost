@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { User } from './User';
 import { Response } from '../Response';
 
@@ -64,7 +64,7 @@ export class UserRequests {
       body: JSON.stringify(newCredentials)
     });
     const res: Response = await req.json();
-    
+
     return res;
   }
 }

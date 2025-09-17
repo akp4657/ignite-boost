@@ -34,6 +34,7 @@ export class Gallery implements OnDestroy {
   videosResource = this.videoRequestService.getVideos(this.isEmpty, this.query);
 
   // Using any is sloppy, and I should find a nicer way of doing it if I can
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   updateQueryParam({key, value}: {key: keyof VideoSearch, value: any}) {
     // .update() isn't notifying dependancies, so need to make deep copy of query
     const newQuery: VideoSearch = {...this.query()};

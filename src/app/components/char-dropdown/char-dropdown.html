@@ -1,12 +1,13 @@
-<button 
+<button
     class="cursor-pointer animate-open-h relative"
     (click)="isOpen.set(!isOpen())"
     type="button"
     cdkOverlayOrigin
     #trigger
 >
-    <app-image-loader 
+    <app-image-loader
         [src]="`/assets/${imageDir()}/${selectedChar().abbr}.webp`"
+        [alt]="`${(selectedChar().abbr !== 'all') ? `${selectedChar().short ?? selectedChar().name} icon` : 'default option icon'}`"
         [width]="imgWidth()"
         [height]="imgHeight()"
         [priority]="true"
@@ -20,23 +21,25 @@
     (detach)="isOpen.set(false)"
     (overlayOutsideClick)="isOpen.set(false)"
 >
-    <div 
+    <div
         class="select-overlay"
         animate.enter="select-overlay-enter"
         animate.leave="select-overlay-leave"
     >
         @if (enableDefault()) {
             <!--Any/All option-->
-            <div
+            <button
                 [ngClass]="`select-option ${selectedChar().name ? '' : 'bg-(--color-primary)/50'} hover:bg-white/25 *:text-white`"
                 (click)="updateSelectedChar(defaultChar)"
+                (keypress)="updateSelectedChar(defaultChar)"
             >
                 <div
                     class="w-full flex flex-row gap-2 items-center cursor-pointer"
                     animate.enter="select-overlay-enter"
                 >
-                    <app-image-loader 
+                    <app-image-loader
                         [src]="`/assets/${imageDir()}/${defaultChar.abbr}.webp`"
+                        alt="default option icon"
                         [width]="imgWidth()"
                         [height]="imgHeight()"
                         addClass="w-12 h-auto"
@@ -44,23 +47,25 @@
                     />
                     <span class="text-md">Any/All</span>
                 </div>
-            </div>
+            </button>
         }
 
         @for (char of sortedChars(); track char.abbr) {
             <!--Don't display DFCI exclusive characters if only DFC-->
             @if (char.abbr !== 'all' && (isIgnition() || !char.ignition)) {
-                <div
+                <button
                     [ngClass]="`select-option *:text-white ${(selectedChar() === char) ? 'bg-(--color-primary)/50' : ''} hover:bg-white/25`"
                     (click)="updateSelectedChar(char)"
+                    (keypress)="updateSelectedChar(char)"
                 >
                     <div
                         class="w-full flex flex-row gap-2 items-center justify-between cursor-pointer"
                         animate.enter="select-overlay-enter"
                     >
                         <div class="flex flex-row gap-2 items-center">
-                            <app-image-loader 
+                            <app-image-loader
                                 [src]="`/assets/${imageDir()}/${char.abbr}.webp`"
+                                [alt]="`${char.short ?? char.name} icon`"
                                 [width]="imgWidth()"
                                 [height]="imgHeight()"
                                 addClass="w-12 h-auto"
@@ -71,16 +76,16 @@
 
                         <!--Mizuumi link-->
                         @if (enableInfo()) {
-                            <a 
-                                matIconButton 
-                                [ariaLabel]="`${char.short ?? char.name}'s wiki page`" 
+                            <a
+                                matIconButton
+                                [ariaLabel]="`${char.short ?? char.name}'s wiki page`"
                                 class="flex justify-center items-center text-4xl *:overflow-visible"
                                 [href]="char.wiki"
                                 target="_blank"
                             >
                                 <mat-icon
-                                    class="text-shadow-glow" 
-                                    [ngClass]="`${isIgnition() ? 'text-shadow-(color:--char-sel-glow) hover:text-shadow-(color:--portrait-glow)' : 'text-shadow-(color:--portrait-glow) hover:text-shadow-(color:--char-sel-glow)'}`" 
+                                    class="text-shadow-glow"
+                                    [ngClass]="`${isIgnition() ? 'text-shadow-(color:--char-sel-glow) hover:text-shadow-(color:--portrait-glow)' : 'text-shadow-(color:--portrait-glow) hover:text-shadow-(color:--char-sel-glow)'}`"
                                     inline="true"
                                 >
                                     info
@@ -88,7 +93,7 @@
                             </a>
                         }
                     </div>
-                </div>
+                </button>
             }
         }
     </div>
