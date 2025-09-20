@@ -11,7 +11,7 @@ export class VideoEmbed {
   private sanitizer = inject(DomSanitizer);
 
   videoID = input.required<string>();
-  videoSrc = input.required<number>(); // -1: N/A, 0: YouTube, 1: NicoNico, 2: BiliBili
+  videoSrc = input.required<number>(); // -1: N/A, 0: YouTube, 1: NicoNico, 2: BiliBili, 3: Twitch
 
   iframeSrc = computed<SafeResourceUrl>(() => {
     let url = '';
@@ -20,7 +20,7 @@ export class VideoEmbed {
       case 0:
         url = `https://www.youtube.com/embed/${this.videoID()}`;
         break;
-      
+
       case 1:
         url = `https://embed.nicovideo.jp/watch/${this.videoID()}`;
         break;

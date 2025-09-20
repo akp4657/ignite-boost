@@ -37,7 +37,20 @@ app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
-        'script-src': ["'self'", (req, res) => `'nonce-${res.locals.cspNonce}'`],
+        'script-src': [
+          "'self'",
+          (req, res) => `'nonce-${res.locals.cspNonce}'`
+        ],
+        "frame-src": [
+          "'self'",
+          "https://www.youtube.com",
+          "https://www.nicovideo.jp",
+          "https://embed.nicovideo.jp",
+          "https://www.bilibili.com",
+          "https://player.bilibili.com",
+          "https://www.twitch.tv",
+          "https://player.twitch.tv",
+        ],
       },
     },
   }),
