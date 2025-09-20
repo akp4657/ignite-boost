@@ -44,12 +44,7 @@ const validatePassword = (doc, password) => {
 
 AccountSchema.statics.findByUsername = async (name) => {
   const search = { username: name };
-
-  try {
-    return await AccountModel.findOne(search);
-  } catch(err) {
-    throw err;
-  }
+  return await AccountModel.findOne(search);
 };
 
 AccountSchema.statics.generateHash = (password) => {

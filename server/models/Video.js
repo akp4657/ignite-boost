@@ -108,29 +108,17 @@ VideoSchema.statics.findByOwner = async (ownerId) => {
     owner: convertId(ownerId),
   };
 
-  try {
-    return await VideoModel.find(search).select('player1 player2 char1 char2 assist1 assist2 link version matchDate').lean().exec();
-  } catch (err) {
-    throw err; 
-  }
+  return await VideoModel.find(search).select('player1 player2 char1 char2 assist1 assist2 link version matchDate').lean().exec();
 };
 
 // Returns all entries in the database
 VideoSchema.statics.findAll = async () => {
-  try {
-    return await VideoModel.find().sort({ matchDate: -1 }).select('player1 player2 char1 char2 assist1 assist2 version link matchDate').lean().exec();
-  } catch(err) {
-    throw err;
-  }
+  return await VideoModel.find().sort({ matchDate: -1 }).select('player1 player2 char1 char2 assist1 assist2 version link matchDate').lean().exec();
 };
 
 // Will search for specified entries in the database based off the object in the search
 VideoSchema.statics.findSearch = async (params, sorting) => {
-  try {
-    return await VideoModel.find(params).sort({ matchDate: sorting }).select('player1 player2 char1 char2 assist1 assist2 version link matchDate').lean().exec();
-  } catch(err) {
-    throw err;
-  }
+  return await VideoModel.find(params).sort({ matchDate: sorting }).select('player1 player2 char1 char2 assist1 assist2 version link matchDate').lean().exec();
 };
 
 VideoSchema.statics.deleteItem = async (uid) => {
@@ -138,11 +126,7 @@ VideoSchema.statics.deleteItem = async (uid) => {
     _id: uid,
   };
 
-  try {
-    return await VideoModel.deleteOne(search);
-  } catch(err) {
-    throw err;
-  }
+  return await VideoModel.deleteOne(search);
 }
 
 VideoModel = mongoose.model('Video', VideoSchema);
