@@ -1,4 +1,3 @@
-const { filter } = require('underscore');
 const models = require('../models');
 
 const { Video } = models;
