@@ -1,6 +1,11 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, OnInit, signal, inject } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { matchPasswordValidator } from '../match-password.directive';
 import { Router } from '@angular/router';
 import { UserRequests } from '../../api/user-service/user-requests';
@@ -10,32 +15,42 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { User } from '../../api/user-service/User';
 import { Response } from '../../api/Response';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-change',
   imports: [
-    NgClass, 
-    ReactiveFormsModule, 
-    MatInputModule, 
-    MatButtonModule, 
-    MatProgressSpinnerModule
+    NgClass,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './change.html',
-  styleUrl: './change.scss'
+  styleUrl: './change.scss',
 })
-export class Change {
+export class Change implements OnInit {
+  meta = inject(Meta);
+  titleService = inject(Title);
   snackBar = inject(MatSnackBar);
   userService = inject(UserRequests);
   router = inject(Router);
 
   reqPending = signal<boolean>(false);
 
-  form = new FormGroup({
-    username: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required]),
-    new: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(24)]),
-    retype: new FormControl('', [Validators.required])
-  }, { validators: matchPasswordValidator(true) });
+  form = new FormGroup(
+    {
+      username: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
+      new: new FormControl('', [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(24),
+      ]),
+      retype: new FormControl('', [Validators.required]),
+    },
+    { validators: matchPasswordValidator(true) }
+  );
 
   async handleSubmit() {
     this.reqPending.set(true);
@@ -44,10 +59,10 @@ export class Change {
       username: this.form.controls.username.value?.trim() ?? '',
       password: this.form.controls.password.value?.trim() ?? '',
       new: this.form.controls.new.value?.trim() ?? '',
-      retype: this.form.controls.retype.value?.trim() ?? ''
+      retype: this.form.controls.retype.value?.trim() ?? '',
     };
 
-    const res: Response = await (this.userService.changePassword(data));
+    const res: Response = await this.userService.changePassword(data);
     this.reqPending.set(false);
 
     if (res.error) {
@@ -55,5 +70,18 @@ export class Change {
     } else if (res.redirect) {
       this.router.navigateByUrl(res.redirect);
     }
+  }
+
+  ngOnInit(): void {
+    this.titleService.setTitle('Ignite Boost - Change Password');
+    this.meta.addTag({
+      name: 'title',
+      content: 'Ignite Boost - Change Password',
+    });
+    this.meta.addTag({
+      name: 'description',
+      content:
+        'A form for users to fill out in order to change the password to their Ignite Boost account.',
+    });
   }
 }
