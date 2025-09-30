@@ -8,9 +8,6 @@
                         <input matInput type="text" formControlName="username" />
                         @if (form.controls.username.hasError('required')) {
                             <mat-error>Username is <strong>required</strong></mat-error>
-                        } @else if (form.controls.username.hasError('minlength')
-                            || form.controls.username.hasError('maxlength')) {
-                            <mat-error>Username must be between <strong>5</strong> and <strong>32</strong> characters</mat-error>
                         }
                     </mat-form-field>
                 </div>
@@ -28,7 +25,7 @@
                     </mat-form-field>
                 </div>
             </div>
-            
+
             <div class="p-[2px] shadow-xl bg-black w-full">
                 <div class="p-[2px] bg-gradient-to-r from-(--player-gradient-ends) via-(--player-gradient-center) to-(--player-gradient-ends)">
                     <mat-form-field class="bg-black p-1 w-full">

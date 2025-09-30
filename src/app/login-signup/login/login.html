@@ -8,9 +8,6 @@
                         <input matInput type="text" formControlName="username" />
                         @if (form.controls.username.hasError('required')) {
                             <mat-error>Username is <strong>required</strong></mat-error>
-                        } @else if (form.controls.username.hasError('minlength')
-                            || form.controls.username.hasError('maxlength')) {
-                            <mat-error>Password must be between <strong>5</strong> and <strong>32</strong> characters</mat-error>
                         }
                     </mat-form-field>
                 </div>
@@ -23,9 +20,6 @@
                         <input matInput type="password" formControlName="password" />
                         @if (form.controls.password.hasError('required')) {
                             <mat-error>Password is <strong>required</strong></mat-error>
-                        } @else if (form.controls.password.hasError('minlength')
-                            || form.controls.password.hasError('maxlength')) {
-                            <mat-error>Password must be between <strong>10</strong> and <strong>24</strong> characters</mat-error>
                         }
                     </mat-form-field>
                 </div>
