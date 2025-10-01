@@ -1,0 +1,12 @@
+<!--TO-DO: Once components have been completed, change "h-screen" to "h-full"-->
+<main class="h-full min-h-screen">
+    <!--TO-DO: Don't display code until content in <router-outlet /> has fully loaded-->
+    @defer {
+        @if (toggleCode) {
+            <app-code class="h-full w-full absolute overflow-clip" />
+        }
+    }
+
+    <!--Render actual page-->
+    <router-outlet />
+</main>

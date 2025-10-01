@@ -1,0 +1,16 @@
+<!-- @for (fragment of this.fragments; track fragment.fragmentIndex()) {
+    <ng-container *ngComponentOutlet="fragment" />
+} -->
+@for (fragment of this.fragments(); track fragment.fragmentIndex) {
+    <app-code-fragment 
+        [xPos]="fragment.xPos"
+        [yPos]="fragment.yPos"
+        [scale]="fragment.scale"
+        [fragmentId]="fragment.fragmentId"
+        [fragmentIndex]="fragment.fragmentIndex"
+        [travelX]="fragment.travelX"
+        [moveDir]="fragment.moveDir"
+        [moveDistance]="this.moveDistance"
+        (finishedMovement)="respawnFragment(fragment.fragmentIndex)"
+    />
+}

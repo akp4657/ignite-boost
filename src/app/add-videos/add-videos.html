@@ -1,0 +1,54 @@
+<div 
+    class="relative w-full flex justify-center *:text-white"
+    animate.enter="select-overlay-enter"
+>
+    <div class="my-4 w-full max-w-[1280px] flex flex-col gap-4 justify-center">
+        <app-video-preview 
+            class="w-full"
+            (updateVideoData)="updateVideoData($event)"
+        />
+        @if (savingMatches()) {
+            <div class="flex w-full justify-center items-center">
+                <mat-spinner />
+            </div>
+        } @else {
+            @for (match of matchList(); track match.index) {
+                <app-match-info 
+                    [index]="$index"
+                    [videoData]="videoData()"
+                    (updateMatchArray)="updateMatchList($event)"
+                    (deleteMatchEntry)="deleteMatchEntry($event)"
+                />
+            }
+        }
+
+        <div class="flex gap-4 justify-center">
+            <button 
+                matButton 
+                (click)="addMatch()" 
+                class="dfc-button h-fit w-fit bg-black p-1 text-white hover:text-shadow-glow hover:text-shadow-(color:--hover-glow) *:overflow-visible cursor-pointer"
+            >
+                <div class="dfc-button bg-linear-to-r from-(--button-gradient-start) via-(--button-gradient-end) to-(--button-gradient-start) p-1">
+                    <div class="dfc-button bg-black px-4 py-1">
+                        Add Match
+                    </div>
+                </div>
+            </button>
+            @if (matchList().length > 0) {
+                <button 
+                    matButton 
+                    (click)="submitMatches()"
+                    [disabled]="!enableSubmit()" 
+                    class="dfc-button h-fit w-fit bg-black p-1 text-white"
+                    [ngClass]="`${enableSubmit() ? 'hover:text-shadow-glow hover:text-shadow-(color:--hover-glow) *:overflow-visible cursor-pointer' : 'opacity-75'}`"
+                >
+                    <div class="dfc-button bg-linear-to-r from-(--button-gradient-start) via-(--button-gradient-end) to-(--button-gradient-start) p-1">
+                        <div class="dfc-button bg-black px-4 py-1">
+                            {{ `Submit Match${(matchList().length > 1) ? 'es' : ''}` }}
+                        </div>
+                    </div>
+                </button>
+            }
+        </div>
+    </div>
+</div>

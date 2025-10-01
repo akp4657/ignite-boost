@@ -1,0 +1,11 @@
+<!-- To line up with char-sel portrait, add '-right-1/50 skew-x-13' and '-left-1/50 -skew-x-13' -->
+<div [ngClass]="`animate-fadein ${isFull() ? `absolute bottom-1/50 ${isP1() ? '-right-1/100 -skew-y-4 skew-x-8' : '-left-1/100 skew-y-4 -skew-x-8'}` : ''}`">
+    <div class="p-[2px] shadow-xl bg-black">
+        <div class="p-[2px] bg-gradient-to-r from-(--player-gradient-ends) via-(--player-gradient-center) to-(--player-gradient-ends)">
+            <mat-form-field [ngClass]="`skew-x-0 bg-black p-1 player-search flex ${isP1() ? 'justify-start' : 'justify-end'}`">
+                <mat-label>{{`Player ${isP1() ? '1' : '2'}`}}</mat-label>
+                <input matInput (change)="updatePlayerInput($event.target.value.trim())" [(ngModel)]="playerInput" />
+            </mat-form-field>
+        </div>
+    </div>
+</div>

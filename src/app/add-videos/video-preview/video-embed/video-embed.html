@@ -1,0 +1,11 @@
+@if (this.videoSrc() !== -1) {
+    <iframe
+        [src]="this.iframeSrc()"
+        frameborder="0"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+        class="aspect-video w-full max-w-[640px]"
+    ></iframe>
+} @else {
+    <span class="text-white aspect-video w-full max-w-[640px] flex items-center justify-center bg-black">Video Preview</span>
+}

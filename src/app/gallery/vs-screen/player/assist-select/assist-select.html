@@ -1,0 +1,67 @@
+@if (!isFull()) {
+    <app-char-dropdown
+        [isIgnition]="isIgnition()"
+        imageDir="asst-menu/sm"
+        [characters]="assistCharacters"
+        [imgWidth]="90"
+        [imgHeight]="48"
+        (updateCharQuery)="updateSelectedAssist($event)"
+    />
+} @else {
+    <button
+        class="cursor-pointer animate-open-h"
+        (click)="isOpen.set(!isOpen())"
+        type="button"
+        cdkOverlayOrigin
+        #trigger
+    >
+        <!--VS Screen Replica-->
+        <img
+            [ngSrc]="`/assets/asst-portraits/${this.selectedAsst().abbr}_${this.isP1() ? 'p1' : 'p2'}.webp`"
+            alt="assist selection button"
+            width="365"
+            height="152"
+            priority
+        />
+
+        <div [ngClass]="`${isP1() ? 'asst-sel-flash-p1' : 'asst-sel-flash-p2'} absolute top-0 animate-open-h-flash w-full h-full bg-white`"></div>
+
+        <!--Wiki page icon-->
+        @if (this.selectedAsst().name) {
+            <a
+                matIconButton
+                [ariaLabel]="`${this.selectedAsst().short ?? this.selectedAsst().name}'s wiki page`"
+                [ngClass]="`absolute animate-hide-info-icon m-1 top-1/18 text-2xl *:overflow-visible ${isP1() ? 'left-0' : 'right-0'}`"
+                [href]="this.selectedAsst().wiki"
+                target="_blank"
+            >
+                <mat-icon class="text-shadow-glow text-shadow-(color:--portrait-glow) hover:text-shadow-(color:--char-sel-glow)" inline="true">info</mat-icon>
+            </a>
+        }
+    </button>
+
+    <ng-template
+        cdkConnectedOverlay
+        [cdkConnectedOverlayOrigin]="trigger"
+        [cdkConnectedOverlayOpen]="isOpen()"
+        [cdkConnectedOverlayPositions]="[
+            {
+                originX: (isP1()) ? 'start' : 'end',
+                originY: 'center',
+                overlayX: (isP1()) ? 'start' : 'end',
+                overlayY: 'center'
+            }
+        ]"
+        (detach)="isOpen.set(false)"
+        (overlayOutsideClick)="isOpen.set(false)"
+    >
+        <app-assist-menu
+            [isIgnition]="isIgnition()"
+            [isP1]="isP1()"
+            [isOpen]="isOpen()"
+            (updateSelectedAsst)="updateSelectedAssist($event)"
+            animate.enter="animate-overlay-open-h"
+            animate.leave="select-overlay-leave"
+        />
+    </ng-template>
+}

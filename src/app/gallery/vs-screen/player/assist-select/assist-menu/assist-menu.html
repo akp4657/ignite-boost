@@ -1,0 +1,24 @@
+<div class="py-2 px-4 bg-black/75">
+    <div>
+        <span class="block w-full text-center text-white italic text-2xl font-semibold text-shadow-glow text-shadow-(color:--asst-sel-glow)">Support Character Select</span>
+        <div class="grid grid-cols-8 gap-2 py-2">
+            @for (char of this.assistCharacters; track char.abbr) {
+                @if (!char.ignition || isIgnition()) {
+                    <app-image-loader
+                        [src]="`/assets/asst-menu/lg/${char.abbr}.webp`"
+                        [alt]="`${char.short ?? char.name} icon`"
+                        [addClass]="`${isP1() ? 'hover:animate-p1-select' : 'hover:animate-p2-select'} cursor-pointer`"
+                        [width]="60"
+                        [height]="60"
+                        (mouseenter)="hoveredAsst.set(char)"
+                        (click)="updateSelectedAsst.emit(char)"
+                        animate.enter="select-overlay-enter"
+                    />
+                }
+            }
+        </div>
+        <span [ngClass]="`block w-full text-white text-shadow-glow text-shadow-(color:--asst-sel-glow) ${isP1() ? 'text-left' : 'text-right'}`">
+            {{hoveredAsst().name ? hoveredAsst().name : 'Any/All'}}
+        </span>
+    </div>
+</div>

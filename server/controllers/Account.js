@@ -1,52 +1,50 @@
+const { reduce } = require('underscore');
 const models = require('../models');
-const nodemailer = require('nodemailer')
+const nodemailer = require('nodemailer');
 
 const { Account } = models;
 
-const loginPage = (req, res) => {
-  res.render('login', { csrfToken: req.csrfToken() });
-};
+const auth = (req, res) => {
+  return res.json({
+    auth: (req.session.account !== undefined)
+  });
+}
 
 const logout = (req, res) => {
   req.session.destroy();
-  res.redirect('/');
+  res.status(200).json({
+    redirect: '/'
+  });
 };
 
-const login = (request, response) => {
-  const req = request;
-  const res = response;
-  console.log(req.body)
-
+const login = async (req, res) => {
   // force cast to strings to cover up security flaws
   const username = `${req.body.username}`;
-  const password = `${req.body.pass}`;
+  const password = `${req.body.password}`;
 
   if (!username || !password) {
-    return res.status(400).json({ error: 'ERROR | All fields are required' });
+    return res.status(400).json({ error: 'ERROR | All fields are required.' });
   }
 
-  return Account.AccountModel.authenticate(username, password, (err, account) => {
-    if (err || !account) {
-      return res.status(401).json({ error: 'Wrong username or password' });
-    }
-    console.log(account)
-    req.session.account = Account.AccountModel.toAPI(account);
-
-    return res.json({ redirect: '/main' });
+  const {err, account} = await Account.AccountModel.authenticate(username, password);
+  if (err || !account) {
+    return res.status(401).json({
+      error: 'ERROR | Incorrect username or password'
+    });
+  }
+  req.session.account = Account.AccountModel.toAPI(account);
+  
+  return res.status(200).json({
+    redirect: '/'
   });
 };
 
 // Sending an email to myself on reports
-const sendReport = (request, response) => {
-  const req = request;
-  const res = response;
-
-  //<button id="reportButton" className="formSubmit btn secondBtn"type="button">Report</button>
-  //
+const sendReport = (req, res) => {
   const report = `${req.body.report}`;
 
   if (!report) {
-    return res.status(400).json({ error: 'ERROR | All fields are required' });
+    return res.status(400).json({ error: 'ERROR | All fields are required.' });
   }
 
   var transporter = nodemailer.createTransport({
@@ -65,11 +63,10 @@ const sendReport = (request, response) => {
 
   transporter.sendMail(mailOptions, function(error, info){
     if(error) {
-      console.log(error);
-      return res.status(400).json({ error: 'ERROR | Email error occured' });
+      console.error(error);
+      return res.status(500).json({ error: 'ERROR | Unable to send email, please try again later.' });
     } else {
-      console.log('Email sent: ' + info.response)
-      return res.json({ redirect: '/main' });
+      return res.status(200).json({ redirect: '/' });
     }
   })
 
@@ -77,49 +74,52 @@ const sendReport = (request, response) => {
 };
 
 // Password change that takes a lot from the signup function
-const passChange = (request, response) => {
-  const req = request;
-  const res = response;
-
+const passChange = async (req, res) => {
   req.body.username = `${req.body.username}`;
-  req.body.pass = `${req.body.pass}`;
-  req.body.pass2 = `${req.body.pass2}`;
-  req.body.pass3 = `${req.body.pass3}`;
+  req.body.password = `${req.body.password}`;
+  req.body.new = `${req.body.new}`;
+  req.body.retype = `${req.body.retype}`;
 
-  if (!req.body.pass || !req.body.pass2) {
-    return res.status(400).json({ error: 'ERROR | All fields are required' });
-  }
-
-  if (req.body.pass === req.body.pass2) {
-    return res.status(400).json({ error: 'ERROR | Passwords cannot match' });
-  }
-
-  if (req.body.pass2 !== req.body.pass3) {
-    return res.status(400).json({ error: 'ERROR | The new passwords do not match' });
-  }
-
-  // Check to see if the initial password was correct in the first place
-  return Account.AccountModel.authenticate(req.session.account.username,
-    req.body.pass, (err, account) => {
-      if (err || !account) {
-        return res.status(401).json({ error: 'Incorrect Password' });
-      }
-
-      // If they do, make a new hash for it with the newPassword
-      return Account.AccountModel.generateHash(req.body.pass2, (salt, hash) => {
-      // While making the hash, update the current password for this
-      // session's username since we require login anyway
-      // https://docs.mongodb.com/manual/reference/method/db.collection.updateOne/
-        Account.AccountModel.updateOne({ username: req.session.account.username },
-          { salt, password: hash }, (errUpdate) => {
-            if (errUpdate) {
-              return res.status(400).json({ error: 'There was an error' });
-            }
-            return res.json({ redirect: '/main' });
-          });
-      });
+  if (!req.body.username || !req.body.password || !req.body.new || !req.body.retype) {
+    return res.status(400).json({
+      error: 'ERROR | All fields are required.'
     });
-};
+  }
+
+  if (req.body.password === req.body.new) {
+    return res.status(400).json({
+      error: 'ERROR | The new password cannot be the same as the current password'
+    });
+  }
+
+  if (req.body.new !== req.body.retype) {
+    return res.status(400).json({
+      error: 'ERROR | New Passwords must match'
+    });
+  }
+
+  try {
+    // Check to see if the initial password was correct in the first place
+    const {err, account} = await Account.AccountModel.authenticate(req.session.account.username, req.body.password);
+
+    if (err || !account) {
+      return res.status(400).json({
+        error: 'ERROR | Incorrect username or password.'
+      });
+    }
+
+    const {salt, hash} = Account.AccountModel.generateHash(req.body.new);
+    await Account.AccountModel.updateOne({ username: req.session.account.username },{ salt, password: hash });
+    return res.status(200).json({
+      redirect: '/'
+    });
+  } catch(err) {
+    console.error(err);
+    return res.status(500).json({
+      error: 'Unable to change password, please try again later.'
+    });
+  }
+}
 
 const signup =  async (request, response) => {
   const req = request;
@@ -127,55 +127,62 @@ const signup =  async (request, response) => {
 
   // cast to strings to cover up some security flaws
   req.body.username = `${req.body.username}`;
-  req.body.pass = `${req.body.pass}`;
-  req.body.pass2 = `${req.body.pass2}`;
+  req.body.password = `${req.body.password}`;
+  req.body.retype = `${req.body.retype}`;
 
-  if (!req.body.username || !req.body.pass || !req.body.pass2) {
-    return res.status(400).json({ error: 'ERROR | All fields are required' });
+  if (!req.body.username || !req.body.password || !req.body.retype) {
+    return res.status(400).json({ error: 'ERROR | All fields are required.' });
   }
 
-  if (req.body.pass !== req.body.pass2) {
-    return res.status(400).json({ error: 'ERROR | Passwords do not match' });
+  if (req.body.password !== req.body.retype) {
+    return res.status(400).json({ error: 'ERROR | Passwords must match.' });
   }
 
   const existingUser = await Account.AccountModel.findByUsername(req.body.username)
   if(existingUser) {
-    return res.status(400).json({ error: 'ERROR | Username is taken' });
+    return res.status(400).json({ 
+      error: 'ERROR | Username is taken, please try a different one.' 
+    });
   }
 
-  return Account.AccountModel.generateHash(req.body.pass, (salt, hash) => {
+  try {
+    const { salt, hash } = await Account.AccountModel.generateHash(req.body.password);
     const accountData = {
       username: req.body.username,
       salt,
-      password: hash,
+      password: hash
     };
 
     const newAccount = new Account.AccountModel(accountData);
 
-    const savePromise = newAccount.save();
-
-    savePromise.then(() => {
+    try {
+      await newAccount.save();
       req.session.account = Account.AccountModel.toAPI(newAccount);
-      res.json({ redirect: '/main' });
-    });
-
-    savePromise.catch((err) => {
-
-      // This is screwing with AJAX since it's a Mongo error, I guess. 
-      //If I were to do this backend today, it would be nothing like this.
+      res.status(201).json({
+        redirect: '/'
+      });
+    } catch(err) {
       if (err.code === 11000) {
-        return res.status(400).json({ error: 'Username already in use.' });
+        console.error(err);
+        return res.status(400).json({
+          error: 'ERROR | Username is taken, please try a different one.' 
+        });
       }
 
-      return res.status(400).json({ error: 'An error occured' });
+      return res.status(500).json({
+        error: 'ERROR | Unable to create account. Please try again later.'
+      });
+    }
+
+  } catch(err) {
+    console.error(err);
+    return res.status(500).json({
+      error: 'ERROR | Unable to create account. Please try again later.'
     });
-  });
+  }
 };
 
-const getToken = (request, response) => {
-  const req = request;
-  const res = response;
-
+const getToken = (req, res) => {
   const csrfJSON = {
     csrfToken: req.csrfToken(),
   };
@@ -183,7 +190,7 @@ const getToken = (request, response) => {
   res.json(csrfJSON);
 };
 
-module.exports.loginPage = loginPage;
+module.exports.auth = auth;
 module.exports.login = login;
 module.exports.logout = logout;
 module.exports.signup = signup;

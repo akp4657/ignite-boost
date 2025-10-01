@@ -1,0 +1,125 @@
+<div 
+    class="p-4 bg-black/75"
+    animate.enter="select-overlay-enter"
+    animate.leave="select-overlay-leave"
+>
+    <div [ngClass]="`flex ${!isFull() ? 'flex-col' : 'items-center'} gap-4 *: text-white`">
+        <button 
+            matIconButton
+            class="text-4xl flex justify-center items-center *:overflow-visible text-shadow-glow hover:text-shadow-(color:--hover-glow)" 
+            aria-label="Remove match" 
+            (click)="deleteMatchEntry.emit(index())"
+        >
+            <mat-icon>close</mat-icon>
+        </button>
+
+        <!--Timestamp input (fullscreen)-->
+        @if (isFull()) {
+            <div class="p-[2px] shadow-xl bg-black">
+                <div class="p-[2px] bg-gradient-to-r from-(--player-gradient-ends) via-(--player-gradient-center) to-(--player-gradient-ends)">
+                    <mat-form-field class="bg-black p-1 w-full">
+                        <mat-label>Timestmap</mat-label>
+                        <input matInput type="text" placeholder="00:00:00" (change)="updateMatchInfo({key: 'timestamp', value: $event.target.value.trim()})" [(ngModel)]="time" />
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="w-[1px] bg-white h-[90px]"></div>
+        } @else {
+            <hr />
+        }
+
+        <!--Player/Char/Assist input-->
+        <div [ngClass]="`flex ${!isFull() ? 'flex-col items-start' : 'items-center'} gap-4 justify-center grow`">
+            <!--Player 1-->
+            <div [ngClass]="`flex ${!isFull() ? 'flex-row-reverse' : ''} gap-2 items-center`">
+                <div class="p-[2px] shadow-xl bg-black">
+                    <div class="p-[2px] bg-gradient-to-r from-(--player-gradient-ends) via-(--player-gradient-center) to-(--player-gradient-ends)">
+                        <mat-form-field class="bg-black p-1 w-full">
+                            <mat-label>Player 1</mat-label>
+                            <input matInput type="text" (change)="updateMatchInfo({key: 'player1', value: $event.target.value.trim()})" [(ngModel)]="player1" />
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div [ngClass]="`flex gap-2 items-center`">
+                    <app-char-dropdown 
+                        [enableDefault]="false"
+                        [isIgnition]="videoData().version === 2"
+                        [enableInfo]="false"
+                        imageDir="asst-menu/sm"
+                        [characters]="assistCharacters"
+                        [imgWidth]="90"
+                        [imgHeight]="48"
+                        (updateCharQuery)="updateMatchInfo({key: 'assist1', value: $event.internal ?? $event.short ?? $event.name})"
+                    />
+                    <app-char-dropdown 
+                        [enableDefault]="false"
+                        [isIgnition]="videoData().version === 2"
+                        [enableInfo]="false"
+                        imageDir="char-menu/sm"
+                        [characters]="playableCharacters"
+                        [imgWidth]="90"
+                        [imgHeight]="90"
+                        (updateCharQuery)="updateMatchInfo({key: 'char1', value: $event.internal ?? $event.short ?? $event.name})"
+                    />
+                </div>
+            </div>
+
+            @if (isFull()) {
+                <span class="text-2xl text-center grow">VS</span>
+            }
+
+            <!--Player 2-->
+            <div class="flex flex-row gap-2 items-center">
+                <div [ngClass]="`flex ${!isFull() ? 'flex-row-reverse': ''} gap-2 items-center`">
+                    <app-char-dropdown 
+                        [enableDefault]="false"
+                        [isIgnition]="videoData().version === 2"
+                        [enableInfo]="false"
+                        imageDir="char-menu/sm"
+                        [characters]="playableCharacters"
+                        [imgWidth]="90"
+                        [imgHeight]="90"
+                        (updateCharQuery)="updateMatchInfo({key: 'char2', value: $event.internal ?? $event.short ?? $event.name})"
+                    />
+                    <app-char-dropdown 
+                        [enableDefault]="false"
+                        [isIgnition]="videoData().version === 2"
+                        [enableInfo]="false"
+                        imageDir="asst-menu/sm"
+                        [characters]="assistCharacters"
+                        [imgWidth]="90"
+                        [imgHeight]="48"
+                        (updateCharQuery)="updateMatchInfo({key: 'assist2', value: $event.internal ?? $event.short ?? $event.name})"
+                    />
+                </div>
+                <div class="p-[2px] shadow-xl bg-black">
+                    <div class="p-[2px] bg-gradient-to-r from-(--player-gradient-ends) via-(--player-gradient-center) to-(--player-gradient-ends)">
+                        <mat-form-field class="bg-black p-1 w-full">
+                            <mat-label>Player 2</mat-label>
+                            <input matInput type="text" (change)="updateMatchInfo({key: 'player2', value: $event.target.value.trim()})" [(ngModel)]="player2" />
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @if (!isFull()) {
+            <hr />
+            
+            <div class="p-[2px] shadow-xl bg-black">
+                <div class="p-[2px] bg-gradient-to-r from-(--player-gradient-ends) via-(--player-gradient-center) to-(--player-gradient-ends)">
+                    <mat-form-field class="bg-black p-1 w-full">
+                        <mat-label>Timestmap</mat-label>
+                        <input 
+                            matInput type="text" 
+                            placeholder="00:00:00"
+                            (change)="updateMatchInfo({key: 'timestamp', value: $event.target.value.trim()})" 
+                            [(ngModel)]="time" 
+                        />
+                    </mat-form-field>
+                </div>
+            </div>
+        }
+    </div>
+</div>

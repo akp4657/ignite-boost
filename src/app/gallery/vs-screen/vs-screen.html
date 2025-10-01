@@ -1,0 +1,49 @@
+<div class="h-fit relative flex flex-col justify-center py-4">
+    <div [class]="`flex h-fit relative justify-center items-center ${isFull() ? 'gap-22' : 'gap-4'} text-white ${isHandset() ? 'flex-col' : ''}`">
+        <!--Player 1-->
+        <app-player
+            [isIgnition]="isIgnition()"
+            [isP1]="true"
+            [isHandset]="isHandset()"
+            [isFull]="isFull()"
+            (updateQuery)="updateQueryParams($event)"
+        />
+
+        @if (!isHandset() && !isFull()) {
+            <div class="shrink">
+                <app-image-loader
+                    src="/assets/vs_text.webp"
+                    alt="vs icon"
+                    [width]="192"
+                    [height]="64"
+                    [priority]="true"
+                />
+            </div>
+        }
+
+        <!--Player 2-->
+        <app-player
+            [isIgnition]="isIgnition()"
+            [isP1]="false"
+            [isHandset]="isHandset()"
+            [isFull]="isFull()"
+            (updateQuery)="updateQueryParams($event)"
+        />
+
+        <!--VS Text-->
+        @if (!isHandset() && isFull()) {
+            <app-image-loader
+                src="/assets/vs_text.webp"
+                alt="vs icon"
+                [width]="192"
+                [height]="64"
+                class="h-fit absolute top-10/25 animate-open-h"
+                [priority]="true"
+            />
+        }
+    </div>
+    <app-version-select
+        (updateVersionQuery)="updateQueryParams($event)"
+    />
+</div>
+

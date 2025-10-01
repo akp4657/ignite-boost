@@ -1,0 +1,77 @@
+@if (!isFull()) {
+    <app-char-dropdown
+        [isIgnition]="isIgnition()"
+        imageDir="char-menu/sm"
+        [characters]="playableCharacters"
+        [imgWidth]="90"
+        [imgHeight]="90"
+        (updateCharQuery)="updateSelectedChar($event)"
+    />
+} @else {
+    <button
+        class="cursor-pointer animate-open-h relative"
+        (click)="isOpen.set(!isOpen())"
+        type="button"
+        cdkOverlayOrigin
+        #trigger
+    >
+        <!--VS Screen Replica-->
+        <div [ngClass]="`${isP1() ? 'player-sel-flash-p1' : 'player-sel-flash-p2'} absolute -bottom-1/30 w-full h-full bg-black/50`"></div>
+
+        <img
+            [ngSrc]="`/assets/char-portraits/${this.selectedChar().abbr}_${this.isP1() ? 'p1' : 'p2'}.webp`"
+            alt="character selection button"
+            width="596"
+            height="395"
+            class="relative"
+            priority
+        />
+
+        <div [ngClass]="`absolute bottom-3/17 flex flex-col w-full text-white italic font-semibold text-shadow-glow text-shadow-(color:--portrait-glow) ${isP1() ? 'text-right' : 'text-left'}`">
+            <span class="mx-10 text-5xl">{{((this.selectedChar().name) ? this.selectedChar().short ?? this.selectedChar().name : 'Any/All') | uppercase}}</span>
+            <!--TO-DO: Change second line to be assist's name-->
+            <span [ngClass]="`mx-8 ${(this.asstName() && this.asstName().length > 10) ? 'text-lg' : 'text-2xl'}`">
+                {{(`&${this.asstName() ? this.asstName() : 'Any/All'}`) | uppercase}}
+            </span>
+        </div>
+
+        <div [ngClass]="`${isP1() ? 'player-sel-flash-p1' : 'player-sel-flash-p2'} absolute top-0 animate-open-h-flash w-full h-full bg-white`"></div>
+
+        <!--Wiki page icon-->
+        @if (this.selectedChar().name) {
+            <a
+                matIconButton
+                [ariaLabel]="`${this.charName()}'s wiki page`"
+                [ngClass]="`absolute animate-hide-info-icon m-2 top-0 text-3xl *:overflow-visible ${isP1() ? 'left-0' : 'right-0'}`"
+                [href]="this.selectedChar().wiki"
+                target="_blank"
+            >
+                <mat-icon class="text-shadow-glow text-shadow-(color:--portrait-glow) hover:text-shadow-(color:--char-sel-glow)" inline="true">info</mat-icon>
+            </a>
+        }
+    </button>
+
+    <ng-template
+        cdkConnectedOverlay
+        [cdkConnectedOverlayOrigin]="trigger"
+        [cdkConnectedOverlayOpen]="isOpen()"
+        [cdkConnectedOverlayPositions]="[
+            {
+                originX: (isP1()) ? 'start' : 'end',
+                originY: 'center',
+                overlayX: (isP1()) ? 'start' : 'end',
+                overlayY: 'center'
+            }
+        ]"
+        (detach)="isOpen.set(false)"
+        (overlayOutsideClick)="isOpen.set(false)"
+    >
+        <app-char-menu
+            [isIgnition]="isIgnition()"
+            [isP1]="isP1()"
+            (updateSelectedChar)="updateSelectedChar($event)"
+            animate.enter="animate-overlay-open-h"
+            animate.leave="select-overlay-leave"
+        />
+    </ng-template>
+}

@@ -4,250 +4,272 @@ const { Video } = models;
 
 // Validation arrays
 const allowedCharacters = [
-  "Akira", "Ako", "Asuna", "Emi", "Kirino", "Kirito", "Kuroko", 
-  "Kuroyukihime", "Mikoto", "Miyuki", "Quenser", "Rentaro", "Selvaria", 
-  "Shana", "Shizuo", "Taiga", "Tatsuya", "Tomoka", "Yukina", "Yuuki"
+    "Akira", "Ako", "Asuna", "Emi", "Kirino", "Kirito", "Kuroko",
+    "Kuroyukihime", "Mikoto", "Miyuki", "Quenser", "Rentaro", "Selvaria",
+    "Shana", "Shizuo", "Taiga", "Tatsuya", "Tomoka", "Yukina", "Yuuki"
 ];
 
 const allowedAssists = [
-  "Accelerator", "Alicia", "Boogiepop", "Celty", "Dokuro", "Enju", 
-  "Erio", "Froleytia", "Haruyuki", "Holo", "Innocent Charm", "Iriya", 
-  "Izaya", "Kino", "Kojou", "Kouko", "Kuroneko", "Leafa", "LLENN", 
-  "Mashiro", "Miyuki", "Pai", "Rusian", "Ryuuji", "Sadao", "Tatsuya", 
-  "Touma", "Tomo", "Uiharu", "Wilhelmina", "Zero"
+    "Accelerator", "Alicia", "Boogiepop", "Celty", "Dokuro", "Enju",
+    "Erio", "Froleytia", "Haruyuki", "Holo", "Innocent Charm", "Iriya",
+    "Izaya", "Kino", "Kojou", "Kouko", "Kuroneko", "Leafa", "LLENN",
+    "Mashiro", "Miyuki", "Pai", "Rusian", "Ryuuji", "Sadao", "Tatsuya",
+    "Touma", "Tomo", "Uiharu", "Wilhelmina", "Zero"
 ];
 
 // Data validator
 function validateVideoData(videoData) {
-  const { char1, char2, assist1, assist2 } = videoData;
-  if (!allowedCharacters.includes(char1)) return false;
-  if (!allowedCharacters.includes(char2)) return false;
-  if (!allowedAssists.includes(assist1)) return false;
-  if (!allowedAssists.includes(assist2)) return false;
+    const { char1, char2, assist1, assist2 } = videoData;
+    if (!allowedCharacters.includes(char1)) return false;
+    if (!allowedCharacters.includes(char2)) return false;
+    if (!allowedAssists.includes(assist1)) return false;
+    if (!allowedAssists.includes(assist2)) return false;
 
-  return true;
+    return true;
 }
 
-const mainPage = (req, res) => {
-  Video.VideoModel.findByOwner(req.session.account._id, (err, docs) => {
-    if (err) {
-      console.log(err);
-      return res.status(400).json({ error: 'An error occured' });
+const makeVideos = async (req, res) => {
+    const values = Object.values(req.body);
+
+    for (let i = 0; i < values.length; i++) {
+        const videoData = {
+            player1: values[i].player1,
+            player2: values[i].player2,
+            char1: values[i].char1,
+            char2: values[i].char2,
+            assist1: values[i].assist1,
+            assist2: values[i].assist2,
+            link: values[i].link,
+            version: parseInt(values[i].version, 10),
+            matchDate: values[i].matchDate,
+            owner: req.session.account._id,
+        };
+
+        try {
+            const result = await validateVideoData(videoData); // Suuuuper important
+            if (!result) return res.status(400).json({ error: 'ERROR | Invalid data.' });
+
+            const newVideo = new Video.VideoModel(videoData);
+            await newVideo.save();
+        } catch(err) {
+            console.error(err);
+            if (err.code === 11000) {
+                return res.status(400).json({
+                    error: 'ERROR | Video already exists.'
+                });
+            }
+        }
     }
 
-    return res.render('app', { csrfToken: req.csrfToken(), videos: docs });
-  });
-};
-
-// Sets up the object from the req.body then sends them to the database to be stored
-const makeVideo = async (req, res) => {
-  const promiseArray = [];
-  const values = Object.values(req.body);
-
-  for (let i = 0; i < values.length - 2; i++) {
-    // Check if all data fields were entered
-    // For some reason, this always throws regardless. I think we should stick
-    // to the client side error check for emptiness.
-    /* if (!values[i].player1 || !values[i].player2 || !values[i].char1
-      || !values[i].char2  || !values[i].link) {
-      return res.status(400).json({ error: "All fields must be entered to store the data."});
-    }*/
-
-    const videoData = {
-      player1: values[i].player1,
-      player2: values[i].player2,
-      char1: values[i].char1,
-      char2: values[i].char2,
-      assist1: values[i].assist1,
-      assist2: values[i].assist2,
-      link: values[i].link,
-      version: values[i].version,
-      matchDate: values[i].matchDate,
-      owner: req.session.account._id,
-    };
-
-    const result = await validateVideoData(videoData); // Suuuuper important
-    if(!result) return res.status(500).json({error: 'Invalid data'})
-
-    const newVideo = new Video.VideoModel(videoData);
-    const videoPromise = newVideo.save();
-
-    videoPromise.catch((err) => {
-      console.log(err);
-      if (err.code === 11000) {
-        return res.status(400).json({ error: 'Video already exists' });
-      }
-
-      return res.status(400).json({ error: 'An error occured' });
+    return res.status(201).json({
+        message: `${(values.length < 2) ? 'Video has' : 'Videos have'} been successfully added!`
     });
-
-    promiseArray.push(videoPromise);
-  }
-
-
-  Promise.all(promiseArray).then(() => res.json({ redirect: '/main' }));
 };
 
 // Gets the videos that match the specific user
-const getVideos = (request, response) => {
-  const req = request;
-  const res = response;
-
-  return Video.VideoModel.findByOwner(req.session.account._id, (err, docs) => {
-    if (err) {
-      console.log(err);
-      return res.status(400).json({ error: 'An error occured' });
+const getVideos = async (req, res) => {
+    try {
+        const docs = await Video.VideoModel.find(req.session.account._id);
+        return res.json({
+            videos: docs
+        });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({
+            error: 'ERROR | Unable to get videos, please try again later.'
+        });
     }
-
-    return res.json({ videos: docs });
-  });
 };
 
 // Will automatically send an empty object into the find to get all data from the database
-const getAllVideos = (request, response) => {
-  const res = response;
-
-  return Video.VideoModel.findAll((err, docs) => {
-    if (err) {
-      console.log(err);
-      return res.status(400).json({ error: 'An error occured' });
+const getAllVideos = async (req, res) => {
+    try {
+        const docs = await Video.VideoModel.findAll();
+        return res.json({
+            videos: docs
+        });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({
+            error: 'ERROR | Unable to get videos, please try again later.'
+        });
     }
-
-    return res.json({ videos: docs });
-  });
 };
 
-// Gets the _id of the send obj then deletes it from the database.
-const deleteEntry = (request, response) => {
-  const req = request;
-  const res = response;
+const searchVideos = async (req, res) => {
+    let sorting = -1;
 
-  Video.VideoModel.deleteItem(req.body.uid, (err, docs) => {
-    if (err) {
-      console.log(err);
-      return res.status(400).json({ error: 'An error occured' });
+    // check if the params exist
+    const {
+        player1, player2, char1, char2, assist1, assist2, version, sort
+    } = req.query;
+
+    let params = { $and: [] };
+
+    // Check each query option if it exists
+    if (player1) {
+        params.$and.push({
+            $or: [
+                { player1: { $regex: RegExp('^' + player1), $options: 'i' } },
+                { player2: { $regex: RegExp('^' + player1), $options: 'i' } }
+            ]
+        });
+    }
+    if (player2) {
+        params.$and.push({
+            $or: [
+                { player1: { $regex: RegExp('^' + player2), $options: 'i' } },
+                { player2: { $regex: RegExp('^' + player2), $options: 'i' } }
+            ]
+        });
     }
 
-    return res.json({ result: docs });
-  });
+    // Characters selected only
+    if (char1) {
+        params.$and.push({
+            $or: [
+                { char1: `${char1}` },
+                { char2: `${char1} `}
+            ]
+        });
+    }
+    if (char2) {
+        params.$and.push({
+            $or: [
+                { char1: `${char2}` },
+                { char2: `${char2} `}
+            ]
+        });
+    }
+
+    // Check if it's a mirror
+    if (char1 && char2) {
+        if (char1 === char2) {
+            params.$and.push({
+                $and: [
+                    { char2: `${char2} `},
+                    { char1: `${char1}` }
+                ]
+            });
+        } else {
+            params.$and.push({
+                $or: [
+                    { char2: `${char2} `},
+                    { char1: `${char1}` }
+                ]
+            });
+        }
+    }
+
+    // If the character and assist are selected
+    if (char1 && assist1) {
+        params.$and.push({
+            $or: [
+                { char1: `${char1}`, assist1: `${assist1}` },
+                { char2: `${char1}`, assist2: `${assist1}` }
+            ]
+        });
+    }
+    if (char2 && assist2) {
+        params.$and.push({
+            $or: [
+                { char1: `${char2}`, assist1: `${assist2}` },
+                { char2: `${char2}`, assist2: `${assist2}` }
+            ]
+        });
+    }
+
+    // If the character and player are searched
+    if (char1 && player1) {
+        params.$and.push({
+            $or: [
+                { char1: `${char1}`, player1: { $regex: RegExp('^' + player1), $options: 'i' } },
+                { char2: `${char1}`, player2: { $regex: RegExp('^' + player1), $options: 'i' } }
+            ]
+        })
+    }
+    if (char2 && player2) {
+        params.$and.push({
+            $or: [
+                { char1: `${char2}`, player1: { $regex: RegExp('^' + player2), $options: 'i' } },
+                { char2: `${char2}`, player2: { $regex: RegExp('^' + player2), $options: 'i' } }
+            ]
+        })
+    }
+
+    // If one assist is called
+    if (assist1) {
+        params.$and.push({
+            $or: [
+                { assist1: `${assist1}` },
+                { assist2: `${assist1}` }
+            ]
+        });
+    }
+    if (assist2) {
+        params.$and.push({
+            $or: [
+                { assist1: `${assist2}` },
+                { assist2: `${assist2}` }
+            ]
+        });
+    }
+
+    // If both assists are called, check if it's a mirror
+    if (assist1 && assist2) {
+        if (assist1 === assist2) {
+            params.$and.push({
+                $and: [
+                    { assist2: `${assist2}` },
+                    { assist1: `${assist1}` }
+                ]
+            });
+        } else {
+            params.$and.push({
+                $or: [
+                    { assist2: `${assist2}` },
+                    { assist1: `${assist1}` }
+                ]
+            });
+        }
+    }
+
+    if (version) {
+        params.$and.push({
+            version: { $lte: version }
+        });
+    }
+
+    try {
+        const docs = await Video.VideoModel.findSearch(params, sorting);
+        return res.json({
+            videos: docs,
+        });
+    } catch(err) {
+        console.error(err);
+        return res.status(500).json({
+            error: 'ERROR | Unable to search videos, please try again later.'
+        });
+    }
+}
+
+// Gets the _id of the send obj then deletes it from the database
+const deleteEntry = async (req, res) => {
+    try {
+        const docs = await Video.VideoModel.deleteItem;
+        return res.json({
+            result: docs
+        });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({
+            error: 'ERROR | Unable to delete video, please try again later.'
+        });
+    }
 };
 
-// Gets the query string from the request,
-// checks to see which params exist then add them to the search object.
-const searchVideos = (request, response) => {
-  const req = request;
-  const res = response;
-  let sorting = -1;
-
-  let params = { $and: [] };
-
-  // check if the params exist
-  //console.log(params)
-  const {
-    player1, player2, char1, char2, assist1, assist2, version, sort
-  } = req.query;
-  let i = 0; // keeps track of position in params.$and array
-
-  //console.log(version)
-
-  // If param exists, add it to the $and array with the
-  // $or syntax to check for name in either slot 1 or 2 for player/char
-  // Using regex to be case insensitive and act likes '$like' in SQL 
-  if (player1) {
-      params.$and[i] = { $or: [{ player1: {$regex: RegExp('^' + player1 ), $options: 'i'}}, { player2: {$regex: RegExp('^' + player1 ), $options: 'i'}}]}
-      i++;
-  }
-  if (player2) {
-    params.$and[i] = { $or: [{ player1: {$regex: RegExp('^' + player2 ), $options: 'i'}}, { player2: {$regex: RegExp('^' + player2 ), $options: 'i'}}]}
-    i++;
-  }
-
-  // Characters selected only 
-  if (char1) {
-    params.$and[i] = { $or: [{ char1: `${char1}` }, { char2: `${char1}` }] };
-    i++;
-  }
-  if (char2) {
-    params.$and[i] = { $or: [{ char2: `${char2}` }, { char1: `${char2}` }] };
-    i++;
-  }
-  
-  // Check if it's a mirror first
- if(char1 && char2) {
-    if(char1 === char2) params.$and[i] = { $and: [{ char2: `${char2}` }, { char1: `${char1}` }] };
-    else params.$and[i] = { $or: [{ char2: `${char2}` }, { char1: `${char1}` }, { char2: `${char1}` }, { char1: `${char2}` }] };
-    i++;
-  }
-
-  // If the character and assist are selected
-  if (char1 && assist1) {
-    params.$and[i] = { $or: [{ char1: `${char1}`, assist1: `${assist1}` }, { char2: `${char1}`, assist2: `${assist1}` }] };
-    i++;
-  }
-  if (char2 && assist2) {
-    params.$and[i] = { $or: [{ char1: `${char2}`, assist1: `${assist2}` }, { char2: `${char2}`, assist2: `${assist2}` }] };
-    i++;
-  }
-
-  // If the character and player are searched
-  if (char1 && player1) {
-    params.$and[i] = { $or: [{ char1: `${char1}`, player1: {$regex: RegExp('^' + player1 ), $options: 'i'} }, { char2: `${char1}`, player2: {$regex: RegExp('^' + player1 ), $options: 'i'} }] };
-    i++;
-  }
-  if (char2 && player2) {
-    params.$and[i] = { $or: [{ char1: `${char2}`, player1: {$regex: RegExp('^' + player2 ), $options: 'i'} }, { char2: `${char2}`, player2: {$regex: RegExp('^' + player2 ), $options: 'i'} }] };
-    i++;
-  }
-
-  // If one assist is selected
-  if (assist1) {
-    params.$and[i] = { $or: [{ assist1: `${assist1}` }, { assist2: `${assist1}` }] };
-    i++;
-  }
-  if (assist2) {
-    params.$and[i] = { $or: [{ assist2: `${assist2}` }, { assist1: `${assist2}` }] };
-    i++;
-  }
-
-  // If both assists are called
-  // check if it's a mirror first
-  if(assist1 && assist2) {
-    if(assist1 === assist2) params.$and[i] = { $and: [{ assist2: `${assist2}` }, { assist1: `${assist1}` }] };
-    else params.$and[i] = { $or: [{ assist2: `${assist2}`}, { assist1: `${assist1}` }, { assist2: `${assist1}`}, { assist1: `${assist2}` }] };
-    i++;
-  }
-
-  if (version) {
-    params.$and[i] = { $or: [{version: +version}]};
-    i++;
-  }
-
-  if(sort) {
-    if(sort === 'Oldest') {
-      sorting = 1
-    } else {
-      sorting = -1
-    }
-  }
-
-
-  if (i === 0) params = {}; // set params to empty object if no query params were sent
-  //console.dir(params.$and[0].$or)  
-  return Video.VideoModel.find(params, (err, docs) => {
-    if (err) {
-      console.log(err);
-      return res.status(400).json({ error: 'An error occured' });
-    }
-
-    return res.json({ videos: docs });
-  }).sort({matchDate: sorting});
-};
-
-
-module.exports.mainPage = mainPage;
 module.exports.getVideos = getVideos;
 module.exports.getAllVideos = getAllVideos;
-module.exports.make = makeVideo;
-module.exports.delete = deleteEntry;
+module.exports.makeVideos = makeVideos;
 module.exports.searchVideos = searchVideos;
-//module.exports.searchURL = searchURL;
+module.exports.delete = deleteEntry;
