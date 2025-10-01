@@ -15,7 +15,12 @@ const requiresLogout = (req, res, next) => {
 };
 
 const requiresSecure = (req, res, next) => {
-  if (req.headers['x-forwarded-proto'] !== 'https') {
+  // Need to instead check if the original request was HTTPS since we're on Heroku
+  const isHttps = req.secure || 
+                  req.headers['x-forwarded-proto'] === 'https' ||
+                  (req.headers['x-forwarded-ssl'] === 'on');
+  
+  if (!isHttps) {
     return res.redirect(`https://${req.hostname}${req.url}`);
   }
   return next();
@@ -27,4 +32,4 @@ const bypassSecure = (req, res, next) => {
 
 module.exports.requiresLogin = requiresLogin;
 module.exports.requiresLogout = requiresLogout;
-module.exports.requiresSecure = (process.env.NODE_ENV === 'qa') ? requiresSecure : bypassSecure; 
+module.exports.requiresSecure = (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'qa') ? requiresSecure : bypassSecure; 
