@@ -27,7 +27,4 @@ const bypassSecure = (req, res, next) => {
 
 module.exports.requiresLogin = requiresLogin;
 module.exports.requiresLogout = requiresLogout;
-
-// Heroku enforces HTTPS, and unfortunately the headers aren't set all the time from Heroku
-// So instead, we just completely bypass this security check
-module.exports.requiresSecure = bypassSecure; 
+module.exports.requiresSecure = (process.env.NODE_ENV === 'production') ? requiresSecure : bypassSecure; 
