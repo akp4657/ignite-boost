@@ -29,6 +29,7 @@
         @if (enableDefault()) {
             <!--Any/All option-->
             <button
+                class="w-full"
                 [ngClass]="`select-option ${selectedChar().name ? '' : 'bg-(--color-primary)/50'} hover:bg-white/25 *:text-white`"
                 (click)="updateSelectedChar(defaultChar)"
                 (keypress)="updateSelectedChar(defaultChar)"
@@ -44,8 +45,9 @@
                         [height]="imgHeight()"
                         addClass="w-12 h-auto"
                         spinnerClass="w-12 h-auto"
+                        class="shrink-0"
                     />
-                    <span class="text-md">Any/All</span>
+                    <span class="text-md text-left">Any/All</span>
                 </div>
             </button>
         }
@@ -54,6 +56,7 @@
             <!--Don't display DFCI exclusive characters if only DFC-->
             @if (char.abbr !== 'all' && (isIgnition() || !char.ignition)) {
                 <button
+                    class="w-full"
                     [ngClass]="`select-option *:text-white ${(selectedChar() === char) ? 'bg-(--color-primary)/50' : ''} hover:bg-white/25`"
                     (click)="updateSelectedChar(char)"
                     (keypress)="updateSelectedChar(char)"
@@ -70,8 +73,9 @@
                                 [height]="imgHeight()"
                                 addClass="w-12 h-auto"
                                 spinnerClass="w-12 h-auto"
+                                class="shrink-0"
                             />
-                            <span class="text-md">{{char.name}}</span>
+                            <span class="text-md text-left">{{char.name}}</span>
                         </div>
 
                         <!--Mizuumi link-->
