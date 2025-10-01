@@ -15,7 +15,6 @@ const fs = require('fs');
 // Pull in our routes
 const router = require('./router');
 
-console.log(process.env.NODE_ENV);
 let mongoURL;
 if(process.env.NODE_ENV == 'dev') mongoURL = process.env.QA_MONGO;
 else mongoURL = process.env.PROD_MONGO || 'mongodb://127.0.0.1/DFCDatabase'; // Due to Heroku, it seems like
