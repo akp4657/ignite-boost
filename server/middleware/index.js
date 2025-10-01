@@ -27,4 +27,4 @@ const bypassSecure = (req, res, next) => {
 
 module.exports.requiresLogin = requiresLogin;
 module.exports.requiresLogout = requiresLogout;
-module.exports.requiresSecure = (process.env.NODE_ENV === 'production') ? requiresSecure : bypassSecure; 
+module.exports.requiresSecure = (process.env.NODE_ENV === 'qa') ? requiresSecure : bypassSecure; 
