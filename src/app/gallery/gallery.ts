@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy, inject, signal } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { VsScreen } from './vs-screen/vs-screen';
 import { ReplayList } from './replay-list/replay-list';
 import { VideoSearch } from '../api/video-service/Videos';
@@ -18,7 +19,7 @@ export class Gallery implements OnInit, OnDestroy {
   titleService = inject(Title);
   videoRequestService = inject(VideoRequests);
   snackBar = inject(MatSnackBar);
-
+  route = inject(ActivatedRoute);
   // What we need inside Gallery
   // - Query signal that adjusts based on output from vs-screen
   //  - Feed said query into replay-list for searching
@@ -63,6 +64,10 @@ export class Gallery implements OnInit, OnDestroy {
       name: 'description',
       content:
         'A searchable gallery of replays for Dengeki Bunko Fighting Climax, as well as its Ignition update.',
+    });
+
+    this.route.params.subscribe((params) => {
+      this.updateQueryParam({ key: 'player1', value: params['name'] });
     });
   }
 

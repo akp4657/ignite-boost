@@ -43,6 +43,11 @@ export const routes: Routes = [
         canMatch: [authGuard, secureGuard],
         data: { state: 'change' },
     },
+    {
+        path: 'player/:name',
+        component: Gallery,
+        title: 'Player Gallery',
+    },
 
     // I'm sure there's a better way to do this, but I'm lazy so this is good enough for me
     {

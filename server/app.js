@@ -16,8 +16,8 @@ const fs = require('fs');
 const router = require('./router');
 
 let mongoURL;
-if(process.env.NODE_ENV == 'production') mongoURL = process.env.PROD_MONGO;
-else mongoURL = process.env.PROD_MONGO || 'mongodb://127.0.0.1/DFCDatabase';
+if(process.env.NODE_ENV == 'dev') mongoURL = process.env.QA_MONGO;
+else mongoURL = process.env.PROD_MONGO || 'mongodb://127.0.0.1/DFCDatabase'; // Due to Heroku, it seems like
 mongoose.connect(mongoURL).catch((err) => {
   if (err) {
     console.log('Could not connect to database');
