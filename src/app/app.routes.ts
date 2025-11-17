@@ -12,7 +12,7 @@ export const routes: Routes = [
         title: 'DFC Replay Database',
         component: Gallery,
     },
-    
+
     // Lazy-loaded components.
     // https://next.angular.dev/guide/routing/define-routes#loading-route-component-strategies
     // https://angular.dev/reference/migrations/route-lazy-loading
@@ -48,6 +48,12 @@ export const routes: Routes = [
         component: Gallery,
         title: 'Player Gallery',
     },
+    // Added per noddy's request so that wiki links don't need to be changed
+    {
+      path: 'players/:name',
+      component: Gallery,
+      title: 'Player Gallery',
+    },
 
     // I'm sure there's a better way to do this, but I'm lazy so this is good enough for me
     {
@@ -59,7 +65,7 @@ export const routes: Routes = [
         }
     },
     {
-        path: '**', 
+        path: '**',
         component: Gallery
     }
 ];
