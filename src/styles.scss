@@ -14,7 +14,7 @@
   --color-footer: #1E2229;
 
   --hover-glow: #00ffff;
-  
+
   --bg-gradient-start: #01b6af;
   --bg-gradient-middle: #0d4d68;
   --bg-gradient-end: #141d2a;
@@ -22,7 +22,7 @@
   --char-sel-glow: #08bd9c;
   --asst-sel-glow: #004eff;
   --portrait-glow: #006bff;
-  
+
   --button-gradient-start: #0090a1;
   --button-gradient-end: #00f3de;
 
@@ -37,11 +37,11 @@
   --dfci-color-footer: #1E2229;
 
   --dfci-hover-glow: #00ffff;
-  
+
   --dfci-bg-gradient-start: #01b6af;
   --dfci-bg-gradient-middle: #0d4d68;
   --dfci-bg-gradient-end: #141d2a;
-  
+
   --dfci-button-gradient-start: #0090a1;
   --dfci-button-gradient-end: #00f3de;
 
@@ -53,11 +53,11 @@
   --dfc-color-footer: #132326;
 
   --dfc-hover-glow: #0054ff;
-  
+
   --dfc-bg-gradient-start: #01b8e7;
   --dfc-bg-gradient-middle: #004A5B;
   --dfc-bg-gradient-end: #001F25;
-  
+
   --dfc-button-gradient-start: #0066a1;
   --dfc-button-gradient-end: #009af3;
 
@@ -76,7 +76,7 @@
   --animate-open-h: appear-h ease-out 416ms 1;
   --animate-open-h-flash: appear-h-flash ease-out 166ms 416ms 1 forwards;
   --animate-hide-info-icon: hide-info linear 582ms 1 forwards;
-  --animate-fadein: appear-opacity ease-out 416ms 1; 
+  --animate-fadein: appear-opacity ease-out 416ms 1;
 
   @keyframes hover-p1 {
     0% { box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000, 0 0 0 4px var(--color-red-50), 0 0 #0000 }
@@ -131,7 +131,7 @@
     --color-footer: var(--dfci-color-footer);
 
     --hover-glow: var(--dfci-hover-glow);
-    
+
     --bg-gradient-start: var(--dfci-bg-gradient-start);
     --bg-gradient-middle: var(--dfci-bg-gradient-middle);
     --bg-gradient-end: var(--dfci-bg-gradient-end);
@@ -148,7 +148,7 @@
     --color-footer: var(--dfc-color-footer);
 
     --hover-glow: var(--dfc-hover-glow);
-    
+
     --bg-gradient-start: var(--dfc-bg-gradient-start);
     --bg-gradient-middle: var(--dfc-bg-gradient-middle);
     --bg-gradient-end: var(--dfc-bg-gradient-end);
@@ -209,7 +209,7 @@
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     max-height: 275px;
-    width: 250px !important;
+    width: 260px !important;
     padding-block: calc(var(--spacing) * 2);
     overflow-y: scroll;
   }
@@ -250,9 +250,9 @@
     position: relative !important;
   }
 
-  mat-error {	
+  mat-error {
     margin-top: calc(var(--spacing) * 1);
-    font-size: var(--text-sm) !important; /* 0.875rem (14px) */ 
+    font-size: var(--text-sm) !important; /* 0.875rem (14px) */
     line-height: var(--text-base--line-height) !important; /* calc(1.25 / 0.875) */
     color: var(--color-red-700) !important;
   }
@@ -303,7 +303,7 @@
       filter: brightness(125%) !important;
     }
 
-    .mat-mdc-notch-piece.mdc-notched-outline__leading, 
+    .mat-mdc-notch-piece.mdc-notched-outline__leading,
     .mat-mdc-notch-piece.mdc-notched-outline__trailing {
       background-color: black !important;
       border-radius: 0 !important;
@@ -338,17 +338,17 @@
 
     .mat-mdc-snack-bar-container .mdc-snackbar__label {
       color: var(--color-white) !important;
-    } 
+    }
 
     .mat-mdc-snack-bar-container .mdc-button__label {
       color: var(--color-white) !important;
       --glow-color: color-mix(in oklab, var(--hover-glow) var(--tw-text-shadow-alpha), transparent) !important;
-      text-shadow: 0px 0px 2px var(--glow-color, rgba(0, 0, 0, 0.1)), 
-        0px 0px 2px var(--glow-color, 
-        varrgba(0, 0, 0, 0.1)), 0px 0px 8px 
-        var(--glow-color, rgba(0, 0, 0, 0.1)) 
+      text-shadow: 0px 0px 2px var(--glow-color, rgba(0, 0, 0, 0.1)),
+        0px 0px 2px var(--glow-color,
+        varrgba(0, 0, 0, 0.1)), 0px 0px 8px
+        var(--glow-color, rgba(0, 0, 0, 0.1))
         !important;
-    } 
+    }
 
     .mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled).mat-unthemed {
       color: var(--color-primary) !important;
