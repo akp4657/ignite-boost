@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, inject, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { VsScreen } from './vs-screen/vs-screen';
 import { ReplayList } from './replay-list/replay-list';
 import { VideoSearch } from '../api/video-service/Videos';
@@ -7,6 +7,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { VideoRequests } from '../api/video-service/video-requests';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Meta, Title } from '@angular/platform-browser';
+import { combineLatest as paramRoutes } from 'rxjs';
 
 @Component({
   selector: 'app-gallery',
@@ -20,6 +21,7 @@ export class Gallery implements OnInit, OnDestroy {
   videoRequestService = inject(VideoRequests);
   snackBar = inject(MatSnackBar);
   route = inject(ActivatedRoute);
+  router = inject(Router, { optional: true });
   // What we need inside Gallery
   // - Query signal that adjusts based on output from vs-screen
   //  - Feed said query into replay-list for searching
@@ -39,7 +41,7 @@ export class Gallery implements OnInit, OnDestroy {
 
   // Using any is sloppy, and I should find a nicer way of doing it if I can
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  updateQueryParam({ key, value }: { key: keyof VideoSearch; value: any }) {
+  updateQueryParam({ key, value }: { key: keyof VideoSearch; value: any }, updateUrl = true) {
     // .update() isn't notifying dependancies, so need to make deep copy of query
     const newQuery: VideoSearch = { ...this.query() };
     newQuery[key] = value;
@@ -55,6 +57,20 @@ export class Gallery implements OnInit, OnDestroy {
     });
 
     this.isEmpty.set(empty);
+
+    const urlParams: Partial<Record<keyof VideoSearch, string>> = {
+      char1: 'character',
+      assist1: 'assist',
+    };
+    const urlParam = urlParams[key];
+
+    if (urlParam && updateUrl) {
+      this.router?.navigate([], {
+        relativeTo: this.route,
+        queryParams: { [urlParam]: value || null },
+        queryParamsHandling: 'merge',
+      });
+    }
   }
 
   ngOnInit(): void {
@@ -66,8 +82,19 @@ export class Gallery implements OnInit, OnDestroy {
         'A searchable gallery of replays for Dengeki Bunko Fighting Climax, as well as its Ignition update.',
     });
 
-    this.route.params.subscribe((params) => {
-      this.updateQueryParam({ key: 'player1', value: params['name'] });
+    paramRoutes([this.route.params, this.route.queryParams]).subscribe(([routeParams, queryParams]) => {
+      const params: Partial<Record<keyof VideoSearch, string>> = {
+        player1: routeParams['name'],
+        char1: queryParams['character'],
+        assist1: queryParams['assist'],
+      };
+
+      Object.keys(params).forEach((key) => {
+        const newKey = key as keyof VideoSearch;
+        if (params[newKey]) {
+          this.updateQueryParam({ key: newKey, value: params[newKey] }, false);
+        }
+      });
     });
   }
 
