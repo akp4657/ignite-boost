@@ -5,8 +5,9 @@
   "main": "./server/app.js",
   "scripts": {
     "ng": "ng",
-    "start": "ng build && node ./server/app.js",
+    "start": "node ./server/app.js",
     "build": "ng build",
+    "heroku-postbuild": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint"
